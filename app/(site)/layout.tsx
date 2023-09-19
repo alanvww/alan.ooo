@@ -5,13 +5,7 @@ import Navbar from './components/global/Navbar';
 import Footer from './components/global/Footer';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 
-import dynamic from 'next/dynamic';
-const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
-	ssr: false,
-	suspense: true,
-});
-
-const inter = Inter({ subsets: ['latin'] });
+// const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'Portfolio - Alan Ren',
@@ -28,7 +22,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className} bg-gray-800 text-white`}>
+			<body className={`h-screen text-white bg-black`}>
 				<Navbar />
 				{children}
 				<Footer />
