@@ -1,12 +1,8 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect } from 'react';
-import { useIsClient } from '../utilities/is-client-ctx';
 
 const HydraCanvas = () => {
-	let isClient = useIsClient();
-
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 
