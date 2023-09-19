@@ -12,7 +12,7 @@ const HydraCanvas = () => {
 				id="hydra-canvas"
 				width={width * 2}
 				height={height * 2}
-				className={`fixed top-0 z-[-200]`}
+				className={`fixed left-0 top-0 z-[-200]`}
 			/>
 
 			<Script

@@ -1,9 +1,8 @@
-import '../globals.css';
+import './../../globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Navbar from './components/global/Navbar';
-import Footer from './components/global/Footer';
-import { IsClientCtxProvider } from './utilities/is-client-ctx';
+import Navbar from '../components/global/Navbar';
+import Footer from '../components/global/Footer';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -15,16 +14,16 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
+export default function SiteLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
-			<body className={`w-screen h-screen text-white bg-black `}>
-				<div className="">{children}</div>
-			</body>
-		</html>
+		<>
+			<Navbar />
+			{children}
+			<Footer />
+		</>
 	);
 }
