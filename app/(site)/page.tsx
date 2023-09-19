@@ -3,11 +3,20 @@ import type { ProfileType } from '@/types';
 import Job from './components/Job';
 import HeroSvg from './icons/HeroSvg';
 
+import dynamic from 'next/dynamic';
+
+import { IsClientCtxProvider } from './utilities/is-client-ctx';
+
+const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
+	ssr: false,
+});
+
 export default async function Home() {
 	const profile: ProfileType[] = await getProfile();
 
 	return (
-		<>
+		<IsClientCtxProvider>
+			<HydraCanvas />
 			<main className="z-10 max-w-7xl mx-auto lg:px-16 px-6">
 				<section className="flex xl:flex-row flex-col xl:items-center items-start xl:justify-center justify-between gap-x-12 lg:mt-32 mt-20 mb-16">
 					{profile &&
@@ -40,6 +49,6 @@ export default async function Home() {
 				</section>
 				<Job />
 			</main>
-		</>
+		</IsClientCtxProvider>
 	);
 }
