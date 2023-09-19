@@ -1,6 +1,5 @@
 'use client';
 
-import Hydra from 'hydra-synth';
 import { useEffect } from 'react';
 import { useIsClient } from '../utilities/is-client-ctx';
 
