@@ -13,12 +13,10 @@ const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
 });
 
 export default async function Home() {
-	const profile: ProfileType[] = await getProfile();
-
 	return (
 		<IsClientCtxProvider>
 			<HydraCanvas />
-			<main className=" z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-8 md:border-[3rem] border-white mix-blend-exclusion">
+			<main className="fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-8 md:border-[3rem] border-white mix-blend-exclusion">
 				<h1 className="lg:px-16 px-6  text-4xl md:text-[10rem] font-extrabold">
 					Alan Ren
 				</h1>

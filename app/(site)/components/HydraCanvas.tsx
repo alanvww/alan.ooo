@@ -5,14 +5,14 @@ import Script from 'next/script';
 const HydraCanvas = () => {
 	let width = window.innerWidth;
 	let height = window.innerHeight;
-
+	let hydra;
 	return (
 		<>
 			<canvas
 				id="hydra-canvas"
 				width={width * 2}
 				height={height * 2}
-				className={`fixed left-0 top-0 z-[-200]`}
+				className={`fixed transition-all ease-out left-0 top-0 z-[-200]`}
 			/>
 
 			<Script
@@ -23,13 +23,10 @@ const HydraCanvas = () => {
 					height = window.innerHeight;
 
 					// create a new hydra-synth instance
-					const hydra = new Hydra({
+					hydra = new Hydra({
 						canvas: document.getElementById('hydra-canvas'),
 						detectAudio: false,
-						autoLoop: true,
 						makeGlobal: true,
-						numSources: 4,
-						numOutputs: 4,
 						width: width,
 						height: height,
 					});
