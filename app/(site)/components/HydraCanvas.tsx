@@ -3,15 +3,16 @@
 import Script from 'next/script';
 
 const HydraCanvas = () => {
-	let width = window.innerWidth;
-	let height = window.innerHeight;
-	let hydra;
+	let nWidth = window.innerWidth;
+	let nWeight = window.innerHeight;
+	let hydra: any;
+
 	return (
 		<>
 			<canvas
 				id="hydra-canvas"
-				width={width * 2}
-				height={height * 2}
+				width={nWidth * 2}
+				height={nWeight * 2}
 				className={`fixed transition-all ease-out left-0 top-0 z-[-200]`}
 			/>
 
@@ -19,35 +20,72 @@ const HydraCanvas = () => {
 				src="https://unpkg.com/hydra-synth"
 				strategy="afterInteractive"
 				onReady={() => {
-					width = window.innerWidth;
-					height = window.innerHeight;
+					nWidth = window.innerWidth;
+					nWeight = window.innerHeight;
 
 					// create a new hydra-synth instance
 					hydra = new Hydra({
 						canvas: document.getElementById('hydra-canvas'),
 						detectAudio: false,
-						makeGlobal: true,
-						width: width,
-						height: height,
+						autoLoop: true,
+						makeGlobal: false,
+						width: nWidth,
+						height: nWeight,
+					}).synth;
+
+					window.addEventListener('resize', () => {
+						hydra.hush();
+						nWidth = window.innerWidth;
+						nWeight = window.innerHeight;
+						hydra = null;
+
+						hydra = new Hydra({
+							canvas: document.getElementById('hydra-canvas'),
+							detectAudio: false,
+							autoLoop: true,
+							makeGlobal: false,
+							width: nWidth,
+							height: nWeight,
+						}).synth;
+
+						hydra
+							.osc(58.306, -0.101, 0.244)
+							.diff(hydra.osc(57.326, 0.152).rotate(Math.PI / 0.032))
+							.modulateScale(
+								hydra
+									.noise(9.822, 0.121)
+									.modulateScale(
+										hydra.osc(17.294).rotate(() => Math.sin(hydra.time / 2.274))
+									),
+								0.741
+							)
+							.color(1.31, 13.155, 0.522)
+							.invert()
+							.brightness(-0.25)
+							.contrast(1.483)
+							.modulateScale(hydra.osc(0.002), -0.009)
+							.out();
+						hydra.render();
 					});
 
-					osc(58.306, -0.019, 0.244)
-						.diff(osc(57.326, 0.152).rotate(Math.PI / 0.032))
+					hydra
+						.osc(58.306, -0.101, 0.244)
+						.diff(hydra.osc(57.326, 0.152).rotate(Math.PI / 0.032))
 						.modulateScale(
-							noise(9.822, 0.121).modulateScale(
-								osc(17.294).rotate(() => Math.sin(time / 2.274))
-							),
+							hydra
+								.noise(9.822, 0.121)
+								.modulateScale(
+									hydra.osc(17.294).rotate(() => Math.sin(hydra.time / 2.274))
+								),
 							0.741
 						)
 						.color(1.31, 13.155, 0.522)
-						.contrast(2.665)
-						.add(src(o0).modulate(o0, 0.036), 0.911)
 						.invert()
-						.brightness(0.128)
+						.brightness(-0.25)
 						.contrast(1.483)
-						.modulateScale(osc(0.479), -0.009)
+						.modulateScale(hydra.osc(0.002), -0.009)
 						.out();
-					render();
+					hydra.render();
 				}}
 			/>
 		</>

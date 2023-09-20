@@ -53,12 +53,14 @@ html.dark {
 /* We need to remove this custom cursor in mobile devices */
 @media screen and (max-width: 768px) {
 	.flare {
+		display: none;
 		width: 0;
 		height: 0;
 		transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
 			opacity 0.2s ease-in-out;
 	}
 }
+
 .flare.pointer {
 	opacity: 0 !important;
 	transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
