@@ -20,13 +20,11 @@ export default async function Home() {
 		<IsClientCtxProvider>
 			<HydraCanvas />
 			<main className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-8 md:border-[3rem] border-white mix-blend-exclusion">
-				<Image
-					src={LongLogo}
-					width={1000}
-					alt="logo"
-					className="mx-5 px-10 py-5"
-				/>
-				<div className="my-4 text-center md:text-left flex flex-col gap-y-5 lg:px-16 px-6 text-2xl md:text-9xl font-extrabold text-white z-[10]">
+				<div className="relative mx-5 px-10 py-5 max-w-3xl object-contain">
+					<Image src={LongLogo} width={1000} alt="logo" priority={true} />
+				</div>
+
+				<div className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-7xl font-extrabold text-white z-[10]">
 					<Link
 						href="/about"
 						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-pink-500 to-violet-500 "
