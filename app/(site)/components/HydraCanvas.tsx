@@ -46,38 +46,42 @@ const HydraCanvas = () => {
 					}).synth;
 
 					window.addEventListener('resize', () => {
-						hydra.hush();
-						nWidth = window.innerWidth;
-						nWeight = window.innerHeight;
-						hydra = null;
+						if (hydra && hydra != null) {
+							hydra.hush();
+							nWidth = window.innerWidth;
+							nWeight = window.innerHeight;
+							hydra = null;
 
-						hydra = new Hydra({
-							canvas: document.getElementById('hydra-canvas'),
-							detectAudio: false,
-							autoLoop: true,
-							makeGlobal: false,
-							width: nWidth,
-							height: nWeight,
-						}).synth;
+							hydra = new Hydra({
+								canvas: document.getElementById('hydra-canvas'),
+								detectAudio: false,
+								autoLoop: true,
+								makeGlobal: false,
+								width: nWidth,
+								height: nWeight,
+							}).synth;
 
-						hydra
-							.osc(58.306, -0.101, 0.244)
-							.diff(hydra.osc(57.326, 0.152).rotate(Math.PI / 0.032))
-							.modulateScale(
-								hydra
-									.noise(9.822, 0.121)
-									.modulateScale(
-										hydra.osc(17.294).rotate(() => Math.sin(hydra.time / 2.274))
-									),
-								0.741
-							)
-							.color(1.31, 13.155, 0.522)
-							.invert()
-							.brightness(-0.25)
-							.contrast(1.483)
-							.modulateScale(hydra.osc(0.002), -0.009)
-							.out();
-						hydra.render();
+							hydra
+								.osc(58.306, -0.101, 0.244)
+								.diff(hydra.osc(57.326, 0.152).rotate(Math.PI / 0.032))
+								.modulateScale(
+									hydra
+										.noise(9.822, 0.121)
+										.modulateScale(
+											hydra
+												.osc(17.294)
+												.rotate(() => Math.sin(hydra.time / 2.274))
+										),
+									0.741
+								)
+								.color(1.31, 13.155, 0.522)
+								.invert()
+								.brightness(-0.25)
+								.contrast(1.483)
+								.modulateScale(hydra.osc(0.002), -0.009)
+								.out();
+							hydra.render();
+						}
 					});
 
 					hydra
