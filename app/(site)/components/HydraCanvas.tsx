@@ -1,15 +1,27 @@
 'use client';
 
 import Script from 'next/script';
+import { useEffect, useRef } from 'react';
 
 const HydraCanvas = () => {
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 	let nWidth = window.innerWidth;
 	let nWeight = window.innerHeight;
 	let hydra: any;
 
+	useEffect(() => {
+		// Cleanup
+		return () => {
+			canvasRef.current?.getContext('2d')?.clearRect(0, 0, nWidth, nWeight);
+			hydra.hush();
+			hydra = null;
+		};
+	}, []);
+
 	return (
 		<>
 			<canvas
+				ref={canvasRef}
 				id="hydra-canvas"
 				width={nWidth * 2}
 				height={nWeight * 2}
