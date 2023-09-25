@@ -11,7 +11,9 @@ import dynamic from 'next/dynamic';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import Link from 'next/link';
 
-const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {});
+const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
+	ssr: false,
+});
 
 export default async function Home() {
 	return (
