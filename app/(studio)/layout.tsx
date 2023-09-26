@@ -1,5 +1,3 @@
-import '../globals.css';
-
 export default function StudioLayout({
 	children,
 }: {
