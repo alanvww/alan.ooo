@@ -1,6 +1,7 @@
 import { BiPackage } from 'react-icons/bi';
-import { defineField } from 'sanity';
+import { defineField, defineArrayMember } from 'sanity';
 import { copyPaste } from '@superside-oss/sanity-plugin-copy-paste';
+import { ImageIcon } from '@sanity/icons';
 
 const project = {
 	name: 'project',
@@ -17,10 +18,33 @@ const project = {
 			description: 'Enter the name of the project',
 		},
 		defineField({
-			name: 'tagline',
-			title: 'Tagline',
-			type: 'string',
-			validation: (rule) => rule.max(60).required(),
+			name: 'overview',
+			description:
+				'Used both for the <meta> description tag for SEO, and project subheader.',
+			title: 'Overview',
+			type: 'array',
+			of: [
+				// Paragraphs
+				defineArrayMember({
+					lists: [],
+					marks: {
+						annotations: [],
+						decorators: [
+							{
+								title: 'Italic',
+								value: 'em',
+							},
+							{
+								title: 'Strong',
+								value: 'strong',
+							},
+						],
+					},
+					styles: [],
+					type: 'block',
+				}),
+			],
+			validation: (rule) => rule.max(155).required(),
 		}),
 		defineField({
 			name: 'slug',
@@ -32,16 +56,11 @@ const project = {
 			validation: (rule) => rule.required(),
 		}),
 		{
-			name: 'logo',
-			title: 'Project Logo',
-			type: 'image',
-		},
-		{
 			name: 'projectUrl',
 			title: 'Project URL',
 			type: 'url',
 		},
-		{
+		defineField({
 			name: 'coverImage',
 			title: 'Cover Image',
 			type: 'image',
@@ -54,7 +73,8 @@ const project = {
 					type: 'string',
 				},
 			],
-		},
+			validation: (rule) => rule.required(),
+		}),
 		{
 			name: 'description',
 			title: 'Description',
@@ -62,6 +82,52 @@ const project = {
 			description: 'Write a full description about this project',
 			of: [{ type: 'block' }],
 		},
+		defineField({
+			name: 'year',
+			title: 'Year',
+			type: 'number',
+		}),
+		defineField({
+			name: 'medium',
+			title: 'Medium',
+			type: 'string',
+		}),
+		defineField({
+			name: 'size',
+			title: 'Size',
+			type: 'string',
+		}),
+		defineField({
+			name: 'edition',
+			title: 'Edition',
+			type: 'string',
+		}),
+		defineField({
+			name: 'collaboration',
+			title: 'Collaboration',
+			type: 'string',
+		}),
+		defineArrayMember({
+			type: 'array',
+			icon: ImageIcon,
+			name: 'imagesGallery',
+			title: 'Images gallery',
+			of: [
+				defineField({
+					name: 'image',
+					title: 'image',
+					type: 'image',
+					options: { hotspot: true },
+					fields: [
+						{
+							name: 'alt',
+							title: 'Alt',
+							type: 'string',
+						},
+					],
+				}),
+			],
+		}),
 	],
 };
 
