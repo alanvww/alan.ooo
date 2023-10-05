@@ -12,6 +12,8 @@ const HydraCanvas = () => {
 	useEffect(() => {
 		// Cleanup
 		return () => {
+			nWidth = window.innerWidth;
+			nWeight = window.innerHeight;
 			canvasRef.current?.getContext('2d')?.clearRect(0, 0, nWidth, nWeight);
 			hydra.hush();
 			hydra = null;
@@ -46,11 +48,12 @@ const HydraCanvas = () => {
 					}).synth;
 
 					window.addEventListener('resize', () => {
-						if (hydra && hydra != null) {
+						console.log('resize');
+						if (hydra) {
 							hydra.hush();
+							hydra = null;
 							nWidth = window.innerWidth;
 							nWeight = window.innerHeight;
-							hydra = null;
 
 							hydra = new Hydra({
 								canvas: document.getElementById('hydra-canvas'),

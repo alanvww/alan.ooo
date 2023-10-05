@@ -21,6 +21,14 @@ export default function Navbar() {
 						</li>
 						<li>
 							<Link
+								href="/techstack"
+								className="hover:text-purple-400 duration-300"
+							>
+								Tech Stack & Gear
+							</Link>
+						</li>
+						<li>
+							<Link
 								href="/projects"
 								className="hover:text-purple-400 duration-300"
 							>

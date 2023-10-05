@@ -41,3 +41,23 @@ export type ProjectType = {
 	};
 	description: PortableTextBlock[];
 };
+
+export type TechType = {
+	_id: string;
+	techName: string;
+	comment: string;
+	platform: string[];
+	techIcon: string;
+	link: PortableTextBlock[];
+};
+
+export type GearType = {
+	_id: string;
+	gearName: string;
+	comment: string;
+	link: string;
+	gearImage: {
+		alt: string | null;
+		image: string;
+	};
+};

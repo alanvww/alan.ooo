@@ -34,6 +34,31 @@ export async function getJob() {
 	);
 }
 
+export async function getTech() {
+	return client.fetch(
+		groq`*[_type == "tech"]{
+      _id,
+      techName,
+      comment,
+      platform,
+      "techIcon": techIcon.asset->url,
+      link,
+    }`
+	);
+}
+
+export async function getGear() {
+	return client.fetch(
+		groq`*[_type == "gear"]{
+      _id,
+      gearName,
+      comment,
+      "gearImage": gearImage.asset->url,
+      link,
+    }`
+	);
+}
+
 export async function getProjects() {
 	return client.fetch(
 		groq`*[_type == "project"]{
