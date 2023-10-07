@@ -21,7 +21,7 @@ export default function FloatMenu() {
 					>
 						<Link href="/about" className="flex">
 							<BiBracket className="md:inline my-auto mx-1 text-xl" />
-							<a className="align-middle">About</a>
+							<span className="align-middle">About</span>
 						</Link>
 					</li>
 
@@ -35,7 +35,7 @@ export default function FloatMenu() {
 					>
 						<Link href="/techstack" className="flex">
 							<BiBriefcase className="md:inline my-auto mx-1 text-xl" />
-							<a className="align-middle">Stack & Gear</a>
+							<span className="align-middle">Stack & Gear</span>
 						</Link>
 					</li>
 
@@ -49,7 +49,7 @@ export default function FloatMenu() {
 					>
 						<Link href="/projects" className="flex">
 							<BiAtom className="md:inline my-auto mx-1 text-xl" />
-							<a className="align-middle">Projects</a>
+							<span className="align-middle">Projects</span>
 						</Link>
 					</li>
 				</ul>
