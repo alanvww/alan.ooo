@@ -8,11 +8,26 @@ const config: Config = {
 		'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	theme: {
+		colors: {
+			transparent: 'transparent',
+			white: '#fff',
+			black: '#000',
+			'theme-green': '#4ade80',
+			'gradient-via': '#94D82D',
+			'theme-purple': '#7e22ce',
+			'gray-dark': '#050505',
+			'gray-border': '#1f1f1f',
+			'gray-light': '#444444',
+		},
 		extend: {
-			backgroundImage: {
-				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-conic':
-					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+			animation: {
+				border: 'background ease infinite',
+			},
+			keyframes: {
+				background: {
+					'0%, 100%': { backgroundPosition: '0% 200%' },
+					'50%': { backgroundPosition: '100% 0%' },
+				},
 			},
 		},
 	},

@@ -27,19 +27,19 @@ export default async function Home() {
 				<div className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-7xl font-extrabold text-white z-[10]">
 					<Link
 						href="/about"
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-pink-500 to-violet-500 "
+						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
 					>
 						About
 					</Link>
 					<Link
 						href="/projects"
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-pink-500 to-violet-500 "
+						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
 					>
 						Projects
 					</Link>
 					<Link
 						href=""
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-pink-500 to-violet-500 "
+						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
 					>
 						Contact
 					</Link>

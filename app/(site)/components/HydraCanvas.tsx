@@ -14,9 +14,8 @@ const HydraCanvas = () => {
 		return () => {
 			nWidth = window.innerWidth;
 			nWeight = window.innerHeight;
-			canvasRef.current?.getContext('2d')?.clearRect(0, 0, nWidth, nWeight);
-			hydra.hush();
-			hydra = null;
+			//hydra.hush();
+			//hydra = null;
 		};
 	}, []);
 
@@ -49,6 +48,9 @@ const HydraCanvas = () => {
 
 					window.addEventListener('resize', () => {
 						console.log('resize');
+						canvasRef.current
+							?.getContext('2d')
+							?.clearRect(0, 0, nWidth, nWeight);
 						if (hydra) {
 							hydra.hush();
 							hydra = null;

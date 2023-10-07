@@ -42,7 +42,7 @@ export default function RootLayout({
 					href="../../public/favicon-16x16.png"
 				></link>
 			</head>
-			<body className={`w-screen h-screen text-white bg-black `}>
+			<body className={`w-screen min-h-full text-white bg-black `}>
 				<NewCursor />
 				<div className="">{children}</div>
 			</body>
