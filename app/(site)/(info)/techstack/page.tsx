@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 export default async function About() {
 	const tech: TechType[] = await getTech();
+	console.log(tech);
 
 	return (
 		<main className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6">
