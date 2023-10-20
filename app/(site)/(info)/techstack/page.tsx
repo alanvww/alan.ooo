@@ -4,10 +4,15 @@ import type { ProfileType, TechType } from '@/types';
 import { PortableText } from '@portabletext/react';
 import { BiEnvelope, BiFile } from 'react-icons/bi';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Stack & Gear - Alan Ren',
+	description: 'All my tech stack and gear I use for development.',
+};
 
 export default async function About() {
 	const tech: TechType[] = await getTech();
-	console.log(tech);
 
 	return (
 		<main className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6">

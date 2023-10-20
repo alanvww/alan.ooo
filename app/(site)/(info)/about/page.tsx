@@ -3,6 +3,12 @@ import { getProfile } from '@/sanity/sanity.query';
 import type { ProfileType } from '@/types';
 import { PortableText } from '@portabletext/react';
 import { BiEnvelope, BiFile } from 'react-icons/bi';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'About me - Alan Ren',
+	description: 'A little bit about me.',
+};
 
 export default async function About() {
 	const profile: ProfileType[] = await getProfile();

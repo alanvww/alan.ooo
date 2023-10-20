@@ -47,7 +47,6 @@ const HydraCanvas = () => {
 					}).synth;
 
 					window.addEventListener('resize', () => {
-						console.log('resize');
 						canvasRef.current
 							?.getContext('2d')
 							?.clearRect(0, 0, nWidth, nWeight);

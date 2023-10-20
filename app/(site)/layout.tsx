@@ -10,9 +10,10 @@ import NewCursor from './components/global/NewCursor';
 
 export const metadata: Metadata = {
 	title: 'Portfolio - Alan Ren',
+	metadataBase: new URL('https://alan.ooo'),
 	description: 'A personal portfolio built with Next.js by Alan Ren',
 	openGraph: {
-		images: './icons/logo.png',
+		images: './icons/icon-512x512.png',
 	},
 };
 
@@ -27,7 +28,7 @@ export default function RootLayout({
 				<link
 					rel="apple-touch-icon"
 					sizes="180x180"
-					href="../../public/apple-touch-icon.png"
+					href="./icons/logo.png"
 				></link>
 				<link
 					rel="icon"

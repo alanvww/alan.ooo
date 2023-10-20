@@ -65,8 +65,9 @@ export async function getProjects() {
       _id, 
       name,
       "slug": slug.current,
-      tagline,
-      "logo": logo.asset->url,
+      coverImage { alt, "image": asset->url },
+      medium,
+      year,
     }`
 	);
 }

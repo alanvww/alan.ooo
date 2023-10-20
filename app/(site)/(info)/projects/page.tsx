@@ -2,10 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getProjects } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
+import { Metadata } from 'next';
+import AnimatedDiv from './animateDiv';
+
+export const metadata: Metadata = {
+	title: 'All Projects - Alan Ren',
+	description: 'All my projects I have built over the years.',
+};
 
 export default async function Project() {
 	const projects: ProjectType[] = await getProjects();
-	console.log(projects);
 
 	return (
 		<main className="max-w-7xl mx-auto md:px-16 px-6">
@@ -22,28 +28,9 @@ export default async function Project() {
 				</p>
 			</section>
 
-			<section className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mb-12">
+			<section className="flex flex-col mb-12 divide-y">
 				{projects.map((project) => (
-					<Link
-						href={`/projects/${project.slug}`}
-						key={project._id}
-						className="flex items-center gap-x-4 bg-[#1d1d20] border border-transparent hover:border-zinc-700 p-4 rounded-lg ease-in-out"
-					>
-						{project.logo && (
-							<Image
-								src={project.logo}
-								width={60}
-								height={60}
-								alt={project.name}
-								className="w-auto bg-zinc-800 rounded-md p-2"
-							/>
-						)}
-
-						<div>
-							<h2 className="font-semibold mb-1">{project.name}</h2>
-							<div className="text-sm text-zinc-400">{project.tagline}</div>
-						</div>
-					</Link>
+					<AnimatedDiv key={project._id}>{project}</AnimatedDiv>
 				))}
 			</section>
 		</main>

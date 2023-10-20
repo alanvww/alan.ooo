@@ -19,7 +19,7 @@ export default async function Home() {
 	return (
 		<IsClientCtxProvider>
 			<HydraCanvas />
-			<main className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-8  md:border-[3rem] rounded-b-3xl md:rounded-none	 border-white mix-blend-exclusion">
+			<main className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-8  md:border-[3rem] 	 border-white mix-blend-exclusion">
 				<div className="relative mx-5 px-10 py-5 max-w-3xl object-contain">
 					<Image src={LongLogo} width={1000} alt="logo" priority={true} />
 				</div>
