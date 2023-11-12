@@ -34,6 +34,7 @@ export type ProjectType = {
 	slug: string;
 	medium: string;
 	year: number;
+	tagline: string;
 	projectUrl: string;
 	coverImage: {
 		alt: string | null;
