@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-
+import * as React from 'react';
+import { motion } from 'framer-motion';
 interface AnimatedDivProps {
 	children: any;
 }
@@ -15,10 +16,25 @@ function AnimatedDiv({ children }: AnimatedDivProps) {
 			key={children._id}
 			className="flex items-center py-4 gap-x-4"
 		>
-			<div
-				className="text-white grid grid-cols-2 group flex-grow m-2 text-xl font-semibold w-full transition-all duration-300  ease-in-out"
+			<motion.div
+				className="text-white grid grid-cols-2 group flex-grow m-2 text-xl font-semibold w-full"
+				initial="hidden"
+				animate="visible"
 				onMouseEnter={() => setHovered(true)}
 				onMouseLeave={() => setHovered(false)}
+				variants={{
+					hidden: {
+						scale: 0.8,
+						opacity: 0,
+					},
+					visible: {
+						scale: 1,
+						opacity: 1,
+						transition: {
+							delay: 0.4,
+						},
+					},
+				}}
 			>
 				<h2 className="place-self-start">{children.name}</h2>
 				<h2 className={`place-self-end ${hovered ? 'hidden' : ''} `}>
@@ -31,7 +47,7 @@ function AnimatedDiv({ children }: AnimatedDivProps) {
 				>
 					{children.medium}
 				</h2>
-			</div>
+			</motion.div>{' '}
 		</Link>
 	);
 }
