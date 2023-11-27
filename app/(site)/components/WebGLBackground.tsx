@@ -1,13 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 // components/WebGLBackground.tsx
 import { useEffect, useRef } from 'react';
 
 const WebGLBackground = () => {
 	const canvasRef = useRef(null);
+	let program: WebGLProgram;
+	let uTimeLocation: WebGLUniformLocation;
+	let uResolutionLocation: WebGLUniformLocation;
 
 	useEffect(() => {
-		const canvas = canvasRef.current;
-		const gl = canvas.getContext('webgl2');
+		const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+		const gl = canvas.getContext('webgl');
 
 		if (!gl) {
 			console.error(
@@ -17,8 +21,12 @@ const WebGLBackground = () => {
 		}
 
 		// Functions for shader creation, program setup, etc.
-		const createShader = (gl, type, source) => {
-			const shader = gl.createShader(type);
+		const createShader = (
+			gl: WebGLRenderingContext,
+			type: number,
+			source: string
+		) => {
+			const shader = gl.createShader(type) as WebGLShader;
 			gl.shaderSource(shader, source);
 			gl.compileShader(shader);
 			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -32,8 +40,12 @@ const WebGLBackground = () => {
 			return shader;
 		};
 
-		const createProgram = (gl, vertexShader, fragmentShader) => {
-			const program = gl.createProgram();
+		const createProgram = (
+			gl: WebGLRenderingContext,
+			vertexShader: any,
+			fragmentShader: any
+		) => {
+			const program = gl.createProgram() as WebGLProgram;
 			gl.attachShader(program, vertexShader);
 			gl.attachShader(program, fragmentShader);
 			gl.linkProgram(program);
@@ -75,16 +87,16 @@ const WebGLBackground = () => {
        
        // --------[ Original ShaderToy begins here ]---------- //
        #define t iTime 
-#define SAMPLES 10
-#define FOCAL_DISTANCE 3.0
-#define FOCAL_RANGE 4.0
+#define SAMPLES 5
+#define FOCAL_DISTANCE 2.0
+#define FOCAL_RANGE 10.0
 mat2 m(float a){float c=cos(a), s=sin(a);return mat2(c,-s,s,c);}
 
 float map(vec3 p){
-    p.xz *= m(t * 0.4);
-    p.xy *= m(t * 0.3);
+    p.xz *= m(t * 0.8);
+    p.xy *= m(t * 0.6);
     vec3 q = p * 2.0 + t;
-    return length(p + vec3(sin(t * 0.7))) * log(length(p) + 1.0) + sin(q.x + sin(q.z + sin(q.y))) * 0.5 - 1.0;
+    return length(p + vec3(sin(t * 0.7))) * log(length(p) + 1.0) + sin(q.x + sin(q.z + sin(q.y))) * 0.5 - 3.0;
 }
 
 vec3 hslToRgb(vec3 hsl) {
@@ -120,7 +132,7 @@ vec3 getColor(in vec2 fragCoord, in float depth) {
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec3 color = vec3(0.0);
-    float depthSum = 0.0;
+    float depthSum = 0.2;
 
     for (int i = 0; i < SAMPLES; i++) {
         float depth = FOCAL_DISTANCE + (float(i) / float(SAMPLES - 1)) * FOCAL_RANGE;
@@ -153,20 +165,26 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 		);
 
 		// Create program
-		const program = createProgram(gl, vertexShader, fragmentShader);
+		program = createProgram(gl, vertexShader, fragmentShader) as WebGLProgram;
 
 		// Set up buffers and attributes
 		const positionBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-		const positions = [-1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0];
+		const positions = [-2.0, 2.0, 2.0, 2.0, -2.0, -2.0, 2.0, -2.0];
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 		const positionAttributeLocation = gl.getAttribLocation(program, 'position');
 		gl.enableVertexAttribArray(positionAttributeLocation);
 		gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
 		// Set up uniforms
-		const uTimeLocation = gl.getUniformLocation(program, 'uTime');
-		const uResolutionLocation = gl.getUniformLocation(program, 'uResolution');
+		uTimeLocation = gl.getUniformLocation(
+			program,
+			'uTime'
+		) as WebGLUniformLocation;
+		uResolutionLocation = gl.getUniformLocation(
+			program,
+			'uResolution'
+		) as WebGLUniformLocation;
 
 		// Animation loop
 		let startTime = Date.now();
@@ -186,15 +204,23 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 		};
 		render();
 
-		// Resize handling
 		const resizeCanvas = () => {
-			canvasRef.current.width = window.innerWidth;
-			canvasRef.current.height = window.innerHeight;
-			gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-		};
-		window.addEventListener('resize', resizeCanvas);
-		resizeCanvas();
+			const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+			if (canvas) {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				gl.viewport(0, 0, canvas.width, canvas.height);
 
+				// Update the resolution uniform
+				if (program && uResolutionLocation) {
+					gl.useProgram(program);
+					gl.uniform2f(uResolutionLocation, canvas.width, canvas.height);
+				}
+			}
+		};
+
+		window.addEventListener('resize', resizeCanvas);
+		resizeCanvas(); // Call once to set initial size
 		// Cleanup
 		return () => {
 			window.removeEventListener('resize', resizeCanvas);
