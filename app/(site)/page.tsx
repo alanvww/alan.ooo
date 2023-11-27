@@ -1,3 +1,4 @@
+'use client';
 import { getProfile } from '@/sanity/sanity.query';
 import type { ProfileType } from '@/types';
 import Job from './components/Job';
@@ -10,6 +11,7 @@ import dynamic from 'next/dynamic';
 
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
 	ssr: false,
@@ -23,7 +25,7 @@ const WebGLBackground = dynamic(() => import('./components/WebGLBackground'), {
 	ssr: false,
 });
 
-export default async function Home() {
+export default function Home() {
 	return (
 		<>
 			{
@@ -31,12 +33,27 @@ export default async function Home() {
 				//	<GLSLBackground />
 				<WebGLBackground />
 			}
-			<main className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-0  md:border-[0] 	 border-white mix-blend-exclusion">
-				<div className="relative mx-5 px-10 py-5 max-w-3xl object-contain">
-					<Image src={LongLogo} width={1000} alt="logo" priority={true} />
+			<motion.main
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.7 }}
+				className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-0  md:border-[0] 	 border-white mix-blend-exclusion"
+			>
+				<div className="relative mx-5 px-10 py-5 max-w-3xl object-contain select-none	">
+					<Image
+						draggable="false"
+						src={LongLogo}
+						width={1000}
+						alt="logo"
+						priority={true}
+					/>
 				</div>
 
-				<div className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-7xl font-extrabold text-white z-[10]">
+				<motion.div
+					whileHover={{ scale: 1.1 }}
+					whileTap={{ scale: 0.9 }}
+					className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-7xl font-extrabold text-white z-[10]"
+				>
 					<Link
 						href="/about"
 						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
@@ -55,8 +72,8 @@ export default async function Home() {
 					>
 						Contact
 					</Link>
-				</div>
-			</main>
+				</motion.div>
+			</motion.main>
 		</>
 	);
 }
