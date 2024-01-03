@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navbar from './components/global/Navbar';
 import Footer from './components/global/Footer';
+import Header from './components/global/Header';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import NewCursor from './components/global/NewCursor';
 
@@ -24,25 +25,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<head>
-				<link
-					rel="apple-touch-icon"
-					sizes="180x180"
-					href="./icons/logo.png"
-				></link>
-				<link
-					rel="icon"
-					type="image/png"
-					sizes="32x32"
-					href="../../public/favicon-32x32.png"
-				></link>
-				<link
-					rel="icon"
-					type="image/png"
-					sizes="16x16"
-					href="../../public/favicon-16x16.png"
-				></link>
-			</head>
+			<Header></Header>
 			<body className={`w-screen min-h-full text-white bg-black `}>
 				<NewCursor />
 				<div className="">{children}</div>
