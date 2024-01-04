@@ -1,4 +1,3 @@
-'use client';
 import { getProfile } from '@/sanity/sanity.query';
 import type { ProfileType } from '@/types';
 import Job from './components/Job';
@@ -12,18 +11,41 @@ import dynamic from 'next/dynamic';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const HydraCanvas = dynamic(() => import('./components/HydraCanvas'), {
-	ssr: false,
-});
-
-const GLSLBackground = dynamic(() => import('./components/GLSLBackground'), {
-	ssr: false,
-});
+import { Metadata } from 'next';
+import HomeMenu from './HomeMenu';
 
 const WebGLBackground = dynamic(() => import('./components/WebGLBackground'), {
 	ssr: false,
 });
+
+export const metadata: Metadata = {
+	generator: 'Next.js',
+	applicationName: `Portfolio - Alan Ren`,
+	referrer: 'origin-when-cross-origin',
+	keywords: ['Personal Website', 'Portfolio'],
+	authors: [{ name: 'Alan Ren' }],
+	creator: 'Alan Ren',
+	formatDetection: {
+		email: true,
+		address: false,
+		telephone: true,
+	},
+	title: 'Portfolio - Alan Ren',
+	metadataBase: new URL('https://alan.ooo'),
+	description: 'A personal portfolio built with Next.js by Alan Ren',
+	openGraph: {
+		images: './opengraph-image.jpg',
+	},
+	icons: {
+		icon: './icons/shortcut_logo.png',
+		shortcut: './icons/shortcut_logo.png',
+		apple: './icons/apple-touch-icon.png',
+		other: {
+			rel: 'apple-touch-icon-precomposed',
+			url: './icons/apple-touch-icon.png',
+		},
+	},
+};
 
 export default function Home() {
 	return (
@@ -33,47 +55,7 @@ export default function Home() {
 				//	<GLSLBackground />
 				<WebGLBackground />
 			}
-			<motion.main
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.7 }}
-				className="select-none fixed z-10  mx-auto  flex md:flex-row flex-col items-center justify-center w-screen h-screen left-0 border-double border-0  md:border-[0] 	 border-white mix-blend-exclusion"
-			>
-				<div className="relative mx-5 px-10 py-5 max-w-3xl object-contain select-none	">
-					<Image
-						draggable="false"
-						src={LongLogo}
-						width={1000}
-						alt="logo"
-						priority={true}
-					/>
-				</div>
-
-				<motion.div
-					whileHover={{ scale: 1.1 }}
-					whileTap={{ scale: 0.9 }}
-					className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-7xl font-extrabold text-white z-[10]"
-				>
-					<Link
-						href="/about"
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
-					>
-						About
-					</Link>
-					<Link
-						href="/projects"
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
-					>
-						Projects
-					</Link>
-					<Link
-						href=""
-						className="bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#D45797] to-[#845EEE] "
-					>
-						Contact
-					</Link>
-				</motion.div>
-			</motion.main>
+			<HomeMenu />
 		</>
 	);
 }
