@@ -31,18 +31,18 @@ export const metadata: Metadata = {
 		telephone: true,
 	},
 	title: 'Portfolio - Alan Ren',
-	metadataBase: new URL('https://alan.ooo'),
+	//metadataBase: new URL('https://alan.ooo'),
 	description: 'A personal portfolio built with Next.js by Alan Ren',
 	openGraph: {
-		images: './opengraph-image.jpg',
+		images: 'opengraph-image.jpg',
 	},
 	icons: {
-		icon: './icons/shortcut_logo.png',
-		shortcut: './icons/shortcut_logo.png',
-		apple: './icons/apple-touch-icon.png',
+		icon: 'favicon.ico',
+		shortcut: 'android-chrome-512x512.png',
+		apple: 'apple-touch-icon.png',
 		other: {
 			rel: 'apple-touch-icon-precomposed',
-			url: './icons/apple-touch-icon.png',
+			url: 'android-chrome-512x512.png',
 		},
 	},
 };
