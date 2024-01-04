@@ -27,10 +27,10 @@ export const metadata: Metadata = {
 	metadataBase: new URL('https://alan.ooo'),
 	description: 'A personal portfolio built with Next.js by Alan Ren',
 	openGraph: {
-		images: '../opengraph-image.jpg',
+		images: './opengraph-image.jpg',
 	},
 	icons: {
-		icon: './icons/logo.png',
+		icon: './icons/shortcut_logo.png',
 		shortcut: './icons/shortcut_logo.png',
 		apple: './icons/apple-touch-icon.png',
 		other: {
