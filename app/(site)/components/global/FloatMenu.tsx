@@ -15,6 +15,7 @@ import {
 	BiLogoMastodon,
 	BiEnvelope,
 	BiSolidBong,
+	BiFile,
 } from 'react-icons/bi';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -166,6 +167,13 @@ export default function FloatMenu() {
 									>
 										<BiAtom className="md:inline my-auto mx-1 text-xl" />
 										<span className="align-middle">Projects</span>{' '}
+									</Link>
+									<Link
+										href="/about"
+										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+									>
+										<BiFile className="md:inline my-auto mx-1 text-xl" />
+										<span className="align-middle">Resume</span>
 									</Link>
 									<Link
 										href="/about"
