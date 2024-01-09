@@ -21,10 +21,9 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const container = {
-	hidden: { opacity: 1, scale: 0 },
+	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
-		scale: 1,
 		transition: {
 			delayChildren: 0.3,
 			staggerChildren: 0.2,
@@ -40,8 +39,8 @@ const item = {
 };
 
 const variants = {
-	open: { opacity: 1, x: 0 },
-	closed: { opacity: 0, x: '-100%' },
+	open: { opacity: 1 },
+	closed: { opacity: 0 },
 };
 
 export default function FloatMenu() {
@@ -58,27 +57,26 @@ export default function FloatMenu() {
 
 	return (
 		<motion.nav
-			variants={container}
-			initial="hidden"
-			animate="visible"
+			layout
+			layoutRoot
 			className="flex min-w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm"
 		>
-			<AnimatePresence>
-				<motion.section
-					onMouseLeave={handleMouseLeave}
-					className="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple p-px transition-all duration-300"
-				>
+			<motion.section
+				layout
+				onMouseLeave={handleMouseLeave}
+				className="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple p-px transition-all duration-300"
+			>
+				<AnimatePresence mode={'wait'} initial={false}>
 					{!isExpanded && (
 						<>
 							<motion.ul
-								initial={{ opacity: 0, display: 'auto' }}
-								animate={{ opacity: 1, display: 'auto' }}
-								exit={{ opacity: 0, display: 'none' }}
-								transition={{
-									ease: 'linear',
-									duration: 0.5,
-								}}
-								className="flex items-center md:w-auto w-max gap-x-4 md:gap-x-8  md:px-10 px-4 py-2  rounded-xl bg-gray-dark transition-all"
+								initial={{ opacity: 0, scale: 0.5, display: 'none' }}
+								animate={{ opacity: 1, scale: 1, display: 'flex' }}
+								exit={{ opacity: 0, scale: 0.5, display: 'none' }}
+								transition={{ duration: 0.3 }}
+								layout
+								layoutDependency={isExpanded}
+								className=" flex items-center md:w-auto md:h-auto w-max gap-x-4 md:gap-x-8  md:px-10 px-4 py-2  rounded-xl bg-gray-dark transition-all"
 							>
 								{/* Other menu items */}
 								<li
@@ -120,18 +118,19 @@ export default function FloatMenu() {
 							</motion.ul>{' '}
 						</>
 					)}
+				</AnimatePresence>
 
+				<AnimatePresence mode={'wait'} initial={false}>
 					{isExpanded && (
 						<motion.section
-							initial={{ opacity: 0, display: 'auto' }}
-							animate={{ opacity: 1, display: 'auto' }}
-							exit={{ opacity: 0, display: 'none' }}
-							transition={{
-								ease: 'linear',
-								duration: 0.5,
-							}}
+							initial={{ opacity: 0, scale: 0.5, display: 'none' }}
+							animate={{ opacity: 1, scale: 1, display: 'flex' }}
+							exit={{ opacity: 0, scale: 0.5, display: 'none' }}
+							transition={{ duration: 0.3 }}
+							layout
+							layoutDependency={isExpanded}
 							onMouseEnter={handleMouseEnter}
-							className="flex flex-col-reverse  overflow-scroll items-center md:min-w-fit md:h-auto h-max px-0 md:px-4 py-2 rounded-xl bg-gray-dark transition-all"
+							className="flex flex-col-reverse  items-center md:w-auto w-max md:h-auto h-max px-0 md:px-4 py-2 rounded-xl bg-gray-dark transition-all"
 						>
 							<span className="flex justify-between md:w-full w-[75vw] mx-2 py-2 duration-300">
 								<button
@@ -149,110 +148,117 @@ export default function FloatMenu() {
 								</button>
 							</span>
 							{/* Add more popup content as needed */}
-							<motion.div
-								variants={container}
-								initial="hidden"
-								animate="visible"
-								className=" flex flex-wrap  md:flex-row flex-col md:gap-x-8 mx-2 w-full rounded-md bg-opacity-95"
-							>
-								{/* Add more popup content as needed */}
-								<motion.span
-									variants={item}
-									className="flex flex-col text-white   md:m-2 mx-1 py-2 duration-300"
+							<AnimatePresence mode={'wait'}>
+								<motion.div
+									variants={container}
+									initial="hidden"
+									animate="visible"
+									layout
+									layoutRoot
+									className=" flex flex-wrap  md:flex-row flex-col md:gap-x-8 mx-2 w-full rounded-md bg-opacity-95"
 								>
-									<span className="text-xl mx-4 py-4">Main Profile</span>
-									<Link
-										href="/projects"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+									{/* Add more popup content as needed */}
+									<motion.span
+										variants={item}
+										layout
+										className="flex flex-col text-white   md:m-2 mx-1 py-2 duration-300"
 									>
-										<BiAtom className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Projects</span>{' '}
-									</Link>
-									<Link
-										href="/about"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiFile className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Resume</span>
-									</Link>
-									<Link
-										href="/about"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiBracket className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">About</span>
-									</Link>
-								</motion.span>
+										<span className="text-xl mx-4 py-4">Main Profile</span>
+										<Link
+											href="/projects"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiAtom className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Projects</span>{' '}
+										</Link>
+										<Link
+											href="/about"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiFile className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Resume</span>
+										</Link>
+										<Link
+											href="/about"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiBracket className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">About</span>
+										</Link>
+									</motion.span>
 
-								<motion.span
-									variants={item}
-									className="flex flex-col   md:m-2 mx-1 py-2 duration-300"
-								>
-									<span className="text-xl mx-4 py-4">Contact Info</span>
+									<motion.span
+										variants={item}
+										layout
+										className="flex flex-col   md:m-2 mx-1 py-2 duration-300"
+									>
+										<span className="text-xl mx-4 py-4">Contact Info</span>
 
-									<Link
-										href="/"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiLogoLinkedinSquare className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">LinkedIn</span>
-									</Link>
-									<Link
-										href="/"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiLogoInstagram className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Instagram</span>{' '}
-									</Link>
-									<Link
-										href="/"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiLogoGithub className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Github</span>{' '}
-									</Link>
-									<Link
-										href="/"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiLogoMastodon className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Mastodon</span>{' '}
-									</Link>
-									<Link
-										href="/"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiEnvelope className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Email</span>{' '}
-									</Link>
-								</motion.span>
+										<Link
+											href="/"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiLogoLinkedinSquare className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">LinkedIn</span>
+										</Link>
+										<Link
+											href="/"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiLogoInstagram className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Instagram</span>{' '}
+										</Link>
+										<Link
+											href="/"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiLogoGithub className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Github</span>{' '}
+										</Link>
+										<Link
+											href="/"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiLogoMastodon className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Mastodon</span>{' '}
+										</Link>
+										<Link
+											href="/"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiEnvelope className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Email</span>{' '}
+										</Link>
+									</motion.span>
 
-								<motion.span
-									variants={item}
-									className="flex flex-col   md:m-2 mx-1 py-2 duration-300"
-								>
-									<span className="text-xl mx-4 py-4">Fun Stuffs</span>
+									<motion.span
+										variants={item}
+										layout
+										className="flex flex-col   md:m-2 mx-1 py-2 duration-300"
+									>
+										<span className="text-xl mx-4 py-4">Fun Stuffs</span>
 
-									<Link
-										href="/techstack"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiBriefcase className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">Stack & Gear</span>
-									</Link>
-									<Link
-										href="/techstack"
-										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
-									>
-										<BiSolidBong className="md:inline my-auto mx-1 text-xl" />
-										<span className="align-middle">ITP Blog</span>
-									</Link>
-								</motion.span>
-							</motion.div>
+										<Link
+											href="/techstack"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiBriefcase className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">Stack & Gear</span>
+										</Link>
+										<Link
+											href="/techstack"
+											className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+										>
+											<BiSolidBong className="md:inline my-auto mx-1 text-xl" />
+											<span className="align-middle">ITP Blog</span>
+										</Link>
+									</motion.span>
+								</motion.div>
+							</AnimatePresence>
 						</motion.section>
 					)}
-				</motion.section>
-			</AnimatePresence>
+				</AnimatePresence>
+			</motion.section>
 		</motion.nav>
 	);
 }
