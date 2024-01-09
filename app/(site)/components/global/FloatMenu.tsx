@@ -63,22 +63,21 @@ export default function FloatMenu() {
 			animate="visible"
 			className="flex w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm"
 		>
-			<section
-				onMouseLeave={handleMouseLeave}
-				className="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple p-px transition-all duration-300"
-			>
-				<AnimatePresence>
+			<AnimatePresence>
+				<section
+					onMouseLeave={handleMouseLeave}
+					className="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple p-px transition-all duration-300"
+				>
 					{!isExpanded && (
 						<>
 							<motion.ul
-								initial={{ opacity: 0, width: '0px' }}
-								animate={{ opacity: 1, width: 'full', display: 'auto' }}
-								exit={{ opacity: 0, width: '0px', display: 'none' }}
+								initial={{ opacity: 0, display: 'auto' }}
+								animate={{ opacity: 1, display: 'auto' }}
+								exit={{ opacity: 0, display: 'none' }}
 								transition={{
 									ease: 'linear',
 									duration: 0.3,
 									x: { duration: 1 },
-									width: { duration: 0.3 },
 								}}
 								className="flex items-center gap-x-4 md:gap-x-8 px-5 md:px-10 py-2 rounded-xl bg-gray-dark transition-all"
 							>
@@ -125,14 +124,13 @@ export default function FloatMenu() {
 
 					{isExpanded && (
 						<motion.section
-							initial={{ opacity: 0, width: '0px' }}
-							animate={{ opacity: 1, width: 'full', display: 'auto' }}
-							exit={{ opacity: 0, width: '0px', display: 'none' }}
+							initial={{ opacity: 0, display: 'auto' }}
+							animate={{ opacity: 1, display: 'auto' }}
+							exit={{ opacity: 0, display: 'none' }}
 							transition={{
 								ease: 'linear',
 								duration: 0.3,
 								x: { duration: 1 },
-								width: { duration: 0.3 },
 							}}
 							onMouseEnter={handleMouseEnter}
 							className="flex flex-col-reverse items-center min-w-full px-8 md:px-4 py-2 rounded-xl bg-gray-dark transition-all"
@@ -234,8 +232,8 @@ export default function FloatMenu() {
 							</div>
 						</motion.section>
 					)}
-				</AnimatePresence>
-			</section>
+				</section>
+			</AnimatePresence>
 		</motion.nav>
 	);
 }
