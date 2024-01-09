@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '../../icons/logo.png';
 import FloatMenu from './FloatMenu';
-
+import AwwwardsStyleNavbar from './AwwwardsStyleNavbar';
 export default function Navbar() {
 	return (
 		<>
