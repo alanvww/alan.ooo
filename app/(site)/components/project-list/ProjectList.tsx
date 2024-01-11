@@ -1,5 +1,5 @@
 'use client';
-import AnimatedDiv from '../animateDiv';
+import AnimatedDiv from './animateDiv';
 import { motion } from 'framer-motion';
 import type { ProjectType } from '@/types';
 

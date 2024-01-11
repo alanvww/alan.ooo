@@ -1,7 +1,7 @@
 import { getProjects } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 import { Metadata } from 'next';
-import ProjectList from './@projectlist/page';
+import ProjectList from '../../components/project-list/ProjectList';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
