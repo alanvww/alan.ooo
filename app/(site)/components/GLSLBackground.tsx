@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client'; // components/GLSLBackground.tsx
 // components/GLSLBackground.tsx
 import { useEffect, useRef } from 'react';
