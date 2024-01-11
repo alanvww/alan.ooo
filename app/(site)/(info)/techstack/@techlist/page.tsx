@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import type { TechType } from '@/types';
+import type { GearType } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,7 +25,7 @@ const item = {
 	},
 };
 
-export const TechList = (props: { tech: TechType[] }) => (
+export const TechList = (props: { tech: GearType[] }) => (
 	<>
 		<motion.div
 			className="container md:grid md:grid-cols-3"
@@ -48,31 +48,21 @@ export const TechList = (props: { tech: TechType[] }) => (
 							<section className="flex flex-row gap-2 m-2">
 								<Image
 									className="rounded-md object-contain m-2 h-12  "
-									src={data.techIcon}
+									src={data.gearImage.image}
 									width={50}
 									height={50}
-									alt={`${data.techName} logo`}
+									alt={`${data.gearName} logo`}
 								/>
 								<Link
 									href={data.link.toString()}
 									className="flex flex-row justify-center"
 								>
 									<h2 className="text-xl font-bold tracking-tight lg:leading-[3.7rem] my-auto leading-tight hover:underline hover:text-white">
-										{data.techName}
+										{data.gearName}
 									</h2>
 								</Link>
 							</section>
 							<section className="mx-2">
-								<ul className="flex flex-wrap items-center gap-2 my-2 mx-2">
-									{data.platform.map((platform, id) => (
-										<li
-											key={id}
-											className="bg-[#1d1d20] border border-transparent hover:border-zinc-700 rounded-md px-2 py-1"
-										>
-											{platform}
-										</li>
-									))}
-								</ul>
 								<p className="m-2">{data.comment}</p>
 							</section>
 						</motion.span>
