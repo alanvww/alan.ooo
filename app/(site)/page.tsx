@@ -1,16 +1,7 @@
-import { getProfile } from '@/sanity/sanity.query';
-import type { ProfileType } from '@/types';
-import Job from './components/Job';
-import HeroSvg from './icons/HeroSvg';
-
-import Image from 'next/image';
-import LongLogo from './icons/logo_long.png';
-
 import dynamic from 'next/dynamic';
 
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Metadata } from 'next';
 import HomeMenu from './HomeMenu';
 
@@ -50,11 +41,7 @@ export const metadata: Metadata = {
 export default function Home() {
 	return (
 		<>
-			{
-				// <HydraCanvas />
-				//	<GLSLBackground />
-				<WebGLBackground />
-			}
+			<WebGLBackground />
 			<HomeMenu />
 		</>
 	);
