@@ -25,10 +25,10 @@ const item = {
 	},
 };
 
-export const StackList = (props: { tech: TechType[] }) => (
+export const TechList = (props: { tech: TechType[] }) => (
 	<>
 		<motion.div
-			className="container md:grid md:grid-cols-3  transition"
+			className="container md:grid md:grid-cols-3"
 			variants={container}
 			initial="hidden"
 			animate="visible"
@@ -38,9 +38,13 @@ export const StackList = (props: { tech: TechType[] }) => (
 					<motion.section
 						key={data._id}
 						variants={item}
-						className="item flex flex-col rounded-lg duration-150 ease-in-out hover:p-[2px]   bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
+						whileHover={{ padding: '2px' }}
+						className="item flex flex-col rounded-lg     bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
 					>
-						<span className="rounded-md border-[0.5px] border-gray-border hover:border-transparent	 p-3 h-full bg-gray-dark">
+						<motion.span
+							whileHover={{ borderColor: 'rgba(255, 255, 255, 0.0)' }}
+							className="rounded-md border-[0.5px] border-gray-border 	 p-3 h-full bg-gray-dark"
+						>
 							<section className="flex flex-row gap-2 m-2">
 								<Image
 									className="rounded-md object-contain m-2 h-12  "
@@ -71,7 +75,7 @@ export const StackList = (props: { tech: TechType[] }) => (
 								</ul>
 								<p className="m-2">{data.comment}</p>
 							</section>
-						</span>
+						</motion.span>
 					</motion.section>
 				))}
 		</motion.div>

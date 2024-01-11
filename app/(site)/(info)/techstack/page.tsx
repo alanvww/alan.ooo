@@ -3,7 +3,7 @@ import type { ProfileType, TechType } from '@/types';
 import { PortableText } from '@portabletext/react';
 import { BiEnvelope, BiFile } from 'react-icons/bi';
 import { Metadata } from 'next';
-import { StackList } from '../../components/StackList';
+import { StackList } from './@stacklist/page';
 
 export const metadata: Metadata = {
 	title: 'Stack & Gear - Alan Ren',

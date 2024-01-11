@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { getProjects } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 import { Metadata } from 'next';
-import AnimatedDiv from './animateDiv';
+import ProjectList from './@projectlist/page';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
 	title: 'All Projects - Alan Ren',
@@ -28,11 +27,14 @@ export default async function Project() {
 				</p>
 			</section>
 
-			<section className="flex flex-col mb-12 divide-y">
+			<Suspense fallback={<div>Loading...</div>}>
+				<ProjectList projects={projects} />
+			</Suspense>
+			{/* <section className="flex flex-col mb-12 divide-y">
 				{projects.map((project) => (
 					<AnimatedDiv key={project._id}>{project}</AnimatedDiv>
 				))}
-			</section>
+			</section>*/}
 		</main>
 	);
 }
