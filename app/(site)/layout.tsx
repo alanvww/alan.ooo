@@ -8,6 +8,7 @@ import Header from './components/global/Header';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import NewCursor from './components/global/NewCursor';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
 			<body className={`w-screen min-h-full text-white bg-black `}>
 				<NewCursor />
 				{children}
+				<Analytics />
 				<SpeedInsights />
 			</body>
 		</html>
