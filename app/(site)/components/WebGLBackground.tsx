@@ -234,7 +234,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 	return (
 		<canvas
 			ref={canvasRef}
-			className="absolute top-0 left-0 w-full h-full z-[-1]"
+			className="absolute overflow-x-hidden top-0 left-0 w-full h-full z-[-1]"
 		/>
 	);
 };
