@@ -11,8 +11,8 @@
 	"dependencies": {
 		"@sanity/vision": "^3.16.7",
 		"@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
-		"@types/node": "^20.11.0",
-		"@types/react": "^18.2.47",
+		"@types/node": "20.11.4",
+		"@types/react": "18.2.48",
 		"@types/react-dom": "^18.2.7",
 		"@vercel/speed-insights": "^1.0.2",
 		"autoprefixer": "^10.4.15",
@@ -34,7 +34,7 @@
 		"sharp": "^0.33.2",
 		"tailwind-merge": "^2.2.0",
 		"tailwindcss": "^3.3.3",
-		"typescript": "^5.3.3"
+		"typescript": "5.3.3"
 	},
 	"devDependencies": {
 		"@portabletext/react": "^3.0.7",
