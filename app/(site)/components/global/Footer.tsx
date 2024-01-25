@@ -8,7 +8,7 @@ export default function Footer() {
 
 				<small className="hover:text-white duration-200">
 					<a href="" target="_blank" rel="noreferrer noopener">
-						Developed & designed by{' '}
+						Developed and designed by{' '}
 						<span className="text-theme-green">Alan Ren</span>
 					</a>
 				</small>

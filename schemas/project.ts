@@ -157,6 +157,7 @@ const project = {
 			title: 'Collaboration',
 			type: 'string',
 		}),
+
 		defineArrayMember({
 			type: 'array',
 			icon: ImageIcon,

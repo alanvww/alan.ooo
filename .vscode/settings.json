@@ -15,5 +15,6 @@
 			"sortAttributes": false
 		}
 	},
-	"[markdown]": {}
+	"[markdown]": {},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
