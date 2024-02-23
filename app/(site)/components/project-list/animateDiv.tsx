@@ -2,8 +2,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import type { ProjectType } from '@/types';
+import { BiChevronRight } from 'react-icons/bi';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 interface AnimatedDivProps {
 	id: number;
 	project: ProjectType;
@@ -28,30 +30,40 @@ function AnimatedDiv(this: any, { id, project, variants }: AnimatedDivProps) {
 	const [hovered, setHovered] = useState(false);
 
 	return (
-		<motion.div key={id} variants={variants}>
-			<Link
-				key={id}
-				href={`/projects/${project.slug}`}
-				className="flex items-center py-4 gap-x-4"
-			>
-				<motion.div
-					onMouseEnter={() => setHovered(true)}
-					onMouseLeave={() => setHovered(false)}
-					className="text-white grid grid-cols-2 group flex-grow m-2 text-xl font-semibold w-full"
-				>
-					<h2 className="place-self-start">{project.name}</h2>
-					<h2 className={`place-self-end ${hovered ? 'hidden' : ''} `}>
+		<motion.div
+			key={id}
+			variants={variants}
+			className="text-white flex flex-col my-8"
+		>
+			<motion.div className="flex flex-row">
+				<motion.div className="flex flex-row shrink-0 grow my-2">
+					<h2 className="font-bold text-2xl place-self-start ">
+						{project.name}
+					</h2>
+					<h3 className="font-light text-sm align-middle my-auto mx-2 px-2 bg-gray-border text-[#A1A1A9] rounded-full">
 						{project.year}
-					</h2>
-					<h2
-						className={`place-self-end duration-300   ${
-							hovered ? 'block ' : 'hidden'
-						}  `}
-					>
-						{project.medium}
-					</h2>
-				</motion.div>{' '}
-			</Link>
+					</h3>
+				</motion.div>
+				<Link
+					key={id}
+					href={`/projects/${project.slug}`}
+					className="flex font-medium align-middle my-auto hover:underline"
+				>
+					Read more
+					<BiChevronRight className=" align-middle my-auto  text-2xl " />
+				</Link>
+			</motion.div>
+			<h3 className={`text-[#A1A1A9]`}>{project.medium}</h3>
+			<motion.div className="relative py-4 -z-10">
+				<Image
+					className="h-auto w-4/5 rounded-md object-contain"
+					width="0"
+					height="0"
+					sizes="100vw"
+					src={project.coverImage.image}
+					alt={project.coverImage.alt}
+				></Image>
+			</motion.div>
 		</motion.div>
 	);
 }

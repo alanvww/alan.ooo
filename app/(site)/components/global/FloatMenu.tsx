@@ -21,10 +21,10 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const container = {
-	hidden: { opacity: 1, scale: 0 },
+	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
-		scale: 1,
+
 		transition: {
 			delayChildren: 0.3,
 			staggerChildren: 0.2,
@@ -32,7 +32,7 @@ const container = {
 	},
 	exit: {
 		opacity: 0,
-		scale: 0,
+
 		transition: {
 			staggerChildren: 0.2,
 			staggerDirection: -1, // Reverse the order for exiting
@@ -91,9 +91,9 @@ export default function FloatMenu() {
 						<>
 							<motion.ul
 								layout
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
+								initial={{ opacity: 0, y: 200 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 200 }}
 								transition={{
 									duration: 0.5,
 									delayChildren: 0.3,
@@ -146,9 +146,9 @@ export default function FloatMenu() {
 					{isExpanded && (
 						<motion.section
 							layout
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
+							initial={{ opacity: 0, y: 200 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 200 }}
 							transition={{
 								duration: 0.5,
 								delayChildren: 0.3,
