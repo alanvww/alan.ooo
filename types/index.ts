@@ -41,6 +41,7 @@ export type ProjectType = {
 		image: string;
 	};
 	description: PortableTextBlock[];
+	overview: PortableTextBlock[];
 };
 
 export type TechType = {
