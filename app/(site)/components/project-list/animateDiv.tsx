@@ -36,7 +36,7 @@ function AnimatedDiv(this: any, { id, project, variants }: AnimatedDivProps) {
 			className="text-white flex flex-col my-8"
 		>
 			<motion.div className="flex flex-row">
-				<motion.div className="flex flex-row shrink-0 grow my-2">
+				<motion.div className="flex flex-row shrink-1 grow my-2">
 					<h2 className="font-bold text-2xl place-self-start ">
 						{project.name}
 					</h2>
@@ -47,7 +47,7 @@ function AnimatedDiv(this: any, { id, project, variants }: AnimatedDivProps) {
 				<Link
 					key={id}
 					href={`/projects/${project.slug}`}
-					className="flex font-medium align-middle my-auto hover:underline"
+					className="flex font-medium align-middle my-auto shrink-0 hover:underline"
 				>
 					Read more
 					<BiChevronRight className=" align-middle my-auto  text-2xl " />
@@ -56,7 +56,7 @@ function AnimatedDiv(this: any, { id, project, variants }: AnimatedDivProps) {
 			<h3 className={`text-[#A1A1A9]`}>{project.medium}</h3>
 			<motion.div className="relative py-4 -z-10">
 				<Image
-					className="h-auto w-4/5 rounded-md object-contain"
+					className="h-auto w-full md:w-4/5 rounded-md object-contain"
 					width="0"
 					height="0"
 					sizes="100vw"

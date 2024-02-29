@@ -75,6 +75,7 @@ const project = {
 			],
 			validation: (rule) => rule.required(),
 		}),
+
 		defineField({
 			name: 'description',
 			title: 'Project Description',
@@ -132,6 +133,7 @@ const project = {
 				}),
 			],
 		}),
+
 		defineField({
 			name: 'year',
 			title: 'Year',

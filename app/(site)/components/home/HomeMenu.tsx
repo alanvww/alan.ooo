@@ -5,6 +5,16 @@ import LongLogo from '../../icons/logo_long.png';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import * as React from 'react';
+
+// Component Wrapper
+const Component = React.forwardRef<HTMLDivElement>((props, ref) => (
+	<div ref={ref} />
+));
+
+Component.displayName = 'Component';
+
+const MotionLink = motion(Link);
 
 export default function HomeMenu() {
 	return (
@@ -24,18 +34,14 @@ export default function HomeMenu() {
 				/>
 			</div>
 
-			<motion.div
+			<MotionLink
 				whileHover={{ scale: 1.1 }}
 				whileTap={{ scale: 0.9 }}
-				className="my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-5xl font-extrabold text-white z-[10] "
+				className="select-none my-4 text-center md:text-left flex flex-col gap-y-10 lg:px-16 px-6 text-2xl md:text-5xl font-extrabold text-white z-[10] "
+				href="/about"
 			>
-				<Link
-					href="/about"
-					className="bg-clip-text flex items-center  my-auto  hover:bg-gradient-to-r from-[#D45797] to-[#845EEE]  "
-				>
-					<span className="align-baseline py-2 font-mono">{`<enter />`}</span>
-				</Link>
-			</motion.div>
+				<span className="bg-clip-text flex items-center  my-auto  hover:bg-gradient-to-r from-[#D45797] to-[#845EEE]  align-baseline py-2 font-mono">{`<enter />`}</span>
+			</MotionLink>
 		</motion.main>
 	);
 }

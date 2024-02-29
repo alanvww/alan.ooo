@@ -1,7 +1,9 @@
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
+import { Image } from 'sanity';
+
 import ImageBox from './ImageBox';
-import type { Image } from 'sanity';
+import Link from 'next/link';
 
 export function CustomPortableText({
 	paragraphClasses,
@@ -19,13 +21,13 @@ export function CustomPortableText({
 		marks: {
 			link: ({ children, value }) => {
 				return (
-					<a
+					<Link
 						className="underline transition hover:opacity-50"
 						href={value?.href}
 						rel="noreferrer noopener"
 					>
 						{children}
-					</a>
+					</Link>
 				);
 			},
 		},
@@ -36,7 +38,7 @@ export function CustomPortableText({
 				value: Image & { alt?: string; caption?: string };
 			}) => {
 				return (
-					<div className="my-6 space-y-2">
+					<div className="my-6 space-y-2 -z-10">
 						<ImageBox
 							image={value}
 							alt={value.alt}
