@@ -4,6 +4,7 @@ import { Image } from 'sanity';
 
 import ImageBox from './ImageBox';
 import Link from 'next/link';
+import ClientPlayer from './ClientPlayer';
 
 export function CustomPortableText({
 	paragraphClasses,
@@ -16,6 +17,12 @@ export function CustomPortableText({
 		block: {
 			normal: ({ children }) => {
 				return <p className={paragraphClasses}>{children}</p>;
+			},
+			h2: ({ children }) => {
+				return <h2 className="text-3xl font-bold my-6">{children}</h2>;
+			},
+			h3: ({ children }) => {
+				return <h3 className="text-2xl font-bold my-6">{children}</h3>;
 			},
 		},
 		marks: {
@@ -50,6 +57,18 @@ export function CustomPortableText({
 							</div>
 						)}
 					</div>
+				);
+			},
+			youtube: ({ value }) => {
+				const { url } = value;
+				return (
+					<ClientPlayer
+						className="cursor-pointer"
+						controls={true}
+						url={url}
+						light={false}
+						pip={true}
+					/>
 				);
 			},
 		},

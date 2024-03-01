@@ -3,8 +3,7 @@ import { urlForImage } from '@/sanity/sanity.image';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { getSingleProject } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
-import { PortableText, PortableTextReactComponents } from '@portabletext/react';
-import { ProjectPortableText } from '../../../components/shared/ProjectPortableText';
+
 import { CustomPortableText } from '../../../components/shared/CustomPortableText';
 
 import fallBackImage from '@/public/project.png';
@@ -44,17 +43,13 @@ export default async function Project({ params }: Props) {
 	const slug = params.project;
 	const project: ProjectType = await getSingleProject(slug);
 
-	console.log(project?.overview);
-
-	console.log(project?.description);
-
 	return (
 		<main className="max-w-6xl mx-auto lg:px-16 px-8 ">
 			<div className="max-w-3xl mx-auto">
 				<div
 					className={`absolute top-0 left-0 w-full h-[20vh] -z-10 items-center justify-center flex `}
 				>
-					<h1 className="opacity-100 absolute self-center px-4   font-bold pt-[10vh] lg:text-5xl text-2xl leading-tight ">
+					<h1 className="max-w-full opacity-100 absolute self-center px-4   font-bold pt-[10vh] md:pt-[10vh] lg:text-5xl text-2xl leading-tight ">
 						{project?.name}
 					</h1>
 					<Image
@@ -66,9 +61,8 @@ export default async function Project({ params }: Props) {
 						alt={project?.coverImage?.alt || project?.name}
 					/>
 				</div>
-				<div className="flex items-start justify-between mb-4"></div>
 
-				<div className="flex flex-col gap-y-6 mt-8 leading-7">
+				<div className="flex flex-col gap-y-5 mt-36 leading-7">
 					{project?.description && (
 						<CustomPortableText
 							paragraphClasses=" text-md md:text-xl"

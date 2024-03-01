@@ -83,6 +83,11 @@ const project = {
 			of: [
 				defineArrayMember({
 					type: 'block',
+					styles: [
+						{ title: 'Normal', value: 'normal' },
+						{ title: 'H2', value: 'h2' },
+						{ title: 'H3', value: 'h3' },
+					],
 					marks: {
 						annotations: [
 							{
@@ -99,7 +104,10 @@ const project = {
 							},
 						],
 					},
-					styles: [],
+				}),
+
+				defineArrayMember({
+					type: 'youtube',
 				}),
 
 				defineField({

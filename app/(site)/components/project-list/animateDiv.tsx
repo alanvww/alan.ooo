@@ -47,7 +47,7 @@ function AnimatedDiv(this: any, { id, project, variants }: AnimatedDivProps) {
 				<Link
 					key={id}
 					href={`/projects/${project.slug}`}
-					className="flex font-medium align-middle my-auto shrink-0 hover:underline"
+					className="hidden  md:flex font-medium align-middle my-auto shrink-0 hover:underline"
 				>
 					Read more
 					<BiChevronRight className=" align-middle my-auto  text-2xl " />
