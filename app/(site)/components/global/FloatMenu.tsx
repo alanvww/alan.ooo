@@ -1,7 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import {
+	motion,
+	AnimatePresence,
+	useScroll,
+	useTransform,
+} from 'framer-motion';
 
 import {
 	BiBracket,
@@ -55,6 +60,8 @@ const item = {
 export default function FloatMenu() {
 	const pathname = usePathname();
 	const [isExpanded, setIsExpanded] = useState(false);
+	const { scrollYProgress } = useScroll();
+	const opacityPageEnd = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
 
 	const handleMouseEnter = () => {
 		setIsExpanded(true);
@@ -73,7 +80,8 @@ export default function FloatMenu() {
 				type: 'linear',
 				ease: [0.76, 0, 0.24, 1],
 			}}
-			className="flex min-w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm"
+			style={{ opacity: opacityPageEnd }}
+			className={`flex min-w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm`}
 		>
 			<motion.section
 				layout
