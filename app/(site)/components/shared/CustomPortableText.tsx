@@ -1,3 +1,4 @@
+'use client';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 import { Image } from 'sanity';
@@ -5,6 +6,9 @@ import { Image } from 'sanity';
 import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
+import { motion } from 'framer-motion';
+
+const MotionLink = motion(Link);
 
 export function CustomPortableText({
 	paragraphClasses,
@@ -16,25 +20,29 @@ export function CustomPortableText({
 	const components: PortableTextComponents = {
 		block: {
 			normal: ({ children }) => {
-				return <p className={paragraphClasses}>{children}</p>;
+				return <motion.p className={paragraphClasses}>{children}</motion.p>;
 			},
 			h2: ({ children }) => {
-				return <h2 className="text-3xl font-bold my-6">{children}</h2>;
+				return (
+					<motion.h2 className="text-3xl font-bold my-6">{children}</motion.h2>
+				);
 			},
 			h3: ({ children }) => {
-				return <h3 className="text-2xl font-bold my-6">{children}</h3>;
+				return (
+					<motion.h3 className="text-2xl font-bold my-6">{children}</motion.h3>
+				);
 			},
 		},
 		marks: {
 			link: ({ children, value }) => {
 				return (
-					<Link
+					<MotionLink
 						className="underline transition hover:opacity-50"
 						href={value?.href}
 						rel="noreferrer noopener"
 					>
 						{children}
-					</Link>
+					</MotionLink>
 				);
 			},
 		},
@@ -45,7 +53,7 @@ export function CustomPortableText({
 				value: Image & { alt?: string; caption?: string };
 			}) => {
 				return (
-					<div className="my-6 space-y-2 -z-10">
+					<motion.div className="my-6 space-y-2 -z-10">
 						<ImageBox
 							image={value}
 							alt={value.alt}
@@ -56,19 +64,21 @@ export function CustomPortableText({
 								{value.caption}
 							</div>
 						)}
-					</div>
+					</motion.div>
 				);
 			},
 			youtube: ({ value }) => {
 				const { url } = value;
 				return (
-					<ClientPlayer
-						className="cursor-pointer"
-						controls={true}
-						url={url}
-						light={false}
-						pip={true}
-					/>
+					<motion.div className="w-full h-full aspect-video cursor-pointer	">
+						<ClientPlayer
+							controls={true}
+							url={url}
+							light={false}
+							width="100%"
+							height="100%"
+						/>
+					</motion.div>
 				);
 			},
 		},

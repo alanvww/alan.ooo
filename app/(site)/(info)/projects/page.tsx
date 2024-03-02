@@ -3,7 +3,6 @@ import type { ProjectType } from '@/types';
 import { Metadata } from 'next';
 import ProjectList from '../../components/project-list/ProjectList';
 import Headline from '../../components/shared/Headline';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
 	title: 'All Projects - Alan Ren',
@@ -22,9 +21,7 @@ export default async function Project() {
 				if you see something that piques your interest, check out the code and
 				contribute if you have ideas for how it can be improved."
 			/>
-			<Suspense fallback={<div>Loading...</div>}>
-				<ProjectList projects={projects} />
-			</Suspense>
+			<ProjectList projects={projects} />
 		</main>
 	);
 }

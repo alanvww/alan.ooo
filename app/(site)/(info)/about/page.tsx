@@ -5,6 +5,7 @@ import { PortableText } from '@portabletext/react';
 import { BiEnvelope, BiFile } from 'react-icons/bi';
 import Headline from '../../components/shared/Headline';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
 	title: 'About me - Alan Ren',
@@ -40,12 +41,12 @@ export default async function About() {
 										alt={data.profileImage.alt}
 									/>
 
-									<a
-										href={`${data.resumeURL}?dl=${data.fullName}_resume`}
+									<Link
+										href={`${data.resumeURL}?dl=AlanRen_Resume.pdf`}
 										className="flex items-center justify-center gap-x-2 bg-[#1d1d20] border border-transparent hover:border-zinc-700 rounded-md duration-200 py-2 text-center cursor-cell font-medium"
 									>
-										<BiFile className="text-base" /> Download Resumé
-									</a>
+										<BiFile className="text-base" /> Download Resume
+									</Link>
 								</div>
 
 								<ul>

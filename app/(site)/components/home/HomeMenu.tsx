@@ -7,13 +7,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as React from 'react';
 
-// Component Wrapper
-const Component = React.forwardRef<HTMLDivElement>((props, ref) => (
-	<div ref={ref} />
-));
-
-Component.displayName = 'Component';
-
 const MotionLink = motion(Link);
 
 export default function HomeMenu() {

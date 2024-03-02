@@ -1,7 +1,8 @@
 'use client';
-import AnimatedDiv from './animateDiv';
+import ProjectCard from './ProjectCard';
 import { motion } from 'framer-motion';
 import type { ProjectType } from '@/types';
+import { Suspense } from 'react';
 
 type ProjectListProps = {
 	projects: ProjectType[];
@@ -41,17 +42,19 @@ export default function ProjectList({ projects }: ProjectListProps) {
 			}}
 			className="flex flex-col my-12 "
 		>
-			{projects.map((project, id) => (
-				<AnimatedDiv
-					key={id}
-					id={id}
-					project={project}
-					variants={{
-						hidden: { opacity: 0, y: 20 },
-						visible: { opacity: 1, y: 0 },
-					}}
-				></AnimatedDiv>
-			))}
+			<Suspense fallback={<div>Loading...</div>}>
+				{projects.map((project, id) => (
+					<ProjectCard
+						key={id}
+						id={id}
+						project={project}
+						variants={{
+							hidden: { opacity: 0, y: 20 },
+							visible: { opacity: 1, y: 0 },
+						}}
+					></ProjectCard>
+				))}
+			</Suspense>
 		</motion.div>
 	);
 }
