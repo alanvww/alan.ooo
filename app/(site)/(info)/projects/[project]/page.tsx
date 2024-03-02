@@ -1,9 +1,13 @@
 import Image from 'next/image';
-import { Metadata } from 'next';
+import { urlForImage } from '@/sanity/sanity.image';
+import type { Metadata, ResolvingMetadata } from 'next';
 import { getSingleProject } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
-import { PortableText } from '@portabletext/react';
+
+import { CustomPortableText } from '../../../components/shared/CustomPortableText';
+
 import fallBackImage from '@/public/project.png';
+import fallBackOpenGraphImage from '@/public/opengraph-image.jpg';
 
 type Props = {
 	params: {
@@ -11,18 +15,26 @@ type Props = {
 	};
 };
 
-// Dynamic metadata for SEO
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+	{ params }: Props,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
 	const slug = params.project;
 	const project: ProjectType = await getSingleProject(slug);
 
 	return {
-		title: `${project.name} | Project`,
-		description: project.tagline,
+		title: `${project?.name} | Alan Ren`,
+		description: project?.tagline,
 		openGraph: {
-			images: project.coverImage?.image || 'add-a-fallback-project-image-here',
-			title: project.name,
-			description: project.tagline,
+			images: [
+				{
+					url:
+						project?.coverImage?.image.toString() ||
+						fallBackOpenGraphImage.toString(),
+				},
+			],
+			title: project?.name,
+			description: project?.tagline,
 		},
 	};
 }
@@ -32,32 +44,31 @@ export default async function Project({ params }: Props) {
 	const project: ProjectType = await getSingleProject(slug);
 
 	return (
-		<main className="max-w-6xl mx-auto lg:px-16 px-8">
+		<main className="max-w-6xl mx-auto lg:px-16 px-8 ">
 			<div className="max-w-3xl mx-auto">
-				<div className="flex items-start justify-between mb-4">
-					<h1 className="font-bold lg:text-5xl text-3xl lg:leading-tight mb-4">
-						{project.name}
+				<div
+					className={`absolute top-0 left-0 w-full h-[20vh] -z-10 items-center justify-center flex `}
+				>
+					<h1 className="max-w-full opacity-100 absolute self-center px-4   font-bold pt-[10vh] md:pt-[10vh] lg:text-5xl text-2xl leading-tight ">
+						{project?.name}
 					</h1>
-
-					<a
-						href={project.projectUrl}
-						rel="noreferrer noopener"
-						className="bg-[#1d1d20] text-white hover:border-zinc-700 border border-transparent rounded-md px-4 py-2"
-					>
-						Explore
-					</a>
+					<Image
+						className="h-[20vh] w-full object-cover opacity-30"
+						width="0"
+						height="0"
+						sizes="100vw"
+						src={project?.coverImage?.image || fallBackImage}
+						alt={project?.coverImage?.alt || project?.name}
+					/>
 				</div>
 
-				<Image
-					className="rounded-xl border border-zinc-800"
-					width={900}
-					height={460}
-					src={project.coverImage?.image || fallBackImage}
-					alt={project.coverImage?.alt || project.name}
-				/>
-
-				<div className="flex flex-col gap-y-6 mt-8 leading-7 text-zinc-400">
-					<PortableText value={project.description} />
+				<div className="flex flex-col gap-y-5 mt-36 leading-7">
+					{project?.description && (
+						<CustomPortableText
+							paragraphClasses=" text-md md:text-xl"
+							value={project?.description as any}
+						/>
+					)}
 				</div>
 			</div>
 		</main>

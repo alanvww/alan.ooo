@@ -37,10 +37,11 @@ export type ProjectType = {
 	tagline: string;
 	projectUrl: string;
 	coverImage: {
-		alt: string | null;
+		alt: string;
 		image: string;
 	};
 	description: PortableTextBlock[];
+	overview: PortableTextBlock[];
 };
 
 export type TechType = {

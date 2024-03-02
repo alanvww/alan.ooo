@@ -75,6 +75,7 @@ const project = {
 			],
 			validation: (rule) => rule.required(),
 		}),
+
 		defineField({
 			name: 'description',
 			title: 'Project Description',
@@ -82,6 +83,11 @@ const project = {
 			of: [
 				defineArrayMember({
 					type: 'block',
+					styles: [
+						{ title: 'Normal', value: 'normal' },
+						{ title: 'H2', value: 'h2' },
+						{ title: 'H3', value: 'h3' },
+					],
 					marks: {
 						annotations: [
 							{
@@ -98,7 +104,10 @@ const project = {
 							},
 						],
 					},
-					styles: [],
+				}),
+
+				defineArrayMember({
+					type: 'youtube',
 				}),
 
 				defineField({
@@ -132,6 +141,7 @@ const project = {
 				}),
 			],
 		}),
+
 		defineField({
 			name: 'year',
 			title: 'Year',

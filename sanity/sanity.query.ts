@@ -80,7 +80,8 @@ export async function getSingleProject(slug: string) {
       projectUrl,
       coverImage { alt, "image": asset->url },
       tagline,
-      description
+      description,
+      overview
     }`,
 		{ slug }
 	);
