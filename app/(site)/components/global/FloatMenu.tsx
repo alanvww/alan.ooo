@@ -243,35 +243,39 @@ export default function FloatMenu() {
 									<span className="text-xl mx-4 py-4">Contact Info</span>
 
 									<Link
-										href="/"
+										href="https://www.linkedin.com/in/junhao-ren/"
+										target="_blank"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiLogoLinkedinSquare className="md:inline my-auto mx-1 text-xl" />
 										<span className="align-middle">LinkedIn</span>
 									</Link>
 									<Link
-										href="/"
+										href="https://www.instagram.com/alan.j.ren/"
+										target="_blank"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiLogoInstagram className="md:inline my-auto mx-1 text-xl" />
 										<span className="align-middle">Instagram</span>{' '}
 									</Link>
 									<Link
-										href="/"
+										href="https://github.com/alanvww"
+										target="_blank"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiLogoGithub className="md:inline my-auto mx-1 text-xl" />
 										<span className="align-middle">Github</span>{' '}
 									</Link>
 									<Link
-										href="/"
+										href="https://mas.to/@alanvww"
+										target="_blank"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiLogoMastodon className="md:inline my-auto mx-1 text-xl" />
 										<span className="align-middle">Mastodon</span>{' '}
 									</Link>
 									<Link
-										href="/"
+										href="mailto:hello@me.alan.ooo"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiEnvelope className="md:inline my-auto mx-1 text-xl" />
@@ -299,7 +303,8 @@ export default function FloatMenu() {
 										<span className="align-middle">Stack & Gear</span>
 									</Link>
 									<Link
-										href="/techstack"
+										href="https://itp.alan.ooo"
+										target="_blank"
 										className="flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
 									>
 										<BiSolidBong className="md:inline my-auto mx-1 text-xl" />
