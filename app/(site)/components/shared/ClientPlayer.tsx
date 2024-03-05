@@ -1,14 +1,18 @@
 'use client';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ReactPlayerProps } from 'react-player';
 
-const ReactPlayer = dynamic(() => import('react-player'), {
+const ReactPlayer = dynamic(() => import('react-player/lazy'), {
 	ssr: false,
 });
 
-const ClientSidePlayer = (props: any) => {
-	return <ReactPlayer {...props} />;
+const ClientSidePlayer = (props: ReactPlayerProps) => {
+	return (
+		<Suspense>
+			<ReactPlayer {...props} />
+		</Suspense>
+	);
 };
 
 export default ClientSidePlayer;
