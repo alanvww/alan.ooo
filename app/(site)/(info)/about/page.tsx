@@ -16,7 +16,7 @@ export default async function About() {
 	const profile: ProfileType[] = await getProfile();
 
 	return (
-		<main className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6">
+		<div className="lg:max-w-7xl mx-auto max-w-3xl  md:px-16 px-6">
 			{profile &&
 				profile.map((data) => (
 					<div key={data._id}>
@@ -83,6 +83,6 @@ export default async function About() {
 						</section>
 					</div>
 				))}
-		</main>
+		</div>
 	);
 }
