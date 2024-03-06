@@ -22,7 +22,7 @@ import {
 	BiSolidBong,
 	BiFile,
 } from 'react-icons/bi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 const container = {
@@ -61,7 +61,25 @@ export default function FloatMenu() {
 	const pathname = usePathname();
 	const [isExpanded, setIsExpanded] = useState(false);
 	const { scrollYProgress } = useScroll();
-	const opacityPageEnd = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
+	const [hasScrollbar, setHasScrollbar] = useState(true);
+
+	useEffect(() => {
+		const updateHasScrollbar = () => {
+			setHasScrollbar(document.body.scrollHeight > window.innerHeight);
+		};
+
+		updateHasScrollbar(); // Initial check
+		window.addEventListener('resize', updateHasScrollbar); // Update on resize
+
+		return () => window.removeEventListener('resize', updateHasScrollbar); // Cleanup
+	}, []);
+
+	// Adjust opacity based on scrollbar presence and scroll progress
+	const opacityPageEnd = useTransform(
+		scrollYProgress,
+		[0, 0.9, 1],
+		hasScrollbar ? [1, 1, 0] : [1, 1, 1]
+	);
 
 	const handleMouseEnter = () => {
 		setIsExpanded(true);
