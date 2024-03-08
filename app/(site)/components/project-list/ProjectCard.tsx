@@ -23,8 +23,8 @@ function ProjectCard(
 			whileInView={whileInView}
 			initial={initial}
 			transition={{
-				duration: 0.5,
-				type: 'ease-in-out',
+				duration: 0.3,
+				ease: [0, 0.71, 0.2, 1.01],
 			}}
 		>
 			<Link key={id} href={`/projects/${project.slug}`} className="cursor-none">

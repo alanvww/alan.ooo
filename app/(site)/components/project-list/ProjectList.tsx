@@ -1,8 +1,7 @@
 'use client';
 import ProjectCard from './ProjectCard';
-import { motion, inView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { ProjectType } from '@/types';
-import { Suspense } from 'react';
 
 type ProjectListProps = {
 	projects: ProjectType[];
