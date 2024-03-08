@@ -8,15 +8,24 @@ import Image from 'next/image';
 interface ProjectCardProps {
 	id: number;
 	project: ProjectType;
-	variants: any;
+	whileInView: any;
+	initial: any;
 }
 
-function ProjectCard(this: any, { id, project, variants }: ProjectCardProps) {
+function ProjectCard(
+	this: any,
+	{ id, project, whileInView, initial }: ProjectCardProps
+) {
 	return (
 		<motion.div
 			key={id}
-			variants={variants}
-			className="text-white flex flex-col my-8 group"
+			className="Project text-white flex flex-col my-8 group"
+			whileInView={whileInView}
+			initial={initial}
+			transition={{
+				duration: 0.5,
+				type: 'ease-in-out',
+			}}
 		>
 			<Link key={id} href={`/projects/${project.slug}`} className="cursor-none">
 				<motion.div className="flex flex-row">
