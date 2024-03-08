@@ -19,7 +19,7 @@ function ProjectCard(
 	return (
 		<motion.div
 			key={id}
-			className="Project text-white flex flex-col my-8 group"
+			className="Project text-white flex flex-col my-8 group -z-10"
 			whileInView={whileInView}
 			initial={initial}
 			transition={{
