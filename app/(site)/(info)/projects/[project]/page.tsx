@@ -5,6 +5,7 @@ import { getSingleProject } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 
 import { CustomPortableText } from '../../../components/shared/CustomPortableText';
+import ProjectRender from '../../../components/shared/ProjectRender';
 
 import fallBackImage from '@/public/project.png';
 import fallBackOpenGraphImage from '@/public/opengraph-image.jpg';
@@ -44,6 +45,7 @@ export default async function Project({ params }: Props) {
 	const project: ProjectType = await getSingleProject(slug);
 
 	return (
+		/*
 		<main className="max-w-6xl mx-auto lg:px-16 px-8 ">
 			<div className="max-w-3xl mx-auto">
 				<div
@@ -72,5 +74,7 @@ export default async function Project({ params }: Props) {
 				</div>
 			</div>
 		</main>
+		*/
+		<ProjectRender {...project} />
 	);
 }

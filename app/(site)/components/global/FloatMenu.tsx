@@ -99,7 +99,7 @@ export default function FloatMenu() {
 				ease: [0.76, 0, 0.24, 1],
 			}}
 			style={{ opacity: opacityPageEnd }}
-			className={`flex min-w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm`}
+			className={`flex min-w-full fixed left-0 justify-center bottom-5 md:bottom-16 text-sm z-999`}
 		>
 			<motion.section
 				layout
