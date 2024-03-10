@@ -24,7 +24,12 @@ export function CustomPortableText({
 			},
 			h2: ({ children }) => {
 				return (
-					<motion.h2 className="text-3xl font-bold my-6">{children}</motion.h2>
+					<motion.h2
+						id={`${children?.toString()}`}
+						className="text-3xl font-bold my-6 scroll-mt-10	"
+					>
+						{children}
+					</motion.h2>
 				);
 			},
 			h3: ({ children }) => {

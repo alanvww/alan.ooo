@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navbar from './components/global/Navbar';
 import Footer from './components/global/Footer';
-import Header from './components/global/Header';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import NewCursor from './components/global/NewCursor';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -44,7 +43,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="scroll-auto md:scroll-smooth">
 			<body className={`w-screen min-h-full text-white bg-black `}>
 				<NewCursor />
 				{children}
