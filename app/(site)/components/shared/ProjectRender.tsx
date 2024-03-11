@@ -19,7 +19,7 @@ const ProjectRender = (project: ProjectType) => {
 						className="h-[20vh] w-full object-cover opacity-30"
 						width="0"
 						height="0"
-						sizes="100vw"
+						sizes="(max-width:768px)100vw, 700px"
 						src={project?.coverImage?.image}
 						alt={project?.coverImage?.alt || project?.name}
 					/>

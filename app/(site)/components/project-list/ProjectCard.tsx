@@ -47,12 +47,12 @@ function ProjectCard(
 					</Link>
 				</motion.div>
 				<h3 className={`text-[#A1A1A9]`}>{project.medium}</h3>
-				<motion.div className="relative py-4 -z-10">
+				<motion.div className="relative py-4 -z-10 ">
 					<Image
-						className="h-auto w-full md:w-4/5 rounded-md object-contain"
+						className="h-auto w-full md:w-4/5 rounded-md object-contain border border-transparent group-hover:border-white"
 						width="0"
 						height="0"
-						sizes="100vw"
+						sizes="(max-width:768px)100vw, 700px"
 						src={project.coverImage.image}
 						alt={project.coverImage.alt}
 					></Image>

@@ -2,6 +2,7 @@
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 import { Image } from 'sanity';
+import React from 'react';
 
 import ImageBox from './ImageBox';
 import Link from 'next/link';
@@ -9,6 +10,8 @@ import ClientPlayer from './ClientPlayer';
 import { motion } from 'framer-motion';
 
 const MotionLink = motion(Link);
+
+// Custom list item component that can handle nested lists
 
 export function CustomPortableText({
 	paragraphClasses,
@@ -18,6 +21,18 @@ export function CustomPortableText({
 	value: PortableTextBlock[];
 }) {
 	const components: PortableTextComponents = {
+		list: {
+			bullet: ({ children }) => (
+				<motion.ul className="list-disc ml-5">{children}</motion.ul>
+			),
+			number: ({ children }) => (
+				<motion.ol className="list-decimal ml-4">{children}</motion.ol>
+			),
+		},
+		listItem: ({ children }) => {
+			return <motion.li className={`ml-4`}>{children}</motion.li>;
+		},
+
 		block: {
 			normal: ({ children }) => {
 				return <motion.p className={paragraphClasses}>{children}</motion.p>;
@@ -58,18 +73,18 @@ export function CustomPortableText({
 				value: Image & { alt?: string; caption?: string };
 			}) => {
 				return (
-					<motion.div className="my-6 space-y-2 -z-10">
+					<>
 						<ImageBox
 							image={value}
-							alt={value.alt}
-							classesWrapper="relative aspect-[16/9]"
+							alt={value.alt || value?.caption}
+							classesWrapper="relative aspect-[7/4] -z-50"
 						/>
 						{value?.caption && (
 							<div className="font-sans text-sm text-gray-600">
 								{value.caption}
 							</div>
 						)}
-					</motion.div>
+					</>
 				);
 			},
 			youtube: ({ value }) => {
@@ -82,6 +97,7 @@ export function CustomPortableText({
 							light={false}
 							width="100%"
 							height="100%"
+							referrerpolicy="no-referrer-when-downgrade"
 						/>
 					</motion.div>
 				);

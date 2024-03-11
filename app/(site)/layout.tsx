@@ -12,7 +12,6 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata: Metadata = {
 	generator: 'Next.js',
 	applicationName: `Portfolio - Alan Ren`,
-	referrer: 'origin-when-cross-origin',
 	keywords: ['Personal Website', 'Portfolio'],
 	authors: [{ name: 'Alan Ren' }],
 	creator: 'Alan Ren',
