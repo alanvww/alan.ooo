@@ -1,5 +1,6 @@
 import '../globals.css';
 import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 
 import { Inter } from 'next/font/google';
 import Navbar from './components/global/Navbar';
@@ -8,6 +9,11 @@ import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import NewCursor from './components/global/NewCursor';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
+
+export const viewport: Viewport = {
+	colorScheme: 'dark',
+	themeColor: 'black',
+};
 
 export const metadata: Metadata = {
 	generator: 'Next.js',
