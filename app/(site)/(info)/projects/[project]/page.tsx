@@ -9,6 +9,8 @@ import ProjectRender from '../../../components/shared/ProjectRender';
 
 import fallBackImage from '@/public/project.png';
 import fallBackOpenGraphImage from '@/public/opengraph-image.jpg';
+import { Suspense } from 'react';
+import Loading from '../loading';
 
 type Props = {
 	params: {
@@ -75,6 +77,8 @@ export default async function Project({ params }: Props) {
 			</div>
 		</main>
 		*/
-		<ProjectRender {...project} />
+		<Suspense fallback={<Loading />}>
+			<ProjectRender {...project} />
+		</Suspense>
 	);
 }
