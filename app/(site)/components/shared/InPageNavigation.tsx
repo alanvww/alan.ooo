@@ -61,7 +61,7 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 	return (
 		<div
 			ref={navRef}
-			className={`md:fixed right-0 h-fit hidden md:flex md:mr-2 p-px cursor-pointer`}
+			className={`lg:fixed right-0 h-fit hidden lg:flex md:mr-2 p-px cursor-pointer`}
 			style={{ top: `${scrollProgress}%` }}
 		>
 			<ul className="flex flex-col justify-items-end text-end 	 rounded-2xl p-5">
