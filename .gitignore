@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/nextjs,macos,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,macos,node
 
+## Turbo
+.turbo
+
 ### macOS ###
 # General
 .DS_Store
