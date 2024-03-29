@@ -19,7 +19,7 @@ function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
 		<MotionLink
 			key={id}
 			href={`/projects/${project.slug}`}
-			className="cursor-none  text-white flex flex-col my-8 group "
+			className="md:cursor-none  text-white flex flex-col my-8 group "
 			whileInView={whileInView}
 			initial={initial}
 			transition={{

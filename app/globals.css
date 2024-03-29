@@ -54,6 +54,10 @@ html.dark {
 
 /* We need to remove this custom cursor in mobile devices */
 @media screen and (max-width: 768px) {
+	body {
+		cursor: auto !important; /* Let's hide the default cursor so it looks way better */
+	}
+
 	.flare {
 		display: none;
 		width: 0;
