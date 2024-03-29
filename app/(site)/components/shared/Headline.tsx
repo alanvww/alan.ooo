@@ -12,8 +12,8 @@ export default function Headline({ title, description }: HeadlineProps) {
 	return (
 		<motion.section
 			className="max-w-2xl mb-16"
-			initial={{ opacity: 0, scale: 0 }}
-			animate={{ opacity: 1, scale: 1 }}
+			initial={{ opacity: 0, y: 20 }}
+			animate={{ opacity: 1, y: 0 }}
 			exit={{ scale: 0, opacity: 0 }}
 			transition={{}}
 		>

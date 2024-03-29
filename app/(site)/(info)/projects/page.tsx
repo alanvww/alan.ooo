@@ -1,8 +1,17 @@
 import { getProjects } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 import { Metadata } from 'next';
-import ProjectList from '../../components/project-list/ProjectList';
+import dynamic from 'next/dynamic';
+
+const ProjectList = dynamic(
+	() => import('../../components/project-list/ProjectList'),
+	{
+		ssr: false,
+	}
+);
 import Headline from '../../components/shared/Headline';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 export const metadata: Metadata = {
 	title: 'All Projects - Alan Ren',
@@ -21,6 +30,7 @@ export default async function Project() {
 				if you see something that piques your interest, check out the code and
 				contribute if you have ideas for how it can be improved."
 			/>
+
 			<ProjectList projects={projects} />
 		</main>
 	);

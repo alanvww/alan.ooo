@@ -11,10 +11,10 @@ export default function SiteLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<main className="min-h-full">
+		<>
 			<Navbar />
 			{children}
 			<Footer />
-		</main>
+		</>
 	);
 }

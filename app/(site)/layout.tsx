@@ -1,19 +1,23 @@
 import '../globals.css';
 import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 
 import { Inter } from 'next/font/google';
 import Navbar from './components/global/Navbar';
 import Footer from './components/global/Footer';
-import Header from './components/global/Header';
 import { IsClientCtxProvider } from './utilities/is-client-ctx';
 import NewCursor from './components/global/NewCursor';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 
+export const viewport: Viewport = {
+	colorScheme: 'dark',
+	themeColor: 'black',
+};
+
 export const metadata: Metadata = {
 	generator: 'Next.js',
 	applicationName: `Portfolio - Alan Ren`,
-	referrer: 'origin-when-cross-origin',
 	keywords: ['Personal Website', 'Portfolio'],
 	authors: [{ name: 'Alan Ren' }],
 	creator: 'Alan Ren',
@@ -44,7 +48,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="scroll-auto md:scroll-smooth">
 			<body className={`w-screen min-h-full text-white bg-black `}>
 				<NewCursor />
 				{children}
