@@ -49,7 +49,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" className="scroll-auto md:scroll-smooth">
-			<body className={`w-screen min-h-full text-white bg-black `}>
+			<body className={`w-screen min-h-full h-auto text-white bg-black `}>
 				<NewCursor />
 				{children}
 				<Analytics />
