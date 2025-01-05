@@ -90,14 +90,14 @@ export function CustomPortableText({
 			youtube: ({ value }) => {
 				const { url } = value;
 				return (
-					<motion.div className="w-full h-full aspect-video cursor-pointer	">
+					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
 							controls={true}
 							url={url}
 							light={false}
 							width="100%"
 							height="100%"
-							referrerpolicy="no-referrer-when-downgrade"
+							referrerPolicy="no-referrer-when-downgrade"
 						/>
 					</motion.div>
 				);
