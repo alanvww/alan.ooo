@@ -1,57 +1,166 @@
 'use client';
+import React, { useState, useEffect, useCallback } from 'react';
 
-import React, { useState, useEffect } from 'react';
-
-// This functional component represents a custom cursor with a flare effect.
 function NewCursor() {
-	// State to track the current cursor position (x, y coordinates).
-	const [position, setPosition] = useState({ x: 0, y: 0 });
-
-	// State to track whether the cursor is over a clickable element.
+	// Track both the raw and smoothed cursor positions
+	const [position, setPosition] = useState({ x: -100, y: -100 });
 	const [isPointer, setIsPointer] = useState(false);
+	const [isVisible, setIsVisible] = useState(false);
 
-	// Event handler for the mousemove event.
-	const handleMouseMove = (e: { clientX: any; clientY: any; target: any }) => {
-		// Update the cursor position based on the mouse coordinates.
-		setPosition({ x: e.clientX, y: e.clientY });
+	// Create a more robust pointer detection system
+	const detectPointerElement = useCallback((element: Element | null): boolean => {
+		// If no element, return false
+		if (!element) return false;
 
-		// Get the target element that the cursor is currently over.
-		const target = e.target;
+		try {
+			// Get computed style of the element
+			const style = window.getComputedStyle(element);
 
-		// Check if the cursor is over a clickable element by inspecting the cursor style.
-		setIsPointer(
-			window.getComputedStyle(target).getPropertyValue('cursor') === 'pointer'
-		);
-	};
+			// Check for special cases first
+			const tagName = element.tagName.toLowerCase();
+			const isMediaElement = tagName === 'video' || tagName === 'iframe';
 
-	// Set up an effect to add and remove the mousemove event listener.
+			// List of cursor values that indicate interactive elements
+			const interactiveCursors = ['pointer', 'grab', 'grabbing', 'text'];
+
+			// Special handling for media elements
+			if (isMediaElement) {
+				// Check if we're near the border of the media element
+				const rect = element.getBoundingClientRect();
+				const mouseX = position.x;
+				const mouseY = position.y;
+
+				// Define border threshold (in pixels)
+				const borderThreshold = 10;
+
+				const isNearBorder =
+					Math.abs(mouseX - rect.left) < borderThreshold ||
+					Math.abs(mouseX - rect.right) < borderThreshold ||
+					Math.abs(mouseY - rect.top) < borderThreshold ||
+					Math.abs(mouseY - rect.bottom) < borderThreshold;
+
+				return isNearBorder;
+			}
+
+			// Check if element or its parent has an interactive cursor
+			return (
+				interactiveCursors.includes(style.cursor) ||
+				element.hasAttribute('onclick') ||
+				element.getAttribute('role') === 'button' ||
+				(element.parentElement && detectPointerElement(element.parentElement)) || false
+			);
+		} catch (error) {
+			console.error('Error in pointer detection:', error);
+			return false;
+		}
+	}, [position]);
+
+	// Enhanced mouse move handler with Firefox-specific checks
+	const handleMouseMove = useCallback((e: MouseEvent) => {
+		requestAnimationFrame(() => {
+			try {
+				// Get the actual target element
+				const target = document.elementFromPoint(e.clientX, e.clientY);
+
+				// Validate position
+				if (
+					typeof e.clientX === 'number' &&
+					typeof e.clientY === 'number' &&
+					!isNaN(e.clientX) &&
+					!isNaN(e.clientY) &&
+					e.clientX >= 0 &&
+					e.clientX <= window.innerWidth &&
+					e.clientY >= 0 &&
+					e.clientY <= window.innerHeight
+				) {
+					setPosition({ x: e.clientX, y: e.clientY });
+					setIsVisible(true);
+
+					// Use our enhanced pointer detection
+					if (target) {
+						const isInteractive = detectPointerElement(target);
+						setIsPointer(isInteractive);
+					}
+				} else {
+					setIsVisible(false);
+				}
+			} catch (error) {
+				console.error('Mouse move error:', error);
+				setIsVisible(false);
+			}
+		});
+	}, [detectPointerElement]);
+
+	// Add specialized event handlers for Firefox media elements
+	const handleMouseEnterMedia = useCallback((e: Event) => {
+		const target = e.target as Element;
+		if (target && (target.tagName === 'VIDEO' || target.tagName === 'IFRAME')) {
+			setIsVisible(true);
+			setIsPointer(true);
+		}
+	}, []);
+
+	const handleMouseLeaveMedia = useCallback((e: Event) => {
+		const target = e.target as Element;
+		if (target && (target.tagName === 'VIDEO' || target.tagName === 'IFRAME')) {
+			setIsPointer(false);
+		}
+	}, []);
+
 	useEffect(() => {
-		window.addEventListener('mousemove', handleMouseMove);
+		// Add our event listeners
+		window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+		// Add media-specific event listeners
+		const mediaElements = document.querySelectorAll('video, iframe');
+		mediaElements.forEach(element => {
+			element.addEventListener('mouseenter', handleMouseEnterMedia);
+			element.addEventListener('mouseleave', handleMouseLeaveMedia);
+		});
+
+		// Handle visibility changes
+		const handleVisibilityChange = () => {
+			if (document.hidden) {
+				setIsVisible(false);
+			}
+		};
+
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		// Remove default cursor
+		document.body.style.cursor = 'none';
+
+		// Cleanup function
 		return () => {
 			window.removeEventListener('mousemove', handleMouseMove);
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+			// Clean up media event listeners
+			mediaElements.forEach(element => {
+				element.removeEventListener('mouseenter', handleMouseEnterMedia);
+				element.removeEventListener('mouseleave', handleMouseLeaveMedia);
+			});
+
+			document.body.style.cursor = 'auto';
 		};
-	}, []); // The empty dependency array ensures that this effect runs only once on mount.
+	}, [handleMouseMove, handleMouseEnterMedia, handleMouseLeaveMedia]);
 
-	// Calculate the size of the flare based on whether the cursor is over a clickable element.
-	const flareSize = isPointer ? 0 : 100;
+	// Only render if visible
+	if (!isVisible) {
+		return null;
+	}
 
-	// Adjust the cursor position to create a visual effect when over a clickable element.
-	const cursorStyle = isPointer ? { left: '-100px', top: '-100px' } : {};
-
-	// Render the custom cursor element with dynamic styles based on cursor state.
 	return (
 		<div
-			className={` flare ${isPointer ? 'pointer' : ''}`}
+			className={`flare ${isPointer ? 'pointer' : ''}`}
 			style={{
-				...cursorStyle,
 				left: `${position.x}px`,
 				top: `${position.y}px`,
-				width: `${flareSize}px`,
-				height: `${flareSize}px`,
+				width: isPointer ? '30px' : '100px',
+				height: isPointer ? '30px' : '100px',
 			}}
-		></div>
+		/>
 	);
 }
 
-// Export the FlareCursor component to be used in other parts of the application.
 export default NewCursor;
