@@ -7,7 +7,7 @@ import React from 'react';
 import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const MotionLink = motion(Link);
 

@@ -1,6 +1,5 @@
 import { BiPackage } from 'react-icons/bi';
 import { defineField, defineArrayMember } from 'sanity';
-import { copyPaste } from '@superside-oss/sanity-plugin-copy-paste';
 import { ImageIcon } from '@sanity/icons';
 
 const project = {
@@ -10,7 +9,6 @@ const project = {
 	type: 'document',
 	icon: BiPackage,
 	fields: [
-		defineField(copyPaste),
 		{
 			name: 'name',
 			title: 'Name',

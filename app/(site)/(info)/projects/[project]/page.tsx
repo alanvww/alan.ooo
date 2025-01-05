@@ -13,19 +13,17 @@ import { Suspense } from 'react';
 import Loading from '../loading';
 
 type Props = {
-	params: {
+	params: Promise<{
 		project: string;
-	};
+	}>;
 };
 
-export async function generateMetadata(
-	{ params }: Props,
-	parent: ResolvingMetadata
-): Promise<Metadata> {
-	const slug = params.project;
-	const project: ProjectType = await getSingleProject(slug);
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+    const params = await props.params;
+    const slug = params.project;
+    const project: ProjectType = await getSingleProject(slug);
 
-	return {
+    return {
 		title: `${project?.name} | Alan Ren`,
 		description: project?.tagline,
 		openGraph: {
@@ -42,12 +40,13 @@ export async function generateMetadata(
 	};
 }
 
-export default async function Project({ params }: Props) {
-	const slug = params.project;
-	const project: ProjectType = await getSingleProject(slug);
+export default async function Project(props: Props) {
+    const params = await props.params;
+    const slug = params.project;
+    const project: ProjectType = await getSingleProject(slug);
 
-	return (
-		/*
+    return (
+        /*
 		<main className="max-w-6xl mx-auto lg:px-16 px-8 ">
 			<div className="max-w-3xl mx-auto">
 				<div
@@ -77,8 +76,8 @@ export default async function Project({ params }: Props) {
 			</div>
 		</main>
 		*/
-		<Suspense fallback={<Loading />}>
-			<ProjectRender {...project} />
-		</Suspense>
-	);
+        (<Suspense fallback={<Loading />}>
+            <ProjectRender {...project} />
+        </Suspense>)
+    );
 }

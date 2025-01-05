@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import type { TechType, GearType } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';

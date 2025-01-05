@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '../../icons/logo.png';
 import FloatMenu from './FloatMenu';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const MotionLink = motion(Link);
 
