@@ -1,14 +1,7 @@
 import { getProjects } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-
-const ProjectList = dynamic(
-	() => import('../../components/project-list/ProjectList'),
-	{
-		ssr: false,
-	}
-);
+import  ProjectList  from '../../components/project-list/ProjectList';
 import Headline from '../../components/shared/Headline';
 import { Suspense } from 'react';
 import Loading from './loading';

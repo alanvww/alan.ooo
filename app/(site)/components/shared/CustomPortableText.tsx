@@ -7,7 +7,7 @@ import React from 'react';
 import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const MotionLink = motion(Link);
 
@@ -90,14 +90,15 @@ export function CustomPortableText({
 			youtube: ({ value }) => {
 				const { url } = value;
 				return (
-					<motion.div className="w-full h-full aspect-video cursor-pointer	">
+					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
+							className="relative w-auto h-auto cursor-pointer "
 							controls={true}
 							url={url}
 							light={false}
 							width="100%"
 							height="100%"
-							referrerpolicy="no-referrer-when-downgrade"
+							referrerPolicy="no-referrer-when-downgrade"
 						/>
 					</motion.div>
 				);

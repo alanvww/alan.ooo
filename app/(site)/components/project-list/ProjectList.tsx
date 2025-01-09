@@ -1,6 +1,6 @@
 'use client';
 import ProjectCard from './ProjectCard';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import type { ProjectType } from '@/types';
 import { Suspense } from 'react';
 

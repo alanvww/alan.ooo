@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { ProjectType } from '@/types';
 import { BiChevronRight } from 'react-icons/bi';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 interface ProjectCardProps {
 	id: number;

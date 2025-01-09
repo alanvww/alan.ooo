@@ -4,7 +4,7 @@ import Image from 'next/image';
 import LongLogo from '../../icons/logo_long.png';
 
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'motion/react';
 import * as React from 'react';
 
 const MotionLink = motion(Link);
