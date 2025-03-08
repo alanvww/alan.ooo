@@ -1,17 +1,14 @@
 'use client';
 
-import './globals.css';
 import Link from 'next/link';
-import WebGLBackground from './(site)/components/WebGLBackground';
+import WebGLBackground from '@/app/(site)/components/WebGLBackground';
 
 export default function NotFound() {
   return (
-    <html lang="en">
-      <body>
-        <div className="min-h-screen w-full relative overflow-hidden">
+    <div className="min-h-screen w-full relative overflow-hidden">
       {/* WebGL Background */}
       <WebGLBackground />
-      
+
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
         <div className="container mx-auto px-4 text-center">
@@ -20,16 +17,14 @@ export default function NotFound() {
           <p className="text-lg mb-8 max-w-md mx-auto">
             The page you're looking for doesn't exist or has been moved.
           </p>
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-flex items-center px-6 py-3 border border-white hover:bg-white hover:text-black transition-colors duration-300 rounded-md"
           >
             Return Home
           </Link>
         </div>
       </div>
-        </div>
-      </body>
-    </html>
+    </div>
   );
 }
