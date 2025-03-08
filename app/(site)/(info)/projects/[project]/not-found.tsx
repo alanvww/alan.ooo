@@ -18,7 +18,7 @@ export default function ProjectNotFound() {
                     <h1 className="text-9xl font-bold mb-4">404</h1>
                     <h2 className="text-3xl font-semibold mb-6">Project Not Found</h2>
                     <p className="text-lg mb-8 max-w-md mx-auto">
-                        Sorry, the project you're looking for doesn't exist or has been removed from the portfolio.
+                        Sorry, the project you&apos;re looking for doesn&apos;t exist or has been removed from the portfolio.
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center">
                         <Link
