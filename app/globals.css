@@ -1,228 +1,312 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-html,
-body,
-#__next {
-	height: 100%;
-}
+@custom-variant dark (&:is(class *));
 
-body {
-	-webkit-font-smoothing: antialiased;
-	margin: 0;
-	scroll-behavior: smooth;
-	cursor: none !important; /* Let's hide the default cursor so it looks way better */
-}
+@theme {
+	--color-*: initial;
+	--color-transparent: transparent;
+	--color-white: #fff;
+	--color-black: #000;
+	--color-theme-green: #4ade80;
+	--color-gradient-via: #94d82d;
+	--color-theme-purple: #7e22ce;
+	--color-gray-dark: #050505;
+	--color-gray-border: #1f1f1f;
+	--color-gray-light: #444444;
+	--color-background: hsl(var(--background));
+	--color-foreground: hsl(var(--foreground));
 
-html {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	overflow-x: hidden;
-	--cursor-color: #000000;
-}
+	--color-card: hsl(var(--card));
+	--color-card-foreground: hsl(var(--card-foreground));
 
-:root {
-	/* Your default theme */
-}
+	--color-popover: hsl(var(--popover));
+	--color-popover-foreground: hsl(var(--popover-foreground));
 
-[data-theme='dark'] {
-	--background: black;
-	--foreground: white;
-}
+	--color-primary: hsl(var(--primary));
+	--color-primary-foreground: hsl(var(--primary-foreground));
 
-html.dark {
-	--cursor-color: #fff;
-}
+	--color-secondary: hsl(var(--secondary));
+	--color-secondary-foreground: hsl(var(--secondary-foreground));
 
-.flare {
-	/* Basic positioning */
-	position: fixed; /* Stays fixed relative to viewport */
-	pointer-events: none; /* Ensures cursor doesn't interfere with clicking */
-	z-index: 999999 !important; /* Keeps cursor above all other elements */
+	--color-muted: hsl(var(--muted));
+	--color-muted-foreground: hsl(var(--muted-foreground));
 
-	/* Visual styling */
-	border: 2px solid #ffffff; /* Creates a white border outline */
-	border-radius: 50%; /* Makes it perfectly circular */
-	background-color: #fff; /* White fill for the cursor */
-	mix-blend-mode: exclusion; /* Creates contrast against any background */
+	--color-accent: hsl(var(--accent));
+	--color-accent-foreground: hsl(var(--accent-foreground));
 
-	/* Transform and animation */
-	transform: translate(
-		-50%,
-		-50%
-	); /* Centers the cursor on the actual pointer position */
-	transition:
-		width 0.2s ease-in-out,
-		height 0.2s ease-in-out,
-		opacity 0.2s ease-in-out; /* Added opacity for smooth visibility changes */
+	--color-destructive: hsl(var(--destructive));
+	--color-destructive-foreground: hsl(var(--destructive-foreground));
 
-	/* Cursor behavior */
-	cursor: none !important; /* Hides the default cursor */
-}
+	--color-border: hsl(var(--border));
+	--color-input: hsl(var(--input));
+	--color-ring: hsl(var(--ring));
 
-/* Add a new class for when cursor is hidden */
-.flare.hidden {
-	opacity: 0;
-	visibility: hidden;
-	transition:
-		opacity 0.2s ease-in-out,
-		visibility 0s linear 0.2s; /* Delays visibility change until after fade */
-}
+	--color-chart-1: hsl(var(--chart-1));
+	--color-chart-2: hsl(var(--chart-2));
+	--color-chart-3: hsl(var(--chart-3));
+	--color-chart-4: hsl(var(--chart-4));
+	--color-chart-5: hsl(var(--chart-5));
 
-/* Firefox-specific styles */
-@-moz-document url-prefix() {
-	.flare {
-		/* Ensure the cursor renders above Firefox-specific UI elements */
-		z-index: 2147483647 !important;
-		/* Add additional GPU acceleration for smoother movement in Firefox */
-		transform: translate(-50%, -50%) translateZ(0);
-		backface-visibility: hidden;
-	}
+	--animate-border: background ease infinite;
 
-	/* Ensure videos don't capture cursor events in Firefox */
-	video,
-	iframe {
-		pointer-events: auto !important;
+	--radius-lg: var(--radius);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-sm: calc(var(--radius) - 4px);
+
+  
+
+	@keyframes background {
+		0%,
+		100% {
+			background-position: 0% 200%;
+		}
+		50% {
+			background-position: 100% 0%;
+		}
 	}
 }
 
-/* We need to remove this custom cursor in mobile devices */
-@media screen and (max-width: 768px) {
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+}
+
+@layer utilities {
+	html,
+	body,
+	#__next {
+		height: 100%;
+	}
+
 	body {
-		cursor: auto !important; /* Let's hide the default cursor so it looks way better */
+		-webkit-font-smoothing: antialiased;
+		margin: 0;
+		scroll-behavior: smooth;
+		cursor: none !important; /* Let's hide the default cursor so it looks way better */
+	}
+
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		overflow-x: hidden;
+		--cursor-color: #000000;
+	}
+
+	:root {
+		/* Your default theme */
+	}
+
+	[data-theme='dark'] {
+		--background: black;
+		--foreground: white;
+	}
+
+	html.dark {
+		--cursor-color: #fff;
 	}
 
 	.flare {
-		display: none;
-		width: 0;
-		height: 0;
+		/* Basic positioning */
+		position: fixed; /* Stays fixed relative to viewport */
+		pointer-events: none; /* Ensures cursor doesn't interfere with clicking */
+		z-index: 999999 !important; /* Keeps cursor above all other elements */
+
+		/* Visual styling */
+		border: 2px solid #ffffff; /* Creates a white border outline */
+		border-radius: 50%; /* Makes it perfectly circular */
+		background-color: #fff; /* White fill for the cursor */
+		mix-blend-mode: exclusion; /* Creates contrast against any background */
+
+		/* Transform and animation */
+		transform: translate(
+			-50%,
+			-50%
+		); /* Centers the cursor on the actual pointer position */
+		transition:
+			width 0.2s ease-in-out,
+			height 0.2s ease-in-out,
+			opacity 0.2s ease-in-out; /* Added opacity for smooth visibility changes */
+
+		/* Cursor behavior */
+		cursor: none !important; /* Hides the default cursor */
+	}
+
+	/* Add a new class for when cursor is hidden */
+	.flare.hidden {
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.2s ease-in-out,
+			visibility 0s linear 0.2s; /* Delays visibility change until after fade */
+	}
+
+	/* Firefox-specific styles */
+	@-moz-document url-prefix() {
+		.flare {
+			/* Ensure the cursor renders above Firefox-specific UI elements */
+			z-index: 2147483647 !important;
+			/* Add additional GPU acceleration for smoother movement in Firefox */
+			transform: translate(-50%, -50%) translateZ(0);
+			backface-visibility: hidden;
+		}
+
+		/* Ensure videos don't capture cursor events in Firefox */
+		video,
+		iframe {
+			pointer-events: auto !important;
+		}
+	}
+
+	/* We need to remove this custom cursor in mobile devices */
+	@media screen and (max-width: 768px) {
+		body {
+			cursor: auto !important; /* Let's hide the default cursor so it looks way better */
+		}
+
+		.flare {
+			display: none;
+			width: 0;
+			height: 0;
+			transition:
+				width 0.2s ease-in-out,
+				height 0.2s ease-in-out,
+				opacity 0.2s ease-in-out;
+		}
+	}
+
+	.flare.pointer {
+		opacity: 0 !important;
 		transition:
 			width 0.2s ease-in-out,
 			height 0.2s ease-in-out,
 			opacity 0.2s ease-in-out;
 	}
-}
-
-.flare.pointer {
-	opacity: 0 !important;
-	transition:
-		width 0.2s ease-in-out,
-		height 0.2s ease-in-out,
-		opacity 0.2s ease-in-out;
-}
-
-.ui-switch {
-	display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
-	}
-}
-
-@media only screen and (min-width: 768px) {
-	/* switch settings 👇 */
 
 	.ui-switch {
-		display: contents;
-		/* switch */
-		--switch-bg: rgb(135, 150, 165);
-		--switch-width: 48px;
-		--switch-height: 20px;
-		/* circle */
-		--circle-diameter: 32px;
-		--circle-bg: #6e6e6e;
-		--circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
-	}
-
-	.ui-switch input {
 		display: none;
 	}
 
-	.slider {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
-		width: var(--switch-width);
-		height: var(--switch-height);
-		background: var(--switch-bg);
-		border-radius: 999px;
-		position: relative;
-		cursor: pointer;
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--foreground-rgb: 255, 255, 255;
+			--background-start-rgb: 0, 0, 0;
+			--background-end-rgb: 0, 0, 0;
+		}
 	}
 
-	.slider .circle {
-		top: calc(var(--circle-inset) * -1);
-		left: 0;
-		width: var(--circle-diameter);
-		height: var(--circle-diameter);
-		position: absolute;
-		background: var(--circle-bg);
-		border-radius: inherit;
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTkuMzA1IDEuNjY3VjMuNzVoMS4zODlWMS42NjdoLTEuMzl6bS00LjcwNyAxLjk1bC0uOTgyLjk4Mkw1LjA5IDYuMDcybC45ODItLjk4Mi0xLjQ3My0xLjQ3M3ptMTAuODAyIDBMMTMuOTI3IDUuMDlsLjk4Mi45ODIgMS40NzMtMS40NzMtLjk4Mi0uOTgyek0xMCA1LjEzOWE0Ljg3MiA0Ljg3MiAwIDAwLTQuODYyIDQuODZBNC44NzIgNC44NzIgMCAwMDEwIDE0Ljg2MiA0Ljg3MiA0Ljg3MiAwIDAwMTQuODYgMTAgNC44NzIgNC44NzIgMCAwMDEwIDUuMTM5em0wIDEuMzg5QTMuNDYyIDMuNDYyIDAgMDExMy40NzEgMTBhMy40NjIgMy40NjIgMCAwMS0zLjQ3MyAzLjQ3MkEzLjQ2MiAzLjQ2MiAwIDAxNi41MjcgMTAgMy40NjIgMy40NjIgMCAwMTEwIDYuNTI4ek0xLjY2NSA5LjMwNXYxLjM5aDIuMDgzdi0xLjM5SDEuNjY2em0xNC41ODMgMHYxLjM5aDIuMDg0di0xLjM5aC0yLjA4NHpNNS4wOSAxMy45MjhMMy42MTYgMTUuNGwuOTgyLjk4MiAxLjQ3My0xLjQ3My0uOTgyLS45ODJ6bTkuODIgMGwtLjk4Mi45ODIgMS40NzMgMS40NzMuOTgyLS45ODItMS40NzMtMS40NzN6TTkuMzA1IDE2LjI1djIuMDgzaDEuMzg5VjE2LjI1aC0xLjM5eiIgLz4KPC9zdmc+');
-		background-repeat: no-repeat;
-		background-position: center center;
-		-webkit-transition:
-			left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-			-webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-		-o-transition:
-			left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-			transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-		transition:
-			left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-			transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-			-webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		align-items: center;
-		-webkit-box-pack: center;
-		-ms-flex-pack: center;
-		justify-content: center;
-		box-shadow:
-			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-			0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-	}
+	@media only screen and (min-width: 768px) {
+		/* switch settings 👇 */
 
-	.slider .circle::before {
-		content: '';
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background: rgba(255, 255, 255, 0.75);
-		border-radius: inherit;
-		-webkit-transition: all 500ms;
-		-o-transition: all 500ms;
-		transition: all 500ms;
-		opacity: 0;
-	}
+		.ui-switch {
+			display: contents;
+			/* switch */
+			--switch-bg: rgb(135, 150, 165);
+			--switch-width: 48px;
+			--switch-height: 20px;
+			/* circle */
+			--circle-diameter: 32px;
+			--circle-bg: #6e6e6e;
+			--circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
+		}
 
-	/* actions */
+		.ui-switch input {
+			display: none;
+		}
 
-	.ui-switch input:checked + .slider .circle {
-		left: calc(100% - var(--circle-diameter));
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTQuMiAyLjVsLS43IDEuOC0xLjguNyAxLjguNy43IDEuOC42LTEuOEw2LjcgNWwtMS45LS43LS42LTEuOHptMTUgOC4zYTYuNyA2LjcgMCAxMS02LjYtNi42IDUuOCA1LjggMCAwMDYuNiA2LjZ6IiAvPgo8L3N2Zz4=');
-	}
+		.slider {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			width: var(--switch-width);
+			height: var(--switch-height);
+			background: var(--switch-bg);
+			border-radius: 999px;
+			position: relative;
+			cursor: pointer;
+		}
 
-	.ui-switch input:active + .slider .circle::before {
-		-webkit-transition: 0s;
-		-o-transition: 0s;
-		transition: 0s;
-		opacity: 1;
-		width: 0;
-		height: 0;
+		.slider .circle {
+			top: calc(var(--circle-inset) * -1);
+			left: 0;
+			width: var(--circle-diameter);
+			height: var(--circle-diameter);
+			position: absolute;
+			background: var(--circle-bg);
+			border-radius: inherit;
+			background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTkuMzA1IDEuNjY3VjMuNzVoMS4zODlWMS42NjdoLTEuMzl6bS00LjcwNyAxLjk1bC0uOTgyLjk4Mkw1LjA5IDYuMDcybC45ODItLjk4Mi0xLjQ3My0xLjQ3M3ptMTAuODAyIDBMMTMuOTI3IDUuMDlsLjk4Mi45ODIgMS40NzMtMS40NzMtLjk4Mi0uOTgyek0xMCA1LjEzOWE0Ljg3MiA0Ljg3MiAwIDAwLTQuODYyIDQuODZBNC44NzIgNC44NzIgMCAwMDEwIDE0Ljg2MiA0Ljg3MiA0Ljg3MiAwIDAwMTQuODYgMTAgNC44NzIgNC44NzIgMCAwMDEwIDUuMTM5em0wIDEuMzg5QTMuNDYyIDMuNDYyIDAgMDExMy40NzEgMTBhMy40NjIgMy40NjIgMCAwMS0zLjQ3MyAzLjQ3MkEzLjQ2MiAzLjQ2MiAwIDAxNi41MjcgMTAgMy40NjIgMy40NjIgMCAwMTEwIDYuNTI4ek0xLjY2NSA5LjMwNXYxLjM5aDIuMDgzdi0xLjM5SDEuNjY2em0xNC41ODMgMHYxLjM5aDIuMDg0di0xLjM5aC0yLjA4NHpNNS4wOSAxMy45MjhMMy42MTYgMTUuNGwuOTgyLjk4MiAxLjQ3My0xLjQ3My0uOTgyLS45ODJ6bTkuODIgMGwtLjk4Mi45ODIgMS40NzMgMS40NzMuOTgyLS45ODItMS40NzMtMS40NzN6TTkuMzA1IDE2LjI1djIuMDgzaDEuMzg5VjE2LjI1aC0xLjM5eiIgLz4KPC9zdmc+');
+			background-repeat: no-repeat;
+			background-position: center center;
+			-webkit-transition:
+				left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+				-webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+			-o-transition:
+				left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+				transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+			transition:
+				left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+				transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+				-webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			box-shadow:
+				0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+				0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+				0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+		}
+
+		.slider .circle::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: rgba(255, 255, 255, 0.75);
+			border-radius: inherit;
+			-webkit-transition: all 500ms;
+			-o-transition: all 500ms;
+			transition: all 500ms;
+			opacity: 0;
+		}
+
+		/* actions */
+
+		.ui-switch input:checked + .slider .circle {
+			left: calc(100% - var(--circle-diameter));
+			background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTQuMiAyLjVsLS43IDEuOC0xLjguNyAxLjguNy43IDEuOC42LTEuOEw2LjcgNWwtMS45LS43LS42LTEuOHptMTUgOC4zYTYuNyA2LjcgMCAxMS02LjYtNi42IDUuOCA1LjggMCAwMDYuNiA2LjZ6IiAvPgo8L3N2Zz4=');
+		}
+
+		.ui-switch input:active + .slider .circle::before {
+			-webkit-transition: 0s;
+			-o-transition: 0s;
+			transition: 0s;
+			opacity: 1;
+			width: 0;
+			height: 0;
+		}
 	}
 }
 
 @layer base {
-  :root {
+	:root {
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
 		--card: 0 0% 100%;
@@ -249,7 +333,7 @@ html.dark {
 		--chart-5: 27 87% 67%;
 		--radius: 0.5rem;
 	}
-  .dark {
+	.dark {
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
 		--card: 0 0% 3.9%;
@@ -278,10 +362,10 @@ html.dark {
 }
 
 @layer base {
-  * {
-    @apply border-border;
+	* {
+		@apply border-border;
 	}
-  body {
-    @apply bg-background text-foreground;
+	body {
+		@apply bg-background text-foreground;
 	}
 }

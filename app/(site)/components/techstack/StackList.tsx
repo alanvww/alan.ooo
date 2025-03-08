@@ -43,7 +43,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 							key={data._id}
 							variants={item}
 							whileHover={{ padding: '2px' }}
-							className="item flex flex-col rounded-lg     bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
+							className="item flex flex-col rounded-lg     bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>
 							<motion.span
 								whileHover={{ borderColor: 'rgba(255, 255, 255, 0.0)' }}
@@ -101,7 +101,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 							key={data._id}
 							variants={item}
 							whileHover={{ padding: '2px' }}
-							className="item flex flex-col rounded-lg     bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
+							className="item flex flex-col rounded-lg     bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>
 							<motion.span
 								whileHover={{ borderColor: 'rgba(255, 255, 255, 0.0)' }}

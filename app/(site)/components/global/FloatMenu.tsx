@@ -107,7 +107,7 @@ export default function FloatMenu() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    className={`flex min-w-full fixed justify-center bottom-5 md:bottom-16 text-sm z-[8888]`}
+                    className={`flex min-w-full fixed justify-center bottom-5 md:bottom-16 text-sm z-8888`}
                 >
                     <motion.section
                         layout
@@ -118,7 +118,7 @@ export default function FloatMenu() {
                             ease: [0.76, 0, 0.24, 1],
                         }}
                         onMouseLeave={handleMouseLeave}
-                        className="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-theme-green via-gradient-via to-theme-purple p-px "
+                        className="rounded-xl bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple p-px "
                     >
                         {!isExpanded && (
                             <>
