@@ -1,9 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { BiCircle } from "react-icons/bi";
-import {Circle, CircleDashed } from '@phosphor-icons/react'
-import { Check, LoaderCircle } from "lucide-react";
+import { Circle, CircleDashed, SpinnerGap } from '@phosphor-icons/react'
 import * as React from "react";
 import { createContext, useContext } from "react";
 
@@ -216,7 +214,7 @@ const StepperIndicator = React.forwardRef<HTMLDivElement, StepperIndicatorProps>
 
             {/* Loading spinner */}
             {isLoading && (
-              <LoaderCircle
+              <SpinnerGap
                 className="absolute animate-spin text-theme-green"
                 size={14}
                 strokeWidth={2}
