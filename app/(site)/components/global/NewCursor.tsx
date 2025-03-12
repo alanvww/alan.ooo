@@ -127,9 +127,6 @@ function NewCursor() {
 
 		document.addEventListener('visibilitychange', handleVisibilityChange);
 
-		// Remove default cursor
-		document.body.style.cursor = 'none';
-
 		// Cleanup function
 		return () => {
 			window.removeEventListener('mousemove', handleMouseMove);
@@ -140,8 +137,6 @@ function NewCursor() {
 				element.removeEventListener('mouseenter', handleMouseEnterMedia);
 				element.removeEventListener('mouseleave', handleMouseLeaveMedia);
 			});
-
-			document.body.style.cursor = 'auto';
 		};
 	}, [handleMouseMove, handleMouseEnterMedia, handleMouseLeaveMedia]);
 
