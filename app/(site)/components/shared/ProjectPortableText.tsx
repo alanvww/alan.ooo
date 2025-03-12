@@ -45,7 +45,7 @@ export const ProjectPortableText: FC<ProjectPortableTextProps> = ({
 					<ImageBox
 						image={value}
 						alt={value.alt || 'Image'}
-						classesWrapper="relative aspect-[16/9]"
+						classesWrapper="relative aspect-16/9"
 					/>
 				</div>
 			),

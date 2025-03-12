@@ -1,87 +1,90 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
-import { BiSubdirectoryLeft } from 'react-icons/bi';
+
+import React, { useEffect, useState } from 'react';
+import {
+	Stepper,
+	StepperIndicator,
+	StepperItem,
+	StepperSeparator,
+	StepperTitle,
+	StepperTrigger,
+} from "@/components/ui/stepper";
 
 interface InPageNavigationProps {
-	contentSelector: string; // Selector to find the content that contains the headings
+	contentSelector: string;
 }
 
-const InPageNavigation: React.FC<InPageNavigationProps> = ({
-	contentSelector,
-}) => {
-	const [inpageLinks, setInpageLinks] = useState<
-		{ id: string; text: string }[]
-	>([]);
-	const [activeSection, setActiveSection] = useState<string>('');
-	const [scrollProgress, setScrollProgress] = useState<number>(0);
-	const navRef = useRef<HTMLDivElement>(null);
+const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) => {
+	const [steps, setSteps] = useState<Array<{ step: number; title: string; id: string }>>([]);
+	const [activeStep, setActiveStep] = useState<number>(1);
 
 	useEffect(() => {
 		const contentElement = document.querySelector(contentSelector);
 		if (!contentElement) return;
 
 		const h2NodeArray = contentElement.querySelectorAll('h2');
-		const links = Array.from(h2NodeArray).map((node, index) => {
-			const id = `section-${index}`;
+		const navigationSteps = Array.from(h2NodeArray).map((node, index) => {
+			const id = `section-${index + 1}`;
 			node.setAttribute('id', id);
-			return { id, text: node.innerHTML };
+			return {
+				step: index + 1,
+				title: node.innerHTML,
+				id
+			};
 		});
-		setInpageLinks(links);
+		setSteps(navigationSteps);
 
 		const handleScroll = () => {
-			let selectedId = '';
-			let maxScrollHeight = document.body.scrollHeight - window.innerHeight;
-			let currentScrollPosition = window.scrollY;
-			let navHeightPercent = navRef.current
-				? (navRef.current.clientHeight / window.innerHeight) * 100
-				: 0;
-			let effectiveScrollRange = 80 - 20 - navHeightPercent; // 20% to 80% of the viewport, minus the height of the nav
-			let scrollPercentage =
-				(currentScrollPosition / maxScrollHeight) * effectiveScrollRange + 20;
-
-			links.forEach((link) => {
-				const section = document.querySelector(`#${link.id}`) as HTMLElement;
+			navigationSteps.forEach(({ step, id }) => {
+				const section = document.querySelector(`#${id}`) as HTMLElement;
 				if (
 					section &&
 					section.offsetTop <= window.scrollY + window.innerHeight / 4
 				) {
-					selectedId = link.id;
+					setActiveStep(step);
 				}
 			});
-
-			setScrollProgress(scrollPercentage);
-			setActiveSection(selectedId);
 		};
 
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, [contentSelector]);
 
+	const handleStepClick = (step: { id: string }) => {
+		const element = document.querySelector(`#${step.id}`);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
+
 	return (
-		<div
-			ref={navRef}
-			className={`${scrollProgress === 0 ? 'lg:hidden' : 'lg:flex'} lg:fixed right-0 h-fit hidden lg:flex md:mr-2 p-px cursor-pointer`}
-			style={{ top: `${scrollProgress}%` }}
-		>
-			<ul className="flex flex-col justify-items-end text-end 	 rounded-2xl p-5">
-				{inpageLinks.map((link, index) => (
-					<li
-						key={index}
-						className={`mx-1 p-2  border-r-2   ${activeSection === link.id ? 'border-theme-green text-theme-green  border-b-2 ' : 'border-white'} hover:text-theme-green hover:border-theme-green`}
-						style={{ height: `${100 / inpageLinks.length}%` }}
-					>
-						<Link
-							className="flex my-auto font-medium align-middle place-self-end ml-2  shrink-0 items-end justify-end"
-							href={`#${link.id}`}
-							replace
+		<div className="fixed left-28  top-64 hidden lg:block">
+			<div className="space-y-8">
+				<Stepper value={activeStep} orientation="vertical">
+					{steps.map((step) => (
+						<StepperItem
+							key={step.id}
+							step={step.step}
+							className="relative items-start not-last:flex-1"
 						>
-							{link.text}
-							<BiSubdirectoryLeft className="my-auto align-middle  text-md " />
-						</Link>
-					</li>
-				))}
-			</ul>
+							<StepperTrigger
+								className="items-start pb-12 last:pb-0 cursor-pointer"
+								onClick={() => handleStepClick(step)}
+							>
+								<StepperIndicator
+
+								/>
+								<div className="mt-0.5 px-2 text-left">
+									<StepperTitle>{step.title}</StepperTitle>
+								</div>
+							</StepperTrigger>
+							{step.step < steps.length && (
+								<StepperSeparator className="absolute inset-y-0 left-3 top-[calc(1.5rem+0.125rem)] -order-1 m-0 -translate-x-1/2 group-data-[orientation=vertical]/stepper:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=horizontal]/stepper:w-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=horizontal]/stepper:flex-none" />
+							)}
+						</StepperItem>
+					))}
+				</Stepper>
+			</div>
 		</div>
 	);
 };

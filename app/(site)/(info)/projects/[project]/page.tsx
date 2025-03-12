@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { urlForImage } from '@/sanity/sanity.image';
 import type { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getSingleProject } from '@/sanity/sanity.query';
 import type { ProjectType } from '@/types';
 
@@ -22,6 +23,10 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     const params = await props.params;
     const slug = params.project;
     const project: ProjectType = await getSingleProject(slug);
+    
+    if (!project) {
+        notFound();
+    }
 
     return {
 		title: `${project?.name} | Alan Ren`,
@@ -44,6 +49,10 @@ export default async function Project(props: Props) {
     const params = await props.params;
     const slug = params.project;
     const project: ProjectType = await getSingleProject(slug);
+    
+    if (!project) {
+        notFound();
+    }
 
     return (
         /*
