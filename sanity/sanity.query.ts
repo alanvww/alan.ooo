@@ -14,7 +14,30 @@ export async function getProfile() {
       email,
       "resumeURL": resumeURL.asset->url,
       socialLinks,
-      skills,
+      skillCategories[]{
+        category,
+        skills
+      },
+      experience[]->{
+        _id,
+        name,
+        jobTitle,
+        "logo": logo.asset->url,
+        url,
+        location,
+        description,
+        startDate,
+        endDate,
+        projectLinks[]{
+          label,
+          url
+        },
+        projectImages[]{
+          "image": asset->url,
+          alt,
+          caption
+        }
+      }
     }`
 	);
 }
@@ -27,9 +50,19 @@ export async function getJob() {
       jobTitle,
       "logo": logo.asset->url,
       url,
+      location,
       description,
       startDate,
       endDate,
+      projectLinks[]{
+        label,
+        url
+      },
+      projectImages[]{
+        "image": asset->url,
+        alt,
+        caption
+      }
     }`
 	);
 }

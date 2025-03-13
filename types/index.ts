@@ -1,5 +1,10 @@
 import { PortableTextBlock } from 'sanity';
 
+export type SkillCategoryType = {
+	category: string;
+	skills: string[];
+};
+
 export type ProfileType = {
 	_id: string;
 	fullName: string;
@@ -14,7 +19,19 @@ export type ProfileType = {
 	location: string;
 	resumeURL: string;
 	socialLinks: string[];
-	skills: string[];
+	skillCategories: SkillCategoryType[];
+	experience: JobType[];
+};
+
+export type ProjectLinkType = {
+	label: string;
+	url: string;
+};
+
+export type ProjectImageType = {
+	alt: string;
+	caption: string;
+	image: string;
 };
 
 export type JobType = {
@@ -23,9 +40,12 @@ export type JobType = {
 	jobTitle: string;
 	logo: string;
 	url: string;
-	description: string;
+	location: string;
+	description: PortableTextBlock[];
 	startDate: Date;
 	endDate: Date;
+	projectLinks: ProjectLinkType[];
+	projectImages: ProjectImageType[];
 };
 
 export type ProjectType = {

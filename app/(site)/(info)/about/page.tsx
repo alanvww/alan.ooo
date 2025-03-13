@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { getProfile } from '@/sanity/sanity.query';
-import type { ProfileType } from '@/types';
+import type { ProfileType, JobType } from '@/types';
 import { PortableText } from '@portabletext/react';
-import { BiEnvelope, BiFile } from 'react-icons/bi';
+import { BiEnvelope, BiFile, BiLink, BiMap, BiCalendar } from 'react-icons/bi';
 import Headline from '../../components/shared/Headline';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -63,23 +63,127 @@ export default async function About() {
 							</div>
 						</section>
 
-						<section className="mt-24 max-w-2xl">
+						<section className="mt-24 max-w-3xl">
 							<h2 className="font-semibold text-4xl mb-4">Expertise</h2>
 							<p className="text-zinc-400 max-w-lg">
-								I&apos;ve spent few years working on my skills. In no particular
-								order, here are a few of them.
+								I&apos;ve spent few years working on my skills. Here are my areas of expertise.
 							</p>
 
-							<ul className="flex flex-wrap items-center gap-3 mt-8">
-								{data.skills.map((skill, id) => (
-									<li
-										key={id}
-										className="bg-[#1d1d20] border border-transparent hover:border-zinc-700 rounded-md px-2 py-1"
-									>
-										{skill}
-									</li>
+							<div className="mt-8 space-y-8">
+								{data.skillCategories?.map((category, categoryIndex) => (
+									<div key={categoryIndex}>
+										<h3 className="text-xl font-medium mb-2">{category.category}</h3>
+										<ul className="flex flex-wrap items-center gap-3">
+											{category.skills.map((skill, skillIndex) => (
+												<li
+													key={skillIndex}
+													className="bg-[#1d1d20] border border-transparent hover:border-zinc-700 rounded-md px-2 py-1"
+												>
+													{skill}
+												</li>
+											))}
+										</ul>
+									</div>
 								))}
-							</ul>
+							</div>
+						</section>
+
+						<section className="mt-24 max-w-4xl">
+							<h2 className="font-semibold text-4xl mb-4">Experience</h2>
+							<p className="text-zinc-400 max-w-lg mb-8">
+								My professional journey and career path.
+							</p>
+
+							<div className="space-y-12">
+								{data.experience?.map((job, index) => (
+									<div key={job._id} className="border-l-2 border-zinc-700 pl-6 transition-all">
+										<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+											<div className="flex items-center gap-4">
+												{job.logo && (
+													<Image
+														src={job.logo}
+														width={40}
+														height={40}
+														alt={job.name}
+														className="rounded-sm"
+													/>
+												)}
+												<div>
+													<h3 className="text-xl font-bold">{job.jobTitle}</h3>
+													<p className="text-zinc-400">{job.name}</p>
+												</div>
+											</div>
+											<div className="flex items-center gap-2 text-zinc-400">
+												<BiCalendar className="inline-block" />
+												<span>
+													{new Date(job.startDate).toLocaleDateString('en-US', { 
+														year: 'numeric', 
+														month: 'short'
+													})} - {
+														job.endDate 
+															? new Date(job.endDate).toLocaleDateString('en-US', { 
+																year: 'numeric', 
+																month: 'short'
+															}) 
+															: 'Present'
+													}
+												</span>
+											</div>
+										</div>
+
+										{job.location && (
+											<div className="flex items-center gap-2 mt-2 text-zinc-400">
+												<BiMap className="inline-block" />
+												<span>{job.location}</span>
+											</div>
+										)}
+
+										<div className="mt-4 prose prose-zinc dark:prose-invert">
+											<PortableText value={job.description} />
+										</div>
+
+										{job.projectLinks && job.projectLinks.length > 0 && (
+											<div className="mt-4">
+												<h4 className="font-medium mb-2">Project Links</h4>
+												<ul className="space-y-1">
+													{job.projectLinks.map((link, linkIndex) => (
+														<li key={linkIndex} className="flex items-center gap-2">
+															<BiLink className="text-purple-400" />
+															<a 
+																href={link.url} 
+																target="_blank" 
+																rel="noopener noreferrer"
+																className="hover:text-purple-400 duration-300"
+															>
+																{link.label}
+															</a>
+														</li>
+													))}
+												</ul>
+											</div>
+										)}
+
+										{job.projectImages && job.projectImages.length > 0 && (
+											<div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+												{job.projectImages.map((img, imgIndex) => (
+													<div key={imgIndex} className="relative">
+														<Image
+															src={img.image}
+															width={400}
+															height={300}
+															alt={img.alt || `Project image ${imgIndex + 1}`}
+															className="rounded-lg object-cover"
+														/>
+														{img.caption && (
+															<p className="text-sm text-zinc-400 mt-1">{img.caption}</p>
+														)}
+													</div>
+												))}
+											</div>
+										)}
+									</div>
+								))}
+							</div>
 						</section>
 					</div>
 				))}

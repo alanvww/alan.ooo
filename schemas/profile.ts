@@ -97,13 +97,43 @@ const profile = {
 				columns: 2,
 			},
 		},
-		{
-			name: 'skills',
-			title: 'Skills',
+		defineField({
+			name: 'skillCategories',
+			title: 'Skills by Category',
 			type: 'array',
-			description: 'Add a list of skills',
-			of: [{ type: 'string' }],
-		},
+			description: 'Add skills organized by custom categories',
+			of: [{
+				type: 'object',
+				fields: [
+					{ name: 'category', title: 'Category Name', type: 'string' },
+					{ 
+						name: 'skills', 
+						title: 'Skills', 
+						type: 'array', 
+						of: [{ type: 'string' }]
+					}
+				],
+				preview: {
+					select: {
+						title: 'category',
+						subtitle: 'skills'
+					},
+					prepare({ title, subtitle }) {
+						return {
+							title: title || 'Unnamed Category',
+							subtitle: Array.isArray(subtitle) ? subtitle.join(', ') : ''
+						};
+					}
+				}
+			}]
+		}),
+		defineField({
+			name: 'experience',
+			title: 'Work Experience',
+			type: 'array',
+			description: 'Add your work experiences',
+			of: [{ type: 'reference', to: [{ type: 'job' }] }]
+		}),
 	],
 };
 
