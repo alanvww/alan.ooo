@@ -29,11 +29,17 @@ const job = {
 			type: 'url',
 		},
 		{
+			name: 'location',
+			title: 'Job Location',
+			type: 'string',
+			description: 'Where was this job located?',
+		},
+		{
 			name: 'description',
 			title: 'Job Description',
-			type: 'text',
-			rows: 3,
-			description: 'Write a brief description about this role',
+			type: 'array',
+			of: [{ type: 'block' }],
+			description: 'Write a description about this role',
 		},
 		{
 			name: 'startDate',
@@ -44,6 +50,49 @@ const job = {
 			name: 'endDate',
 			title: 'End Date',
 			type: 'date',
+		},
+		{
+			name: 'projectLinks',
+			title: 'Project Links',
+			type: 'array',
+			description: 'Add links to projects related to this job',
+			of: [{
+				type: 'object',
+				fields: [
+					{ name: 'label', title: 'Label', type: 'string' },
+					{ name: 'url', title: 'URL', type: 'url' }
+				],
+				preview: {
+					select: {
+						title: 'label',
+						subtitle: 'url'
+					}
+				}
+			}]
+		},
+		{
+			name: 'projectImages',
+			title: 'Project Images',
+			type: 'array',
+			description: 'Optional images related to this job',
+			of: [{
+				type: 'image',
+				fields: [
+					{
+						name: 'alt',
+						title: 'Alt Text',
+						type: 'string'
+					},
+					{
+						name: 'caption',
+						title: 'Caption',
+						type: 'string'
+					}
+				],
+				options: {
+					hotspot: true
+				}
+			}]
 		},
 	],
 };
