@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { BiBracket, BiAtom, BiDotsVertical } from 'react-icons/bi';
+import { Code, Atom, DotsThreeVertical } from '@phosphor-icons/react';
 import { usePathname } from 'next/navigation';
 
 interface CollapsedMenuProps {
@@ -29,7 +29,7 @@ export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: Col
         type: 'linear',
         ease: [0.76, 0, 0.24, 1],
       }}
-      className="flex items-center md:w-auto md:h-auto w-max gap-x-4 md:gap-x-8 md:px-10 px-4 py-2 rounded-xl bg-gray-dark"
+      className="flex items-center md:w-auto md:h-auto w-max gap-x-4 md:gap-x-8 md:px-10 px-4 py-2 rounded-xl bg-gray-dark cursor-pointer"
     >
       {/* About link */}
       <li
@@ -38,7 +38,7 @@ export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: Col
         }`}
       >
         <Link href="/about" className="flex">
-          <BiBracket className="md:inline my-auto mx-1 text-xl" />
+          <Code className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">About</span>
         </Link>
       </li>
@@ -50,15 +50,15 @@ export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: Col
         }`}
       >
         <Link href="/projects" className="flex">
-          <BiAtom className="md:inline my-auto mx-1 text-xl" />
+          <Atom className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">Projects</span>
         </Link>
       </li>
 
       {/* More button */}
       <li className="md:px-10 px-3 py-2 rounded-xl hover:bg-white hover:text-black duration-300">
-        <button onClick={onExpand} className="flex">
-          <BiDotsVertical className="md:inline my-auto mx-1 text-xl" />
+        <button onClick={onExpand} className="flex cursor-pointer">
+          <DotsThreeVertical className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">More</span>
         </button>
       </li>

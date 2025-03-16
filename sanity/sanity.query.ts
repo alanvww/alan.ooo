@@ -38,6 +38,28 @@ export async function getProfile() {
           alt,
           caption
         }
+      },
+      cvCategories[]->{
+        _id,
+        categoryName,
+        categoryDescription,
+        items[]{
+          title,
+          date,
+          endDate,
+          eventName,
+          location,
+          description,
+          links[]{
+            label,
+            url
+          },
+          images[]{
+            "image": asset->url,
+            alt,
+            caption
+          }
+        }
       }
     }`,
     {},

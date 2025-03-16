@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { motion } from 'motion/react';
+import { ArrowSquareOut } from '@phosphor-icons/react';
 
 interface MenuLinkProps {
   href: string;
@@ -31,11 +32,14 @@ export const MenuLink = React.memo(function MenuLink({
   return (
     <Link
       href={href}
-      className={className}
+      className={`${className} items-center`}
       {...linkProps}
     >
       <span className="md:inline my-auto mx-1 text-xl">{icon}</span>
-      <span className="align-middle">{children}</span>
+      <div className="inline-flex items-center">
+        <span>{children}</span>
+        {isExternal && <ArrowSquareOut className="ml-1 text-sm" weight="bold" />}
+      </div>
     </Link>
   );
 });

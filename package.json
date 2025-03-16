@@ -40,6 +40,7 @@
     "regl": "^2.1.1",
     "sanity": "^3.79.0",
     "sanity-plugin-media": "^3.0.1",
+    "sanity-plugin-webhooks-trigger": "^0.3.1",
     "sharp": "^0.33.5",
     "styled-components": "^6.1.15",
     "tailwind-merge": "^3.0.2",

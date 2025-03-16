@@ -1,11 +1,11 @@
 import { defineField } from 'sanity';
-import { BiBriefcaseAlt2 } from 'react-icons/bi';
+import { Code } from '@phosphor-icons/react/dist/ssr';
 
 const tech = {
 	name: 'tech',
 	title: 'Tech',
 	type: 'document',
-	icon: BiBriefcaseAlt2,
+	icon: Code,
 	fields: [
 		defineField({
 			name: 'techName',

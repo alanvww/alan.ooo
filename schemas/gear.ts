@@ -1,11 +1,11 @@
 import { defineField } from 'sanity';
-import { BiDumbbell } from 'react-icons/bi';
+import { Barbell } from '@phosphor-icons/react/dist/ssr';
 
 const gear = {
 	name: 'gear',
 	title: 'Gear',
 	type: 'document',
-	icon: BiDumbbell,
+	icon: Barbell,
 	fields: [
 		defineField({
 			name: 'gearName',

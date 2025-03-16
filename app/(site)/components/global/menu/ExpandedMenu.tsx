@@ -4,18 +4,19 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import {
-  BiBracket,
-  BiAtom,
-  BiCollapse,
-  BiBriefcase,
-  BiLogoLinkedinSquare,
-  BiLogoInstagram,
-  BiLogoGithub,
-  BiLogoMastodon,
-  BiEnvelope,
-  BiSolidBong,
-  BiFile,
-} from 'react-icons/bi';
+  Code,
+  Atom,
+  ArrowsIn,
+  Briefcase,
+  LinkedinLogo,
+  InstagramLogo,
+  GithubLogo,
+  Envelope,
+  File,
+  MastodonLogo,
+  CirclesThreePlus
+} from '@phosphor-icons/react';
+
 import { MenuSection } from './MenuSection';
 import { MenuLink } from './MenuLink';
 
@@ -84,12 +85,12 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
 
         <button
           onClick={onCollapse}
-          className="flex right-0"
+          className="flex right-0 cursor-pointer"
         >
-          <BiCollapse className="md:inline my-auto mx-1 text-xl" />
+          <ArrowsIn className="md:inline my-auto mx-3 text-xl" />
         </button>
       </span>
-      
+
       {/* Menu sections container */}
       <motion.div
         variants={container}
@@ -106,13 +107,13 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         {/* Main Profile Section */}
         <motion.div variants={item}>
           <MenuSection title="Main Profile">
-            <MenuLink href="/projects" icon={<BiAtom />}>
+            <MenuLink href="/projects" icon={<Atom />}>
               Projects
             </MenuLink>
-            <MenuLink href="/about" icon={<BiFile />}>
+            <MenuLink href="https://link.alan.ooo/resume" icon={<File />} isExternal>
               Resume
             </MenuLink>
-            <MenuLink href="/about" icon={<BiBracket />}>
+            <MenuLink href="/about" icon={<Code />}>
               About
             </MenuLink>
           </MenuSection>
@@ -121,19 +122,19 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         {/* Contact Info Section */}
         <motion.div variants={item}>
           <MenuSection title="Contact Info">
-            <MenuLink href="https://www.linkedin.com/in/junhao-ren/" icon={<BiLogoLinkedinSquare />} isExternal>
+            <MenuLink href="https://www.linkedin.com/in/junhao-ren/" icon={<LinkedinLogo />} isExternal>
               LinkedIn
             </MenuLink>
-            <MenuLink href="https://www.instagram.com/alan.j.ren/" icon={<BiLogoInstagram />} isExternal>
+            <MenuLink href="https://www.instagram.com/alan.j.ren/" icon={<InstagramLogo />} isExternal>
               Instagram
             </MenuLink>
-            <MenuLink href="https://github.com/alanvww" icon={<BiLogoGithub />} isExternal>
+            <MenuLink href="https://github.com/alanvww" icon={<GithubLogo />} isExternal>
               Github
             </MenuLink>
-            <MenuLink href="https://mas.to/@alanvww" icon={<BiLogoMastodon />} isExternal>
+            <MenuLink href="https://mas.to/@alanvww" icon={<MastodonLogo />} isExternal>
               Mastodon
             </MenuLink>
-            <MenuLink href="mailto:hello@me.alan.ooo" icon={<BiEnvelope />}>
+            <MenuLink href="mailto:hello@me.alan.ooo" icon={<Envelope />}>
               Email
             </MenuLink>
           </MenuSection>
@@ -142,11 +143,11 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         {/* Fun Stuff Section */}
         <motion.div variants={item}>
           <MenuSection title="Fun Stuffs">
-            <MenuLink href="/techstack" icon={<BiBriefcase />}>
+            <MenuLink href="/techstack" icon={<Briefcase />}>
               Stack & Gear
             </MenuLink>
-            <MenuLink href="https://itp.alan.ooo" icon={<BiSolidBong />} isExternal>
-              ITP Blog
+            <MenuLink href="https://100days.alan.ooo" icon={<CirclesThreePlus />} isExternal>
+              100 Days of Design Engineering
             </MenuLink>
           </MenuSection>
         </motion.div>

@@ -1,10 +1,10 @@
-import { BiBriefcase } from 'react-icons/bi';
+import { Briefcase } from '@phosphor-icons/react/dist/ssr';
 
 const job = {
 	name: 'job',
 	title: 'Job',
 	type: 'document',
-	icon: BiBriefcase,
+	icon: Briefcase,
 	fields: [
 		{
 			name: 'name',

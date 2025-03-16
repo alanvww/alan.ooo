@@ -11,17 +11,11 @@ export type CVItemType = {
 	images: ProjectImageType[];
 };
 
-export type CVCategoryType = {
+export type CVType = {
+	_id: string;
 	categoryName: string;
 	categoryDescription: string;
 	items: CVItemType[];
-};
-
-export type CVType = {
-	_id: string;
-	title: string;
-	description: string;
-	categories: CVCategoryType[];
 };
 
 export type SkillCategoryType = {
@@ -42,10 +36,14 @@ export type ProfileType = {
 	fullBio: PortableTextBlock[];
 	location: string;
 	resumeURL: string;
-	socialLinks: string[];
+	socialLinks: {
+		github?: string;
+		linkedin?: string;
+		instagram?: string;
+	};
 	skillCategories: SkillCategoryType[];
 	experience: JobType[];
-	cvItems: CVType[];
+	cvCategories: CVType[];
 };
 
 export type ProjectLinkType = {
