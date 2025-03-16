@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import {
 	Stepper,
@@ -17,6 +16,7 @@ interface InPageNavigationProps {
 const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) => {
 	const [steps, setSteps] = useState<Array<{ step: number; title: string; id: string }>>([]);
 	const [activeStep, setActiveStep] = useState<number>(1);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	useEffect(() => {
 		const contentElement = document.querySelector(contentSelector);
@@ -35,16 +35,27 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) 
 		setSteps(navigationSteps);
 
 		const handleScroll = () => {
+			// Show navigation after scrolling
+			if (window.scrollY > 200) {
+				setIsVisible(true);
+			} else {
+				setIsVisible(false);
+			}
+
+			// Update active step when section crosses 50% of screen height
 			navigationSteps.forEach(({ step, id }) => {
 				const section = document.querySelector(`#${id}`) as HTMLElement;
 				if (
 					section &&
-					section.offsetTop <= window.scrollY + window.innerHeight / 4
+					section.offsetTop <= window.scrollY + window.innerHeight / 2
 				) {
 					setActiveStep(step);
 				}
 			});
 		};
+
+		// Initial call to set visibility correctly on page load
+		handleScroll();
 
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
@@ -58,7 +69,7 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) 
 	};
 
 	return (
-		<div className="fixed left-28  top-64 hidden lg:block">
+		<div className={`fixed left-28 top-64 hidden lg:block transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 			<div className="space-y-8">
 				<Stepper value={activeStep} orientation="vertical">
 					{steps.map((step) => (

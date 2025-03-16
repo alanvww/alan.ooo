@@ -1,9 +1,10 @@
+// sanity/sanity.query.ts
 import { groq } from 'next-sanity';
 import client from './sanity.client';
 
 export async function getProfile() {
-	return client.fetch(
-		groq`*[_type == "profile"]{
+  return client.fetch(
+    groq`*[_type == "profile"]{
       _id,
       fullName,
       headline,
@@ -37,14 +38,38 @@ export async function getProfile() {
           alt,
           caption
         }
+      },
+      cvCategories[]->{
+        _id,
+        categoryName,
+        categoryDescription,
+        items[]{
+          title,
+          date,
+          endDate,
+          eventName,
+          location,
+          description,
+          links[]{
+            label,
+            url
+          },
+          images[]{
+            "image": asset->url,
+            alt,
+            caption
+          }
+        }
       }
-    }`
-	);
+    }`,
+    {},
+    { next: { tags: ['profile'] } }
+  );
 }
 
 export async function getJob() {
-	return client.fetch(
-		groq`*[_type == "job"]{
+  return client.fetch(
+    groq`*[_type == "job"]{
       _id,
       name,
       jobTitle,
@@ -63,51 +88,59 @@ export async function getJob() {
         alt,
         caption
       }
-    }`
-	);
+    }`,
+    {},
+    { next: { tags: ['jobs'] } }
+  );
 }
 
 export async function getTech() {
-	return client.fetch(
-		groq`*[_type == "tech"]{
+  return client.fetch(
+    groq`*[_type == "tech"]{
       _id,
       techName,
       comment,
       platform,
       "techIcon": techIcon.asset->url,
       link,
-    }`
-	);
+    }`,
+    {},
+    { next: { tags: ['techstack'] } }
+  );
 }
 
 export async function getGear() {
-	return client.fetch(
-		groq`*[_type == "gear"]{
+  return client.fetch(
+    groq`*[_type == "gear"]{
       _id,
       gearName,
       comment,
       "gearImage": gearImage.asset->url,
       link,
-    }`
-	);
+    }`,
+    {},
+    { next: { tags: ['techstack'] } }
+  );
 }
 
 export async function getProjects() {
-	return client.fetch(
-		groq`*[_type == "project"]{
+  return client.fetch(
+    groq`*[_type == "project"]{
       _id, 
       name,
       "slug": slug.current,
       coverImage { alt, "image": asset->url },
       medium,
       year,
-    }`
-	);
+    }`,
+    {},
+    { next: { tags: ['projects'] } }
+  );
 }
 
 export async function getSingleProject(slug: string) {
-	return client.fetch(
-		groq`*[_type == "project" && slug.current == $slug][0]{
+  return client.fetch(
+    groq`*[_type == "project" && slug.current == $slug][0]{
       _id,
       name,
       projectUrl,
@@ -116,6 +149,7 @@ export async function getSingleProject(slug: string) {
       description,
       overview
     }`,
-		{ slug }
-	);
+    { slug },
+    { next: { tags: [`project:${slug}`, 'projects'] } }
+  );
 }

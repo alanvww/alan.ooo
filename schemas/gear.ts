@@ -1,11 +1,11 @@
-import { defineField } from 'sanity';
-import { BiDumbbell } from 'react-icons/bi';
+import { defineField, defineType } from 'sanity';
+import { Barbell } from '@phosphor-icons/react/dist/ssr';
 
-const gear = {
+const gear = defineType({
 	name: 'gear',
 	title: 'Gear',
 	type: 'document',
-	icon: BiDumbbell,
+	icon: Barbell,
 	fields: [
 		defineField({
 			name: 'gearName',
@@ -40,6 +40,6 @@ const gear = {
 			type: 'url',
 		},
 	],
-};
+});
 
 export default gear;

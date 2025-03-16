@@ -1,11 +1,11 @@
-import { defineField } from 'sanity';
-import { BiUser } from 'react-icons/bi';
+import { defineField, defineType } from 'sanity';
+import { User } from '@phosphor-icons/react/dist/ssr';
 
-const profile = {
+const profile = defineType({
 	name: 'profile',
 	title: 'Profile',
 	type: 'document',
-	icon: BiUser,
+	icon: User,
 	fields: [
 		defineField({
 			name: 'fullName',
@@ -79,16 +79,10 @@ const profile = {
 					initialValue: 'https://linkedin.com/in/',
 				},
 				{
-					name: 'twitter',
-					title: 'Twitter URL',
+					name: 'instagram',
+					title: 'Instagram URL',
 					type: 'url',
-					initialValue: 'https://twitter.com/',
-				},
-				{
-					name: 'twitch',
-					title: 'Twitch URL',
-					type: 'url',
-					initialValue: 'https://twitch.com/',
+					initialValue: 'https://instagram.com/',
 				},
 			],
 			options: {
@@ -134,7 +128,14 @@ const profile = {
 			description: 'Add your work experiences',
 			of: [{ type: 'reference', to: [{ type: 'job' }] }]
 		}),
+		defineField({
+			name: 'cvCategories',
+			title: 'CV Categories',
+			type: 'array',
+			description: 'Add your CV categories (workshops, talks, publications, etc.)',
+			of: [{ type: 'reference', to: [{ type: 'cv' }] }]
+		}),
 	],
-};
+});
 
 export default profile;

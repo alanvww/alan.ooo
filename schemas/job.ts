@@ -1,10 +1,11 @@
-import { BiBriefcase } from 'react-icons/bi';
+import { Briefcase } from '@phosphor-icons/react/dist/ssr';
+import { defineType } from 'sanity';
 
-const job = {
+const job = defineType({
 	name: 'job',
 	title: 'Job',
 	type: 'document',
-	icon: BiBriefcase,
+	icon: Briefcase,
 	fields: [
 		{
 			name: 'name',
@@ -95,6 +96,6 @@ const job = {
 			}]
 		},
 	],
-};
+});
 
 export default job;

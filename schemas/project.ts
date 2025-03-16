@@ -1,8 +1,8 @@
 import { BiPackage } from 'react-icons/bi';
-import { defineField, defineArrayMember } from 'sanity';
+import { defineField, defineArrayMember, defineType } from 'sanity';
 import { ImageIcon } from '@sanity/icons';
 
-const project = {
+const project = defineType({
 	name: 'project',
 	title: 'Project',
 	description: 'Project Schema',
@@ -166,7 +166,7 @@ const project = {
 			type: 'string',
 		}),
 
-		defineArrayMember({
+		defineField({
 			type: 'array',
 			icon: ImageIcon,
 			name: 'imagesGallery',
@@ -188,6 +188,6 @@ const project = {
 			],
 		}),
 	],
-};
+});
 
 export default project;
