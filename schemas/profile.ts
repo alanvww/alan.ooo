@@ -134,6 +134,13 @@ const profile = {
 			description: 'Add your work experiences',
 			of: [{ type: 'reference', to: [{ type: 'job' }] }]
 		}),
+		defineField({
+			name: 'cvItems',
+			title: 'CV Items',
+			type: 'array',
+			description: 'Add your CV documents (workshops, talks, publications, etc.)',
+			of: [{ type: 'reference', to: [{ type: 'cv' }] }]
+		}),
 	],
 };
 

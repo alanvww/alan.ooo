@@ -1,5 +1,29 @@
 import { PortableTextBlock } from 'sanity';
 
+export type CVItemType = {
+	title: string;
+	date: Date;
+	endDate?: Date;
+	eventName: string;
+	location: string;
+	description: PortableTextBlock[];
+	links: ProjectLinkType[];
+	images: ProjectImageType[];
+};
+
+export type CVCategoryType = {
+	categoryName: string;
+	categoryDescription: string;
+	items: CVItemType[];
+};
+
+export type CVType = {
+	_id: string;
+	title: string;
+	description: string;
+	categories: CVCategoryType[];
+};
+
 export type SkillCategoryType = {
 	category: string;
 	skills: string[];
@@ -21,6 +45,7 @@ export type ProfileType = {
 	socialLinks: string[];
 	skillCategories: SkillCategoryType[];
 	experience: JobType[];
+	cvItems: CVType[];
 };
 
 export type ProjectLinkType = {
