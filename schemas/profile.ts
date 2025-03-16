@@ -1,7 +1,7 @@
-import { defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 import { User } from '@phosphor-icons/react/dist/ssr';
 
-const profile = {
+const profile = defineType({
 	name: 'profile',
 	title: 'Profile',
 	type: 'document',
@@ -136,6 +136,6 @@ const profile = {
 			of: [{ type: 'reference', to: [{ type: 'cv' }] }]
 		}),
 	],
-};
+});
 
 export default profile;

@@ -1,6 +1,7 @@
 import { Briefcase } from '@phosphor-icons/react/dist/ssr';
+import { defineType } from 'sanity';
 
-const job = {
+const job = defineType({
 	name: 'job',
 	title: 'Job',
 	type: 'document',
@@ -95,6 +96,6 @@ const job = {
 			}]
 		},
 	],
-};
+});
 
 export default job;

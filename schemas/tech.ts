@@ -1,7 +1,7 @@
-import { defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 import { Code } from '@phosphor-icons/react/dist/ssr';
 
-const tech = {
+const tech = defineType({
 	name: 'tech',
 	title: 'Tech',
 	type: 'document',
@@ -46,6 +46,6 @@ const tech = {
 			type: 'url',
 		},
 	],
-};
+});
 
 export default tech;

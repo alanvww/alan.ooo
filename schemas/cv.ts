@@ -1,7 +1,7 @@
 import { Book } from '@phosphor-icons/react/dist/ssr';
-import { defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
-const cv = {
+const cv = defineType({
   name: 'cv',
   title: 'CV Category',
   type: 'document',
@@ -132,13 +132,14 @@ const cv = {
       title: 'categoryName',
       items: 'items'
     },
-    prepare({ title, items }: { title: string; items: any[] }) {
+    prepare(selection) {
+      const { title, items } = selection;
       return {
         title: title || 'Unnamed Category',
         subtitle: `${items?.length || 0} item(s)`
       };
     }
   }
-};
+});
 
 export default cv;

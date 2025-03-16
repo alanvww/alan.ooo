@@ -1,7 +1,7 @@
-import { defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 import { Barbell } from '@phosphor-icons/react/dist/ssr';
 
-const gear = {
+const gear = defineType({
 	name: 'gear',
 	title: 'Gear',
 	type: 'document',
@@ -40,6 +40,6 @@ const gear = {
 			type: 'url',
 		},
 	],
-};
+});
 
 export default gear;
