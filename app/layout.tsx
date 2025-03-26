@@ -8,6 +8,8 @@ import { Analytics } from '@vercel/analytics/react';
 export const viewport: Viewport = {
 	colorScheme: 'dark',
 	themeColor: 'black',
+	width: 'device-width',
+	initialScale: 1,
 };
 
 export const metadata: Metadata = {

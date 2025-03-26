@@ -6,6 +6,7 @@ import Headline from '../../components/shared/Headline';
 import { Suspense } from 'react';
 import Loading from './loading';
 
+
 export const metadata: Metadata = {
 	title: 'All Projects - Alan Ren',
 	description: 'All my projects I have built over the years.',

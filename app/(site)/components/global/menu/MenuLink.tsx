@@ -1,6 +1,4 @@
-'use client';
-
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 import React, { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { ArrowSquareOut } from '@phosphor-icons/react';
