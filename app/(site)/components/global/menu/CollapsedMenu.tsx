@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 import { motion } from 'motion/react';
 import { Code, Atom, DotsThreeVertical } from '@phosphor-icons/react';
 import { usePathname } from 'next/navigation';

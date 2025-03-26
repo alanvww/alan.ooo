@@ -1,9 +1,8 @@
-'use client';
 import * as React from 'react';
-import { motion } from 'motion/react';
+import * as motion from "motion/react-client"
 import type { TechType, GearType } from '@/types';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 
 const container = {
 	hidden: { opacity: 1, scale: 0 },

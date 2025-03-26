@@ -2,14 +2,13 @@ import Image from 'next/image';
 import { getProfile } from '@/sanity/sanity.query';
 import type { ProfileType, JobType, CVType, CVItemType } from '@/types';
 import { PortableText } from '@portabletext/react';
-// Import Phosphor Icons from the SSR submodule for server components
 import { Envelope, File, Link as LinkIcon, MapPin, Calendar, Book, GithubLogo, LinkedinLogo, InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 import * as motion from "motion/react-client"
 import Headline from '../../components/shared/Headline';
 import InPageNavigation from '../../components/shared/InPageNavigation';
 import { Collapsible } from '@/components/ui/collapsible';
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 
 export const metadata: Metadata = {
 	title: 'About me - Alan Ren',

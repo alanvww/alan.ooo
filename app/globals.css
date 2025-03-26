@@ -85,16 +85,11 @@
 }
 
 @layer utilities {
-	html,
-	body,
-	#__next {
-		height: 100%;
-	}
-
+	
 	body {
 		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 		margin: 0;
-		scroll-behavior: smooth;
 	}
 
 	html {
@@ -102,6 +97,8 @@
 		-moz-osx-font-smoothing: grayscale;
 		overflow-x: hidden;
 		--cursor-color: #000000;
+		scroll-behavior: smooth;
+
 	}
 
 	:root {

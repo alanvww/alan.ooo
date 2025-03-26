@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 import Logo from '../../icons/logo.png';
 import FloatMenu from './FloatMenu';
-import { motion } from 'motion/react';
+import * as motion from "motion/react-client"
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 export default function Navbar() {
 	return (

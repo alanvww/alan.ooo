@@ -1,9 +1,9 @@
-'use client';
-import Link from 'next/link';
+import { useTransitionRouter } from 'next-view-transitions'
 import type { ProjectType } from '@/types';
 import { BiChevronRight } from 'react-icons/bi';
 
-import { motion } from 'motion/react';
+
+import * as motion from "motion/react-client"
 import Image from 'next/image';
 interface ProjectCardProps {
 	id: number;
@@ -12,13 +12,19 @@ interface ProjectCardProps {
 	initial: any;
 }
 
-const MotionLink = motion(Link);
 
 function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
+	const router = useTransitionRouter();
+
+	const handleProjectClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		sessionStorage.setItem('projectsPageScroll', window.scrollY.toString());
+		router.push(`/projects/${project.slug}`);
+	};
+
 	return (
-		<MotionLink
+		<motion.div
 			key={id}
-			href={`/projects/${project.slug}`}
 			className="md:cursor-none  text-white flex flex-col my-8 group "
 			whileInView={whileInView}
 			initial={initial}
@@ -26,6 +32,7 @@ function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
 				duration: 0.2,
 				ease: [0, 0.71, 0.2, 1.01],
 			}}
+			onClick={handleProjectClick}
 		>
 			<motion.div className="flex flex-row -z-10">
 				<motion.div className="flex flex-row shrink-1 grow my-auto  -z-10">
@@ -52,7 +59,7 @@ function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
 					alt={project.coverImage.alt || project.name}
 				></Image>
 			</motion.div>
-		</MotionLink>
+		</motion.div>
 	);
 }
 

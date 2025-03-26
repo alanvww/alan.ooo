@@ -1,6 +1,4 @@
-import Navbar from './components/global/Navbar';
-import Footer from './components/global/Footer';
-import { IsClientCtxProvider } from './utilities/is-client-ctx';
+import { ViewTransitions } from 'next-view-transitions'
 import NewCursor from './components/global/NewCursor';
 import './styles/cursor.css';
 
@@ -16,9 +14,9 @@ export default function SiteLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<>
+		<ViewTransitions>
 			<NewCursor />
 			{children}
-		</>
+		</ViewTransitions>
 	);
 }
