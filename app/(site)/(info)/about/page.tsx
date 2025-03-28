@@ -32,8 +32,7 @@ export default async function About() {
 								transition={{ duration: 0.5, delay: 0.2 }}
 							>
 								<Headline
-									title={`I'm ${data.fullName}. I live in ${data.location}, where I
-									design the future.`}
+									title={`I'm Alan Ren. Blending code and creativity to shape digital futures.`}
 									description={data.shortBio}
 								/>
 							</motion.div>
@@ -123,7 +122,7 @@ export default async function About() {
 						</section>
 
 						<motion.section
-							className="mt-24 max-w-4xl"
+							className="mt-24 max-w-4xl m-auto"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.3 }}
@@ -169,7 +168,7 @@ export default async function About() {
 						</motion.section>
 
 						<motion.section
-							className="mt-24 max-w-4xl"
+							className="mt-24 max-w-4xl m-auto"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.4 }}
@@ -285,7 +284,7 @@ export default async function About() {
 						</motion.section>
 
 						<motion.section
-							className="mt-24 max-w-4xl"
+							className="mt-24 max-w-4xl m-auto"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.5 }}
