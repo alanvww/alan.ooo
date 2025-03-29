@@ -89,7 +89,7 @@ export function CustomPortableText({
 			youtube: ({ value }) => {
 				const { url } = value;
 				return (
-					<motion.div className="w-full h-full aspect-video cursor-pointer">
+					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
 							className="relative w-auto h-auto cursor-auto"
 							controls={true}

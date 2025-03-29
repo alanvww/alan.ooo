@@ -1,14 +1,10 @@
-/* Custom cursor styles with CSS variables for better maintainability */
+/* Custom cursor styles with improved transitions */
 :root {
 	--cursor-border-color: #ffffff;
 	--cursor-bg-color: #fff;
 	--cursor-size-normal: 100px;
 	--cursor-size-pointer: 30px;
 	--cursor-transition-speed: 0.2s;
-	--cursor-transition:
-		width var(--cursor-transition-speed) ease-in-out,
-		height var(--cursor-transition-speed) ease-in-out,
-		opacity var(--cursor-transition-speed) ease-in-out;
 }
 
 /* Only apply cursor styles on non-touch devices */
@@ -33,12 +29,18 @@
 		will-change: transform, width, height, opacity;
 		backface-visibility: hidden;
 
-		/* Transform and animation */
+		/* Transform and animation - smooth transitions */
 		transform: translate(-50%, -50%) translateZ(0);
-		transition: var(--cursor-transition);
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out;
+
+		/* Initial state */
+		opacity: 1;
 	}
 
-	/* Hidden state */
+	/* Hidden state - smooth fade out */
 	.flare.hidden {
 		opacity: 0;
 		visibility: hidden;
@@ -53,13 +55,24 @@
 		height: var(--cursor-size-pointer);
 	}
 
-	/* Media fallbacks for browsers that don't support :has() */
-	iframe ~ .flare,
-	iframe + .flare,
-	video ~ .flare,
-	video + .flare {
-		opacity: 0;
-		visibility: hidden;
+	/* Over iframe transition - smooth size reduction before hiding */
+	.flare.over-iframe {
+		opacity: 0.5;
+		width: 20px;
+		height: 20px;
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out;
+	}
+
+	/* Transitioning state */
+	.flare.transitioning {
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out,
+			transform var(--cursor-transition-speed) ease-in-out;
 	}
 }
 
@@ -81,18 +94,9 @@
 	}
 }
 
-/* High contrast / accessibility mode support */
-@media (prefers-contrast: more) {
-	.flare {
-		border-width: 3px;
-		mix-blend-mode: normal;
-		background-color: transparent;
-	}
-}
-
-/* Reduced motion preference */
+/* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
 	.flare {
-		transition: none;
+		transition-duration: 0.05s;
 	}
 }
