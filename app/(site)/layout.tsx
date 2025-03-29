@@ -1,6 +1,5 @@
 import { ViewTransitions } from 'next-view-transitions'
 import NewCursor from './components/global/NewCursor';
-import './styles/cursor.css';
 
 // We keep the metadata but don't duplicate the HTML/body structure
 export const metadata = {
@@ -15,7 +14,7 @@ export default function SiteLayout({
 }) {
 	return (
 		<ViewTransitions>
-			<NewCursor />
+			<NewCursor enableCustomCursor />
 			{children}
 		</ViewTransitions>
 	);
