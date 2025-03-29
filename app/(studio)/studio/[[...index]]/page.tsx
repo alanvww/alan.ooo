@@ -1,21 +1,14 @@
-'use client';
+import { NextStudio } from 'next-sanity/studio'
+import config from '@/sanity.config'
+import './studio.css'
 
-import { NextStudio } from 'next-sanity/studio';
-import config from '@/sanity.config';
+export const dynamic = 'force-static'
 
-export default function Studio() {
+// Export the Sanity Studio metadata and viewport
+export { metadata, viewport } from 'next-sanity/studio'
+
+export default function StudioPage() {
 	return (
-		<>
-			<style jsx global>{`
-				body {
-					cursor: auto !important; /* Enable default cursor in studio */
-				}
-				
-				.flare {
-					display: none !important; /* Hide custom cursor in studio */
-				}
-			`}</style>
-			<NextStudio config={config} />
-		</>
-	);
+		<NextStudio config={config} />
+	)
 }

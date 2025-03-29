@@ -1,3 +1,4 @@
+// schemas/project.ts
 import { BiPackage } from 'react-icons/bi';
 import { defineField, defineArrayMember, defineType } from 'sanity';
 import { ImageIcon } from '@sanity/icons';
@@ -9,16 +10,16 @@ const project = defineType({
 	type: 'document',
 	icon: BiPackage,
 	fields: [
-		{
+		defineField({
 			name: 'name',
 			title: 'Name',
 			type: 'string',
 			description: 'Enter the name of the project',
-		},
+			validation: rule => rule.required(),
+		}),
 		defineField({
 			name: 'overview',
-			description:
-				'Used both for the <meta> description tag for SEO, and project subheader.',
+			description: 'Used both for the <meta> description tag for SEO, and project subheader.',
 			title: 'Overview',
 			type: 'array',
 			of: [
@@ -48,16 +49,15 @@ const project = defineType({
 			name: 'slug',
 			title: 'Slug',
 			type: 'slug',
-			description:
-				'Add a custom slug for the URL or generate one from the name',
+			description: 'Add a custom slug for the URL or generate one from the name',
 			options: { source: 'name' },
 			validation: (rule) => rule.required(),
 		}),
-		{
+		defineField({
 			name: 'projectUrl',
 			title: 'Project URL',
 			type: 'url',
-		},
+		}),
 		defineField({
 			name: 'coverImage',
 			title: 'Cover Image',
@@ -74,6 +74,7 @@ const project = defineType({
 			validation: (rule) => rule.required(),
 		}),
 
+		// Here's the updated description field with improved image handling
 		defineField({
 			name: 'description',
 			title: 'Project Description',
@@ -96,46 +97,38 @@ const project = defineType({
 									{
 										name: 'href',
 										type: 'url',
-										title: 'Url',
+										title: 'URL',
 									},
 								],
 							},
 						],
 					},
 				}),
-
-				defineArrayMember({
-					type: 'youtube',
-				}),
-
+				// Simplified image type definition
 				defineField({
 					type: 'image',
-					icon: ImageIcon,
 					name: 'image',
 					title: 'Image',
 					options: {
 						hotspot: true,
 					},
-					preview: {
-						select: {
-							imageUrl: 'asset.url',
-							title: 'caption',
-						},
-					},
 					fields: [
 						defineField({
-							title: 'Caption',
 							name: 'caption',
 							type: 'string',
+							title: 'Caption',
 						}),
 						defineField({
 							name: 'alt',
 							type: 'string',
 							title: 'Alt text',
-							description:
-								'Alternative text for screenreaders. Falls back on caption if not set',
+							description: 'Alternative text for screenreaders. Falls back on caption if not set',
 						}),
 					],
+				}),
+				// YouTube embed type
+				defineArrayMember({
+					type: 'youtube',
 				}),
 			],
 		}),
@@ -168,7 +161,6 @@ const project = defineType({
 
 		defineField({
 			type: 'array',
-			icon: ImageIcon,
 			name: 'imagesGallery',
 			title: 'Images gallery',
 			of: [

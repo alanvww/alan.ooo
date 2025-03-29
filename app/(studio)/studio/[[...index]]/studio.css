@@ -1,0 +1,7 @@
+body {
+	cursor: auto !important; /* Enable default cursor in studio */
+}
+
+.flare {
+	display: none !important; /* Hide custom cursor in studio */
+}

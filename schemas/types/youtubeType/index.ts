@@ -1,8 +1,7 @@
-// ./schemaTypes/youTubeType/index.ts
-
-import { defineType, defineField } from 'sanity';
-import { PlayIcon } from '@sanity/icons';
-import { YouTubePreview } from './YouTubePreview';
+// schemas/types/youtubeType/index.ts
+import { defineType, defineField } from 'sanity'
+import { PlayIcon } from '@sanity/icons'
+import { YouTubePreview } from './YouTubePreview'
 
 export const youtube = defineType({
 	name: 'youtube',
@@ -14,12 +13,17 @@ export const youtube = defineType({
 			name: 'url',
 			type: 'url',
 			title: 'YouTube video URL',
+			validation: rule => rule.required().uri({
+				scheme: ['http', 'https']
+			})
 		}),
 	],
 	preview: {
-		select: { title: 'url' },
+		select: {
+			title: 'url'
+		}
 	},
 	components: {
-		preview: YouTubePreview,
-	},
-});
+		preview: YouTubePreview
+	}
+})
