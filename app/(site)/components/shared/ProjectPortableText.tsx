@@ -1,25 +1,21 @@
+'use client';
+
 import { PortableTextBlock } from '@portabletext/types';
-import { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
-import ImageBox from './ImageBox'; // Ensure this component is properly defined
+import ImageBox from './ImageBox';
 import type { Image } from 'sanity';
 
 interface ProjectPortableTextProps {
 	paragraphClasses?: string;
-	value: PortableTextBlock[]; // Assuming this comes from your Sanity dataset
-}
-
-interface ImageBoxProps {
-	image: Image & { alt?: string; caption?: string };
-	alt?: string;
-	classesWrapper?: string;
+	value: PortableTextBlock[];
 }
 
 export const ProjectPortableText: FC<ProjectPortableTextProps> = ({
 	paragraphClasses,
 	value,
 }) => {
-	const components: PortableTextComponents = {
+	const components: PortableTextComponents = useMemo(() => ({
 		block: {
 			normal: ({ children }) => <p className={paragraphClasses}>{children}</p>,
 		},
@@ -27,8 +23,8 @@ export const ProjectPortableText: FC<ProjectPortableTextProps> = ({
 			link: ({ children, value }) => (
 				<a
 					className="underline transition hover:opacity-50"
-					href={value.href}
-					target="_blank" // Added for security and usability
+					href={value?.href || '#'}
+					target="_blank"
 					rel="noopener noreferrer"
 				>
 					{children}
@@ -47,10 +43,20 @@ export const ProjectPortableText: FC<ProjectPortableTextProps> = ({
 						alt={value.alt || 'Image'}
 						classesWrapper="relative aspect-16/9"
 					/>
+					{value?.caption && (
+						<div className="font-sans text-sm text-gray-600">
+							{value.caption}
+						</div>
+					)}
 				</div>
 			),
 		},
-	};
+	}), [paragraphClasses]);
+
+	// Protect against null or undefined value
+	if (!value) {
+		return null;
+	}
 
 	return <PortableText value={value} components={components} />;
 };
