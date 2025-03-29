@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@import './(site)/styles/cursor.css';
+
 @custom-variant dark (&:is(class *));
 
 @theme {

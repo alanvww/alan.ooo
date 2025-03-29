@@ -1,5 +1,4 @@
 'use client';
-import '@/app/(site)/styles/cursor.css'
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 // Types
