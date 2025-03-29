@@ -1,155 +1,47 @@
 // sanity/sanity.query.ts
-import { groq } from 'next-sanity';
-import client from './sanity.client';
+import { client, sanityFetch } from './lib/client'
+import { PROFILE_QUERY, JOB_QUERY, TECH_QUERY, GEAR_QUERY, PROJECTS_QUERY, PROJECT_QUERY } from './lib/queries'
+import type { ProfileType, JobType, TechType, GearType, ProjectType } from '@/types'
 
 export async function getProfile() {
-  return client.fetch(
-    groq`*[_type == "profile"]{
-      _id,
-      fullName,
-      headline,
-      profileImage {alt, "image": asset->url},
-      shortBio,
-      location,
-      fullBio,
-      email,
-      "resumeURL": resumeURL.asset->url,
-      socialLinks,
-      skillCategories[]{
-        category,
-        skills
-      },
-      experience[]->{
-        _id,
-        name,
-        jobTitle,
-        "logo": logo.asset->url,
-        url,
-        location,
-        description,
-        startDate,
-        endDate,
-        projectLinks[]{
-          label,
-          url
-        },
-        projectImages[]{
-          "image": asset->url,
-          alt,
-          caption
-        }
-      },
-      cvCategories[]->{
-        _id,
-        categoryName,
-        categoryDescription,
-        items[]{
-          title,
-          date,
-          endDate,
-          eventName,
-          location,
-          description,
-          links[]{
-            label,
-            url
-          },
-          images[]{
-            "image": asset->url,
-            alt,
-            caption
-          }
-        }
-      }
-    }`,
-    {},
-    { next: { tags: ['profile'] } }
-  );
+  return sanityFetch<ProfileType[]>({
+    query: PROFILE_QUERY,
+    tags: ['profile']
+  })
 }
 
 export async function getJob() {
-  return client.fetch(
-    groq`*[_type == "job"]{
-      _id,
-      name,
-      jobTitle,
-      "logo": logo.asset->url,
-      url,
-      location,
-      description,
-      startDate,
-      endDate,
-      projectLinks[]{
-        label,
-        url
-      },
-      projectImages[]{
-        "image": asset->url,
-        alt,
-        caption
-      }
-    }`,
-    {},
-    { next: { tags: ['jobs'] } }
-  );
+  return sanityFetch<JobType[]>({
+    query: JOB_QUERY,
+    tags: ['jobs']
+  })
 }
 
 export async function getTech() {
-  return client.fetch(
-    groq`*[_type == "tech"]{
-      _id,
-      techName,
-      comment,
-      platform,
-      "techIcon": techIcon.asset->url,
-      link,
-    }`,
-    {},
-    { next: { tags: ['techstack'] } }
-  );
+  return sanityFetch<TechType[]>({
+    query: TECH_QUERY,
+    tags: ['techstack']
+  })
 }
 
 export async function getGear() {
-  return client.fetch(
-    groq`*[_type == "gear"]{
-      _id,
-      gearName,
-      comment,
-      "gearImage": gearImage.asset->url,
-      link,
-    }`,
-    {},
-    { next: { tags: ['techstack'] } }
-  );
+  return sanityFetch<GearType[]>({
+    query: GEAR_QUERY,
+    tags: ['techstack']
+  })
 }
 
 export async function getProjects() {
-  return client.fetch(
-    groq`*[_type == "project"]{
-      _id, 
-      name,
-      "slug": slug.current,
-      coverImage { alt, "image": asset->url },
-      medium,
-      year,
-    }`,
-    {},
-    { next: { tags: ['projects'] } }
-  );
+  return sanityFetch<ProjectType[]>({
+    query: PROJECTS_QUERY,
+    tags: ['projects']
+  })
 }
 
 export async function getSingleProject(slug: string) {
-  return client.fetch(
-    groq`*[_type == "project" && slug.current == $slug][0]{
-      _id,
-      name,
-      projectUrl,
-      coverImage { alt, "image": asset->url },
-      tagline,
-      description,
-      overview
-    }`,
-    { slug },
-    { next: { tags: [`project:${slug}`, 'projects'] } }
-  );
+  return sanityFetch<ProjectType>({
+    query: PROJECT_QUERY,
+    params: { slug },
+    tags: [`project:${slug}`, 'projects']
+  })
 }

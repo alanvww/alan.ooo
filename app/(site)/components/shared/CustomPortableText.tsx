@@ -2,8 +2,7 @@
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 import { Image } from 'sanity';
-import React from 'react';
-
+import React, { useMemo } from 'react';
 import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
@@ -20,7 +19,7 @@ export function CustomPortableText({
 	paragraphClasses?: string;
 	value: PortableTextBlock[];
 }) {
-	const components: PortableTextComponents = {
+	const components: PortableTextComponents = useMemo(() => ({
 		list: {
 			bullet: ({ children }) => (
 				<motion.ul className="list-disc ml-5">{children}</motion.ul>
@@ -40,7 +39,7 @@ export function CustomPortableText({
 			h2: ({ children }) => {
 				return (
 					<motion.h2
-						id={`${children?.toString()}`}
+						id={typeof children === 'string' ? children : undefined}
 						className="text-3xl font-bold my-6 scroll-mt-10	"
 					>
 						{children}
@@ -73,18 +72,18 @@ export function CustomPortableText({
 				value: Image & { alt?: string; caption?: string };
 			}) => {
 				return (
-					<>
+					<motion.div className="aspect-auto ">
 						<ImageBox
 							image={value}
 							alt={value.alt || value?.caption}
-							classesWrapper="relative aspect-7/4 -z-50"
+							classesWrapper="relative aspect-7/4"
 						/>
 						{value?.caption && (
 							<div className="font-sans text-sm text-gray-600">
 								{value.caption}
 							</div>
 						)}
-					</>
+					</motion.div>
 				);
 			},
 			youtube: ({ value }) => {
@@ -92,7 +91,7 @@ export function CustomPortableText({
 				return (
 					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
-							className="relative w-auto h-auto cursor-pointer "
+							className="relative w-auto h-auto"
 							controls={true}
 							url={url}
 							light={false}
@@ -104,7 +103,8 @@ export function CustomPortableText({
 				);
 			},
 		},
-	};
+	}), [paragraphClasses]);
+
 
 	return <PortableText components={components} value={value} />;
 }
