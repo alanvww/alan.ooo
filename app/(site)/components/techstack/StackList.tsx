@@ -62,7 +62,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 										href={data.link.toString()}
 										className="flex flex-row justify-center"
 									>
-										<h2 className="text-xl font-bold tracking-tight lg:leading-[3.7rem] my-auto leading-tight hover:underline hover:text-white">
+										<h2 className="text-xl font-bold tracking-tight my-auto leading-tight hover:underline hover:text-white">
 											{data.techName}
 										</h2>
 									</Link>
@@ -86,7 +86,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 			</motion.div>
 		</section>
 
-		<section className="max-w-2xl mb-16">
+		<section className="mb-16">
 			<h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:leading-[3.7rem] leading-tight">
 				Gear
 			</h1>
@@ -104,12 +104,11 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 						<motion.section
 							key={data._id}
 							variants={item}
-							whileHover={{ padding: '2px' }}
-							className="item flex flex-col rounded-lg     bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
+							whileHover={{ borderColor: 'rgba(0, 0, 0, 0)' }}
+							className="group border-2 border-gray-border item flex flex-col rounded-lg bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>
 							<motion.span
-								whileHover={{ borderColor: 'rgba(255, 255, 255, 0.0)' }}
-								className="rounded-md border-[0.5px] border-gray-border 	 p-3 h-full bg-gray-dark"
+								className="rounded-md  p-3 h-full bg-gray-dark"
 							>
 								<section className="flex flex-row gap-2 m-2">
 									<Image
@@ -123,7 +122,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 										href={data.link.toString()}
 										className="flex flex-row justify-center"
 									>
-										<h2 className="text-xl font-bold tracking-tight lg:leading-[3.7rem] my-auto leading-tight hover:underline hover:text-white">
+										<h2 className="text-xl font-bold tracking-tight my-auto leading-tight hover:underline hover:text-white">
 											{data.gearName}
 										</h2>
 									</Link>
@@ -132,6 +131,7 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 									<p className="m-2">{data.comment}</p>
 								</section>
 							</motion.span>
+
 						</motion.section>
 					))}
 			</motion.div>
