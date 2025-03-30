@@ -62,10 +62,10 @@ export async function POST(req: NextRequest) {
 
             case 'tech':
             case 'gear':
-                // Revalidate the techstack page
+                // Revalidate the tech-and-gear page
                 console.log('Revalidating tech/gear data');
-                revalidatePath('/techstack');
-                revalidateTag('techstack');
+                revalidatePath('/tech-and-gear');
+                revalidateTag('tech-and-gear');
                 break;
 
             default:

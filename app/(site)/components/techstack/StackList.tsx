@@ -27,9 +27,12 @@ const item = {
 export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 	<main className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6">
 		<section className="mb-16 ">
-			<h1 className="text-3xl font-bold tracking-tight sm:text-5xl mb-6 lg:leading-[3.7rem] leading-tight ">
+			<h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:leading-[3.7rem] leading-tight ">
 				Stack
 			</h1>
+			<p className="text-md text-zinc-400 mb-6">
+				Essential software and digital tools that power my workflow and development process.
+			</p>
 			<motion.div
 				className="container md:grid md:grid-cols-3"
 				variants={container}
@@ -41,12 +44,11 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 						<motion.section
 							key={data._id}
 							variants={item}
-							whileHover={{ padding: '2px' }}
-							className="item flex flex-col rounded-lg     bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
+							whileHover={{ borderColor: 'rgba(0, 0, 0, 0)' }}
+							className="group border-2 border-gray-border item flex flex-col rounded-lg bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>
 							<motion.span
-								whileHover={{ borderColor: 'rgba(255, 255, 255, 0.0)' }}
-								className="rounded-md border-[0.5px] border-gray-border 	 p-3 h-full bg-gray-dark"
+								className="rounded-md  p-3 h-full bg-gray-dark"
 							>
 								<section className="flex flex-row gap-2 m-2">
 									<Image
@@ -85,9 +87,12 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 		</section>
 
 		<section className="max-w-2xl mb-16">
-			<h1 className="text-3xl font-bold tracking-tight sm:text-5xl mb-6 lg:leading-[3.7rem] leading-tight">
+			<h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:leading-[3.7rem] leading-tight">
 				Gear
 			</h1>
+			<p className="text-md text-zinc-400 mb-6">
+				Physical equipment and devices I rely on daily for productivity and creation.
+			</p>
 			<motion.div
 				className="container md:grid md:grid-cols-3"
 				variants={container}
