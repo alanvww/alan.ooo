@@ -20,14 +20,14 @@ export async function getJob() {
 export async function getTech() {
   return sanityFetch<TechType[]>({
     query: TECH_QUERY,
-    tags: ['techstack']
+    tags: ['tech-and-gear']
   })
 }
 
 export async function getGear() {
   return sanityFetch<GearType[]>({
     query: GEAR_QUERY,
-    tags: ['techstack']
+    tags: ['tech-and-gear']
   })
 }
 

@@ -142,7 +142,7 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         {/* Fun Stuff Section */}
         <motion.div variants={item}>
           <MenuSection title="Fun Stuffs">
-            <MenuLink href="/techstack" icon={<Briefcase />}>
+            <MenuLink href="/tech-and-gear" icon={<Briefcase />}>
               Stack & Gear
             </MenuLink>
             <MenuLink href="https://100days.alan.ooo" icon={<CirclesThreePlus />} isExternal>

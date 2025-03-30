@@ -246,7 +246,7 @@ export default async function About() {
 
 											{job.projectLinks && job.projectLinks.length > 0 && (
 												<div className="mt-4">
-													<h4 className="font-medium mb-2">Project Links</h4>
+													<h4 className="font-medium mb-2">Links</h4>
 													<ul className="space-y-1">
 														{job.projectLinks.map((link, linkIndex) => (
 															<li key={linkIndex} className="flex items-center gap-2">
@@ -375,7 +375,7 @@ export default async function About() {
 
 															{item.links && item.links.length > 0 && (
 																<div className="mt-4">
-																	<h6 className="font-medium mb-2">Related Links</h6>
+																	<h6 className="font-medium mb-2">Links</h6>
 																	<ul className="space-y-1">
 																		{item.links.map((link, linkIndex) => (
 																			<li key={linkIndex} className="flex items-center gap-2">
