@@ -205,14 +205,14 @@ export default async function About() {
 														className="rounded-sm"
 													/>
 												)}
-												<div>
-													<h3 className="text-xl max-w-xl  font-bold overflow-hidden text-ellipsis whitespace-nowrap">{job.jobTitle}</h3>
+												<div className='my-2'>
+													<h3 className="text-lg max-w-3xl font-bold mb-0 md:overflow-hidden text-ellipsis md:whitespace-nowrap">{job.jobTitle}</h3>
 													<p className="text-zinc-400">{job.name}</p>
 												</div>
 											</div>
-											<div className='flex flex-col m-0 p-0 md:items-end justify-center'>
+											<div className='flex text-sm md:text-md md:flex-col m-0 p-0 gap-2  items-center md:items-end md:justify-center'>
 
-												<div className="flex items-center gap-2 text-zinc-400">
+												<div className="flex my-auto  items-center gap-2 text-zinc-400">
 													<Calendar className="inline-block" />
 													<span>
 														{new Date(job.startDate).toLocaleDateString('en-US', {
@@ -229,7 +229,7 @@ export default async function About() {
 													</span>
 												</div>
 												{job.location && (
-													<div className="flex items-center gap-2 mt-2 text-zinc-400">
+													<div className="flex my-auto items-center gap-2  text-zinc-400">
 														<MapPin className="inline-block" />
 														<span>{job.location}</span>
 													</div>
@@ -239,50 +239,51 @@ export default async function About() {
 										</div>
 
 
+										<div>
+											<div className="mt-4 max-w-3xl text-md leading-8 text prose prose-zinc dark:prose-invert">
+												<PortableText value={job.description} />
+											</div>
 
-										<div className="mt-4 max-w-3xl prose prose-zinc dark:prose-invert">
-											<PortableText value={job.description} />
-										</div>
+											{job.projectLinks && job.projectLinks.length > 0 && (
+												<div className="mt-4">
+													<h4 className="font-medium mb-2">Project Links</h4>
+													<ul className="space-y-1">
+														{job.projectLinks.map((link, linkIndex) => (
+															<li key={linkIndex} className="flex items-center gap-2">
+																<LinkIcon className="text-purple-400" />
+																<a
+																	href={link.url}
+																	target="_blank"
+																	rel="noopener noreferrer"
+																	className="hover:text-purple-400 duration-300"
+																>
+																	{link.label}
+																</a>
+															</li>
+														))}
+													</ul>
+												</div>
+											)}
 
-										{job.projectLinks && job.projectLinks.length > 0 && (
-											<div className="mt-4">
-												<h4 className="font-medium mb-2">Project Links</h4>
-												<ul className="space-y-1">
-													{job.projectLinks.map((link, linkIndex) => (
-														<li key={linkIndex} className="flex items-center gap-2">
-															<LinkIcon className="text-purple-400" />
-															<a
-																href={link.url}
-																target="_blank"
-																rel="noopener noreferrer"
-																className="hover:text-purple-400 duration-300"
-															>
-																{link.label}
-															</a>
-														</li>
+											{job.projectImages && job.projectImages.length > 0 && (
+												<div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+													{job.projectImages.map((img, imgIndex) => (
+														<div key={imgIndex} className="relative">
+															<Image
+																src={img.image}
+																width={400}
+																height={300}
+																alt={img.alt || `Project image ${imgIndex + 1}`}
+																className="rounded-lg object-cover"
+															/>
+															{img.caption && (
+																<p className="text-sm text-zinc-400 mt-1">{img.caption}</p>
+															)}
+														</div>
 													))}
-												</ul>
-											</div>
-										)}
-
-										{job.projectImages && job.projectImages.length > 0 && (
-											<div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-												{job.projectImages.map((img, imgIndex) => (
-													<div key={imgIndex} className="relative">
-														<Image
-															src={img.image}
-															width={400}
-															height={300}
-															alt={img.alt || `Project image ${imgIndex + 1}`}
-															className="rounded-lg object-cover"
-														/>
-														{img.caption && (
-															<p className="text-sm text-zinc-400 mt-1">{img.caption}</p>
-														)}
-													</div>
-												))}
-											</div>
-										)}
+												</div>
+											)}
+										</div>
 									</motion.div>
 								))}
 							</div>
@@ -321,8 +322,8 @@ export default async function About() {
 											animate={{ opacity: 1, y: 0 }}
 											transition={{ duration: 0.5, delay: 0.1 * index }}
 										>
-											<div className="border-t pt-2 mb-4">
-												<h3 className="text-2xl font-semibold">{category.categoryName}</h3>
+											<div className="mb-4">
+												<h3 className="text-2xl font-semibold w-fit">{category.categoryName}</h3>
 												{category.categoryDescription && (
 													<p className="text-zinc-400 mb-6 mt-2">{category.categoryDescription}</p>
 												)}
@@ -337,8 +338,8 @@ export default async function About() {
 																		<p className="text-zinc-400 text-sm mb-2">{item.eventName}</p>
 																	)}
 																</div>
-																<div className='flex flex-col m-0 p-0 md:items-end justify-center'>
-																	<div className="flex items-center gap-2 text-zinc-400">
+																<div className='flex text-sm md:text-md md:flex-col m-0 p-0 gap-2  items-center md:items-end md:justify-center'>
+																	<div className="flex my-auto  items-center gap-2 text-zinc-400">
 																		<Calendar className="inline-block" />
 																		<span>
 																			{new Date(item.date).toLocaleDateString('en-US', {
@@ -355,7 +356,7 @@ export default async function About() {
 																		</span>
 																	</div>
 																	{item.location && (
-																		<div className="flex items-center gap-2 mt-2 text-zinc-400">
+																		<div className="flex my-auto  items-center gap-2 text-zinc-400">
 																			<MapPin className="inline-block" />
 																			<span>{item.location}</span>
 																		</div>
