@@ -21,8 +21,6 @@ export default function ImageBox({
 }: ImageBoxProps) {
 	const imageUrl = image && urlForImage(image)?.fit('crop').url();
 
-	console.log('Image URL:', props.width);
-
 	return (
 		<div
 			className={`w-full p-0 overflow-hidden  bg-transparent ${classesWrapper}`}

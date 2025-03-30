@@ -62,7 +62,7 @@ export default async function About() {
 
 									<Link
 										href={`${data.resumeURL}?dl=AlanRen_Resume.pdf`}
-										className="flex items-center justify-center gap-x-2 bg-[#1d1d20] border border-transparent hover:border-zinc-700 rounded-md duration-200 py-2 text-center cursor-cell font-medium"
+										className="flex items-center justify-center gap-x-2 bg-[#1d1d20] border border-transparent hover:bg-[#3b3b3b] hover:border-zinc-200 rounded-md duration-200 py-2 text-center cursor-cell font-medium"
 									>
 										<File className="text-base" /> Download Resume
 									</Link>
@@ -72,7 +72,7 @@ export default async function About() {
 									<li>
 										<a
 											href={`mailto:${data.email}`}
-											className="flex items-center gap-x-2 hover:text-purple-400 duration-300"
+											className="flex items-center gap-x-2 hover:underline duration-300"
 										>
 											<Envelope className="text-lg" />
 											{data.email}
@@ -82,7 +82,7 @@ export default async function About() {
 										<li>
 											<a
 												href={data.socialLinks.github}
-												className="flex items-center gap-x-2 hover:text-purple-400 duration-300"
+												className="flex items-center gap-x-2 hover:underline duration-300"
 												target="_blank"
 												rel="noopener noreferrer"
 											>
@@ -95,7 +95,7 @@ export default async function About() {
 										<li>
 											<a
 												href={data.socialLinks.linkedin}
-												className="flex items-center gap-x-2 hover:text-purple-400 duration-300"
+												className="flex items-center gap-x-2 hover:underline duration-300"
 												target="_blank"
 												rel="noopener noreferrer"
 											>
@@ -108,7 +108,7 @@ export default async function About() {
 										<li>
 											<a
 												href={data.socialLinks.instagram}
-												className="flex items-center gap-x-2 hover:text-purple-400 duration-300"
+												className="flex items-center gap-x-2 hover:underline duration-300"
 												target="_blank"
 												rel="noopener noreferrer"
 											>
@@ -206,36 +206,41 @@ export default async function About() {
 													/>
 												)}
 												<div>
-													<h3 className="text-xl font-bold">{job.jobTitle}</h3>
+													<h3 className="text-xl max-w-xl  font-bold overflow-hidden text-ellipsis whitespace-nowrap">{job.jobTitle}</h3>
 													<p className="text-zinc-400">{job.name}</p>
 												</div>
 											</div>
-											<div className="flex items-center gap-2 text-zinc-400">
-												<Calendar className="inline-block" />
-												<span>
-													{new Date(job.startDate).toLocaleDateString('en-US', {
-														year: 'numeric',
-														month: 'short'
-													})} - {
-														job.endDate
-															? new Date(job.endDate).toLocaleDateString('en-US', {
-																year: 'numeric',
-																month: 'short'
-															})
-															: 'Present'
-													}
-												</span>
+											<div className='flex flex-col m-0 p-0 md:items-end justify-center'>
+
+												<div className="flex items-center gap-2 text-zinc-400">
+													<Calendar className="inline-block" />
+													<span>
+														{new Date(job.startDate).toLocaleDateString('en-US', {
+															year: 'numeric',
+															month: 'short'
+														})} - {
+															job.endDate
+																? new Date(job.endDate).toLocaleDateString('en-US', {
+																	year: 'numeric',
+																	month: 'short'
+																})
+																: 'Present'
+														}
+													</span>
+												</div>
+												{job.location && (
+													<div className="flex items-center gap-2 mt-2 text-zinc-400">
+														<MapPin className="inline-block" />
+														<span>{job.location}</span>
+													</div>
+												)}
 											</div>
+
 										</div>
 
-										{job.location && (
-											<div className="flex items-center gap-2 mt-2 text-zinc-400">
-												<MapPin className="inline-block" />
-												<span>{job.location}</span>
-											</div>
-										)}
 
-										<div className="mt-4 prose prose-zinc dark:prose-invert">
+
+										<div className="mt-4 max-w-3xl prose prose-zinc dark:prose-invert">
 											<PortableText value={job.description} />
 										</div>
 
@@ -327,38 +332,42 @@ export default async function About() {
 														<div key={itemIndex} className="border-l-2 border-zinc-700 pl-6 transition-all">
 															<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
 																<div>
-																	<h5 className="text-lg font-bold">{item.title}</h5>
+																	<h5 className="text-lg font-bold mt-2 mb-0 overflow-hidden text-ellipsis whitespace-nowrap">{item.title}</h5>
 																	{item.eventName && (
-																		<p className="text-zinc-400">{item.eventName}</p>
+																		<p className="text-zinc-400 text-sm mb-2">{item.eventName}</p>
 																	)}
 																</div>
-																<div className="flex items-center gap-2 text-zinc-400">
-																	<Calendar className="inline-block" />
-																	<span>
-																		{new Date(item.date).toLocaleDateString('en-US', {
-																			year: 'numeric',
-																			month: 'short'
-																		})} {
-																			item.endDate
-																				? ` - ${new Date(item.endDate).toLocaleDateString('en-US', {
-																					year: 'numeric',
-																					month: 'short'
-																				})}`
-																				: ''
-																		}
-																	</span>
+																<div className='flex flex-col m-0 p-0 md:items-end justify-center'>
+																	<div className="flex items-center gap-2 text-zinc-400">
+																		<Calendar className="inline-block" />
+																		<span>
+																			{new Date(item.date).toLocaleDateString('en-US', {
+																				year: 'numeric',
+																				month: 'short'
+																			})} {
+																				item.endDate
+																					? ` - ${new Date(item.endDate).toLocaleDateString('en-US', {
+																						year: 'numeric',
+																						month: 'short'
+																					})}`
+																					: ''
+																			}
+																		</span>
+																	</div>
+																	{item.location && (
+																		<div className="flex items-center gap-2 mt-2 text-zinc-400">
+																			<MapPin className="inline-block" />
+																			<span>{item.location}</span>
+																		</div>
+																	)}
 																</div>
+
 															</div>
 
-															{item.location && (
-																<div className="flex items-center gap-2 mt-2 text-zinc-400">
-																	<MapPin className="inline-block" />
-																	<span>{item.location}</span>
-																</div>
-															)}
+
 
 															{item.description && (
-																<div className="mt-4 prose prose-zinc dark:prose-invert">
+																<div className="mt-4 max-w-3xl prose prose-zinc dark:prose-invert">
 																	<PortableText value={item.description} />
 																</div>
 															)}

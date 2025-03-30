@@ -91,13 +91,15 @@ export function CustomPortableText({
 				return (
 					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
-							className="relative w-auto h-auto"
+							className="relative w-auto h-auto cursor-auto"
 							controls={true}
 							url={url}
 							light={false}
 							width="100%"
 							height="100%"
 							referrerPolicy="no-referrer-when-downgrade"
+							playing={false}
+
 						/>
 					</motion.div>
 				);

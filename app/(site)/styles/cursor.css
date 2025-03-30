@@ -1,75 +1,102 @@
-/* Custom cursor styles */
-body {
-  cursor: none !important; /* Hide the default cursor */
+/* Custom cursor styles with improved transitions */
+:root {
+	--cursor-border-color: #ffffff;
+	--cursor-bg-color: #fff;
+	--cursor-size-normal: 100px;
+	--cursor-size-pointer: 30px;
+	--cursor-transition-speed: 0.2s;
 }
 
-.flare {
-  /* Basic positioning */
-  position: fixed; /* Stays fixed relative to viewport */
-  pointer-events: none; /* Ensures cursor doesn't interfere with clicking */
-  z-index: 999999 !important; /* Keeps cursor above all other elements */
+/* Only apply cursor styles on non-touch devices */
+@media (pointer: fine) {
+	body {
+		cursor: none;
+	}
 
-  /* Visual styling */
-  border: 2px solid #ffffff; /* Creates a white border outline */
-  border-radius: 50%; /* Makes it perfectly circular */
-  background-color: #fff; /* White fill for the cursor */
-  mix-blend-mode: exclusion; /* Creates contrast against any background */
+	.flare {
+		/* Basic positioning */
+		position: fixed;
+		pointer-events: none;
+		z-index: 999999;
 
-  /* Transform and animation */
-  transform: translate(-50%, -50%); /* Centers the cursor on the actual pointer position */
-  transition:
-    width 0.2s ease-in-out,
-    height 0.2s ease-in-out,
-    opacity 0.2s ease-in-out; /* Added opacity for smooth visibility changes */
+		/* Visual styling */
+		border: 2px solid var(--cursor-border-color);
+		border-radius: 50%;
+		background-color: var(--cursor-bg-color);
+		mix-blend-mode: exclusion;
+
+		/* Performance optimizations */
+		will-change: transform, width, height, opacity;
+		backface-visibility: hidden;
+
+		/* Transform and animation - smooth transitions */
+		transform: translate(-50%, -50%) translateZ(0);
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out;
+
+		/* Initial state */
+		opacity: 1;
+	}
+
+	/* Hidden state - smooth fade out */
+	.flare.hidden {
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity var(--cursor-transition-speed) ease-in-out,
+			visibility 0s linear var(--cursor-transition-speed);
+	}
+
+	/* Pointer state */
+	.flare.pointer {
+		width: var(--cursor-size-pointer);
+		height: var(--cursor-size-pointer);
+	}
+
+	/* Over iframe transition - smooth size reduction before hiding */
+	.flare.over-iframe {
+		opacity: 0.5;
+		width: 20px;
+		height: 20px;
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out;
+	}
+
+	/* Transitioning state */
+	.flare.transitioning {
+		transition:
+			width var(--cursor-transition-speed) ease-in-out,
+			height var(--cursor-transition-speed) ease-in-out,
+			opacity var(--cursor-transition-speed) ease-in-out,
+			transform var(--cursor-transition-speed) ease-in-out;
+	}
 }
 
-/* Add a new class for when cursor is hidden */
-.flare.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.2s ease-in-out,
-    visibility 0s linear 0.2s; /* Delays visibility change until after fade */
+/* Touch devices - restore default cursor */
+@media (pointer: coarse) {
+	body {
+		cursor: auto;
+	}
+
+	.flare {
+		display: none;
+	}
 }
 
 /* Firefox-specific styles */
 @-moz-document url-prefix() {
-  .flare {
-    /* Ensure the cursor renders above Firefox-specific UI elements */
-    z-index: 2147483647 !important;
-    /* Add additional GPU acceleration for smoother movement in Firefox */
-    transform: translate(-50%, -50%) translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  /* Ensure videos don't capture cursor events in Firefox */
-  video,
-  iframe {
-    pointer-events: auto !important;
-  }
+	.flare {
+		z-index: 2147483647;
+	}
 }
 
-/* We need to remove this custom cursor in mobile devices */
-@media screen and (max-width: 768px) {
-  body {
-    cursor: auto !important; /* Let's hide the default cursor so it looks way better */
-  }
-
-  .flare {
-    display: none;
-    width: 0;
-    height: 0;
-    transition:
-      width 0.2s ease-in-out,
-      height 0.2s ease-in-out,
-      opacity 0.2s ease-in-out;
-  }
-}
-
-.flare.pointer {
-  opacity: 0 !important;
-  transition:
-    width 0.2s ease-in-out,
-    height 0.2s ease-in-out,
-    opacity 0.2s ease-in-out;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+	.flare {
+		transition-duration: 0.05s;
+	}
 }
