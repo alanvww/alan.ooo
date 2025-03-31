@@ -1,9 +1,10 @@
+'use client';
 import { useTransitionRouter } from 'next-view-transitions'
 import type { ProjectType } from '@/types';
 import { BiChevronRight } from 'react-icons/bi';
 
 
-import * as motion from "motion/react-client"
+import { motion } from "motion/react"
 import Image from 'next/image';
 interface ProjectCardProps {
 	id: number;
