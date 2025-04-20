@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'motion/react';
+import { useOnClickOutside } from 'usehooks-ts';
 import {
   Code,
   Atom,
@@ -59,8 +60,15 @@ interface ExpandedMenuProps {
  * Memoized to prevent unnecessary re-renders when parent components update
  */
 export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: ExpandedMenuProps) {
+  const menuRef = useRef<HTMLElement>(null); // Create a ref for the menu container
+
+  // Call the hook to detect clicks outside the menu
+  // Use type assertion because useOnClickOutside expects RefObject<HTMLElement>, not RefObject<HTMLElement | null>
+  useOnClickOutside(menuRef as React.RefObject<HTMLElement>, onCollapse);
+
   return (
     <motion.section
+      ref={menuRef} // Attach the ref to the main section element
       layout
       initial={{ opacity: 0, y: 200 }}
       animate={{ opacity: 1, y: 0 }}

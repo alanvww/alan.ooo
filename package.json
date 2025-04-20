@@ -47,7 +47,8 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.17",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@portabletext/react": "^3.2.1",
