@@ -17,6 +17,10 @@ interface CollapsedMenuProps {
 export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: CollapsedMenuProps) {
   const pathname = usePathname();
 
+  const baseLinkClasses = 'flex md:px-10 px-2 py-2 rounded-lg hover:bg-white hover:text-black duration-300';
+  const activeLinkClasses = 'bg-white text-black';
+  const inactiveLinkClasses = 'text-white bg-transparent';
+
   return (
     <motion.ul
       layout
@@ -32,32 +36,34 @@ export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: Col
       className="flex items-center md:w-auto md:h-auto w-max gap-x-4 md:gap-x-8 md:px-10 px-4 py-2 rounded-xl bg-gray-dark cursor-pointer"
     >
       {/* About link */}
-      <li
-        className={`md:px-10 px-2 py-2 rounded-lg hover:bg-white hover:text-black duration-300 ${
-          pathname === '/about' ? 'bg-white text-black' : 'text-white bg-transparent'
-        }`}
-      >
-        <Link href="/about" className="flex">
+      <li>
+        <Link
+          href="/about"
+          className={`${baseLinkClasses} ${pathname === '/about' ? activeLinkClasses : inactiveLinkClasses
+            }`}
+        >
           <Code className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">About</span>
         </Link>
       </li>
 
       {/* Projects link */}
-      <li
-        className={`md:px-10 px-3 py-2 rounded-lg hover:bg-white hover:text-black duration-300 ${
-          pathname === '/projects' ? 'bg-white text-black' : 'text-white bg-transparent'
-        }`}
-      >
-        <Link href="/projects" className="flex">
+      <li>
+        <Link
+          href="/projects"
+          className={`${baseLinkClasses} ${ // Use baseLinkClasses for consistent padding
+            pathname === '/projects' ? activeLinkClasses : inactiveLinkClasses
+            }`}
+        >
           <Atom className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">Projects</span>
         </Link>
       </li>
 
       {/* More button */}
-      <li className="md:px-10 px-3 py-2 rounded-xl hover:bg-white hover:text-black duration-300">
-        <button onClick={onExpand} className="flex cursor-pointer">
+      {/* Use px-2 for consistency */}
+      <li>
+        <button onClick={onExpand} className={`${baseLinkClasses}`}>
           <DotsThreeVertical className="md:inline my-auto mx-1 text-xl" />
           <span className="align-middle">More</span>
         </button>

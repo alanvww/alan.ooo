@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react'; // Import useRef
 import {
 	Stepper,
 	StepperIndicator,
@@ -11,12 +11,18 @@ import {
 
 interface InPageNavigationProps {
 	contentSelector: string;
+	requireScrollToView?: boolean; // New prop
 }
 
-const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) => {
+const InPageNavigation: React.FC<InPageNavigationProps> = ({
+	contentSelector,
+	requireScrollToView = true // Default to true (require scroll)
+}) => {
 	const [steps, setSteps] = useState<Array<{ step: number; title: string; id: string }>>([]);
 	const [activeStep, setActiveStep] = useState<number>(1);
-	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const [isVisible, setIsVisible] = useState<boolean>(false); // Scroll-based visibility
+	const [hasEnoughHorizontalSpace, setHasEnoughHorizontalSpace] = useState<boolean>(true); // Horizontal space check
+	const navRef = useRef<HTMLDivElement>(null); // Ref for the main container
 
 	useEffect(() => {
 		const contentElement = document.querySelector(contentSelector);
@@ -36,10 +42,16 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) 
 
 		const handleScroll = () => {
 			// Show navigation after scrolling
-			if (window.scrollY > 200) {
-				setIsVisible(true);
+			// Only check scroll position if requireScrollToView is true
+			if (requireScrollToView) {
+				if (window.scrollY > 200) {
+					setIsVisible(true);
+				} else {
+					setIsVisible(false);
+				}
 			} else {
-				setIsVisible(false);
+				// Otherwise, it's always visible based on scroll
+				setIsVisible(true);
 			}
 
 			// Update active step when section crosses 50% of screen height
@@ -59,7 +71,50 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) 
 
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
-	}, [contentSelector]);
+	}, [contentSelector, requireScrollToView]); // Add requireScrollToView
+
+	// Effect to check for available space based on component height and window height
+	useEffect(() => {
+		const checkSpace = () => {
+			const contentElement = document.querySelector(contentSelector) as HTMLElement;
+			if (navRef.current && contentElement) {
+				// Horizontal check using viewport-relative positions
+				const navRect = navRef.current.getBoundingClientRect();
+				const contentRect = contentElement.getBoundingClientRect();
+				const buffer = 16; // Add a 16px buffer to prevent touching
+
+				// Hide if nav's right edge (+ buffer) overlaps or passes content's left edge
+				setHasEnoughHorizontalSpace(navRect.right + buffer < contentRect.left);
+
+			} else {
+				// Default to true if elements aren't found initially
+				setHasEnoughHorizontalSpace(true);
+			}
+		};
+
+		// Initial check
+		checkSpace();
+
+		// Observe changes in the navigation component's size
+		const resizeObserver = new ResizeObserver(checkSpace);
+		const currentNavRef = navRef.current; // Capture ref value
+
+		if (currentNavRef) {
+			resizeObserver.observe(currentNavRef);
+		}
+
+		// Re-check on window resize
+		window.addEventListener('resize', checkSpace);
+
+		// Cleanup
+		return () => {
+			// Use the captured ref value in cleanup
+			if (currentNavRef) {
+				resizeObserver.unobserve(currentNavRef);
+			}
+			window.removeEventListener('resize', checkSpace);
+		};
+	}, [steps, contentSelector, requireScrollToView]);
 
 	const handleStepClick = (step: { id: string }) => {
 		const element = document.querySelector(`#${step.id}`);
@@ -69,7 +124,11 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({ contentSelector }) 
 	};
 
 	return (
-		<div className={`fixed left-28 top-64 hidden lg:block transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+		// Attach ref and update visibility class
+		<div
+			ref={navRef}
+			className={`fixed left-28 top-64 hidden lg:block transition-opacity duration-300 ${isVisible && hasEnoughHorizontalSpace ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+		>
 			<div className="space-y-8">
 				<Stepper value={activeStep} orientation="vertical">
 					{steps.map((step) => (

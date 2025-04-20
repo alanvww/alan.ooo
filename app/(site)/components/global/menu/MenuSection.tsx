@@ -16,11 +16,6 @@ export const MenuSection = React.memo(function MenuSection({ title, children }: 
   return (
     <motion.span
       layout
-      transition={{
-        duration: 0.5,
-        type: 'linear',
-        ease: [0.76, 0, 0.24, 1],
-      }}
       className="flex flex-col md:m-2 mx-1 py-2"
     >
       <span className="text-xl mx-4 py-4">{title}</span>

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
-import { urlForImage } from '../../../../sanity/sanity.image';
+import { urlForImage } from '@/sanity/sanity.image';
+
 
 interface ImageBoxProps {
 	image?: { asset?: any };
@@ -19,7 +20,7 @@ export default function ImageBox({
 	classesWrapper,
 	...props
 }: ImageBoxProps) {
-	const imageUrl = image && urlForImage(image)?.fit('crop').url();
+	const imageUrl = image && urlForImage(image)?.auto('format').url();
 
 	return (
 		<div
@@ -28,12 +29,14 @@ export default function ImageBox({
 		>
 			{imageUrl && (
 				<Image
-					className="w-full h-auto p-0 m-0 object-cover rounded-xl"
+					className="p-0 m-0 rounded-xl"
 					alt={alt}
+					width={0} // Required for responsive sizing with style
+					height={0} // Required for responsive sizing with style
 					sizes={size}
 					src={imageUrl}
 					loading="lazy"
-					fill
+					style={{ width: '100%', height: 'auto' }} // Let image determine height based on width
 				/>
 			)}
 		</div>

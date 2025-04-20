@@ -8,7 +8,8 @@ import InPageNavigation from './InPageNavigation';
 const ProjectRender = (project: ProjectType) => {
 	return (
 		<main className="max-w-6xl mx-auto lg:px-16 px-8 	">
-			<InPageNavigation contentSelector=".mainContent" />
+			{/* Pass requireScrollToView={false} for project pages */}
+			<InPageNavigation contentSelector=".mainContent" requireScrollToView={false} />
 
 			<div className="max-w-3xl mx-auto">
 				<div className="absolute top-0 left-0 w-full h-[20vh] -z-10 items-center justify-center flex">

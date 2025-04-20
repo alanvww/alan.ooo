@@ -20,7 +20,7 @@ export default async function About() {
 
 	return (
 		<div className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6 relative">
-			<InPageNavigation contentSelector=".mainContent" />
+			<InPageNavigation contentSelector=".mainContent" requireScrollToView={true} />
 			{profile &&
 				profile.map((data) => (
 					<div key={data._id} className="mainContent">
