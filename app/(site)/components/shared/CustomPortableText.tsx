@@ -41,7 +41,7 @@ export function CustomPortableText({
 				return (
 					<motion.h2
 						id={typeof children === 'string' ? children : undefined}
-						className="text-3xl font-bold my-6 scroll-mt-10	"
+						className="text-2xl md:text-3xl font-bold mt-6 scroll-mt-10	"
 					>
 						{children}
 					</motion.h2>
@@ -49,7 +49,7 @@ export function CustomPortableText({
 			},
 			h3: ({ children }) => {
 				return (
-					<motion.h3 className="text-2xl font-bold my-6">{children}</motion.h3>
+					<motion.h3 className="text-xl md:text-2xl font-bold mt-3">{children}</motion.h3>
 				);
 			},
 		},

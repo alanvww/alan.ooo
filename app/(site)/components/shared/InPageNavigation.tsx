@@ -50,8 +50,12 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 					setIsVisible(false);
 				}
 			} else {
-				// Otherwise, it's always visible based on scroll
-				setIsVisible(true);
+				// For project pages (requireScrollToView=false), show after scrolling 36vh
+				if (window.scrollY > window.innerHeight * 0.36) {
+					setIsVisible(true);
+				} else {
+					setIsVisible(false);
+				}
 			}
 
 			// Update active step when section crosses 50% of screen height
@@ -81,7 +85,7 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 				// Horizontal check using viewport-relative positions
 				const navRect = navRef.current.getBoundingClientRect();
 				const contentRect = contentElement.getBoundingClientRect();
-				const buffer = 16; // Add a 16px buffer to prevent touching
+				const buffer = 0; 
 
 				// Hide if nav's right edge (+ buffer) overlaps or passes content's left edge
 				setHasEnoughHorizontalSpace(navRect.right + buffer < contentRect.left);
@@ -127,7 +131,7 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 		// Attach ref and update visibility class
 		<div
 			ref={navRef}
-			className={`fixed left-28 top-64 hidden lg:block transition-opacity duration-300 ${isVisible && hasEnoughHorizontalSpace ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+			className={`fixed left-1/20 w-auto top-64 hidden lg:block transition-opacity duration-300 ${isVisible && hasEnoughHorizontalSpace ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
 		>
 			<div className="space-y-8">
 				<Stepper value={activeStep} orientation="vertical">
@@ -144,8 +148,12 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 								<StepperIndicator
 
 								/>
-								<div className="mt-0.5 px-2 text-left">
-									<StepperTitle>{step.title}</StepperTitle>
+								{/* Container for title with truncation and tooltip */}
+								<div
+									className="my-auto text-left max-w-46 min-w-0" /* Added min-w-0, removed text-ellipsis */
+									title={step.title} // Show full title on hover
+								>
+									<StepperTitle className='min-w-0 truncate overflow-ellipsis text-nowrap whitespace-nowrap'>{step.title}</StepperTitle>
 								</div>
 							</StepperTrigger>
 							{step.step < steps.length && (
@@ -160,3 +168,4 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 };
 
 export default InPageNavigation;
+
