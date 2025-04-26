@@ -6,9 +6,10 @@ import React, { useMemo } from 'react';
 import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
-import { motion } from 'motion/react';
+import * as motion from 'motion/react-client';
+import { ArrowSquareOut } from '@phosphor-icons/react/dist/ssr';
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 // Custom list item component that can handle nested lists
 
@@ -54,13 +55,23 @@ export function CustomPortableText({
 		},
 		marks: {
 			link: ({ children, value }) => {
+				const href = value?.href;
+				const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+
 				return (
 					<MotionLink
-						className="underline transition hover:opacity-50"
-						href={value?.href}
-						rel="noreferrer noopener"
+						// Use inline-flex to keep icon and text together, centered vertically
+						className="inline-flex items-center underline transition hover:opacity-50"
+						href={href}
+						// Only add rel and target for external links
+						rel={isExternal ? "noreferrer noopener" : undefined}
+						target={isExternal ? '_blank' : undefined}
 					>
 						{children}
+						{/* Conditionally render the icon for external links */}
+						{isExternal && (
+							<ArrowSquareOut weight="duotone" className="ml-1 h-3 w-3 md:h-6 md:w-6" aria-label="External link" />
+						)}
 					</MotionLink>
 				);
 			},

@@ -5,7 +5,7 @@ import LongLogo from '../../icons/logo_long.png';
 
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import * as React from 'react';
+import React from 'react';
 
 const MotionLink = motion(Link);
 
