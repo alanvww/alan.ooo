@@ -123,7 +123,7 @@ export default async function About() {
 
 						<main className="mainContent w-auto md:w-min md:m-auto p-0 flex flex-col md:items-center gap-y-5 pt-8 leading-7">
 							<motion.section
-								className="mt-24 max-w-4xl "
+								className="mt-24 max-w-5xl "
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.3 }}
@@ -169,7 +169,7 @@ export default async function About() {
 							</motion.section>
 
 							<motion.section
-								className="mt-24 max-w-4xl"
+								className="mt-24 max-w-8xl lg:min-w-5xl"
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.4 }}
@@ -291,7 +291,7 @@ export default async function About() {
 							</motion.section>
 
 							<motion.section
-								className="mt-24 max-w-4xl"
+								className="mt-24 max-w-8xl lg:min-w-5xl"
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.5 }}
@@ -333,8 +333,8 @@ export default async function About() {
 														{category.items.map((item: CVItemType, itemIndex: number) => (
 															<div key={itemIndex} className="border-l-2 border-zinc-700 pl-6 transition-all">
 																<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-																	<div>
-																		<h5 className="text-lg font-bold mt-2 mb-0 overflow-hidden text-ellipsis whitespace-nowrap">{item.title}</h5>
+																	<div className='w-4/5'>
+																		<h5 className="text-lg w-full font-bold mt-2 mb-0 overflow-hidden text-ellipsis whitespace-nowrap">{item.title}</h5>
 																		{item.eventName && (
 																			<p className="text-zinc-400 text-sm mb-2">{item.eventName}</p>
 																		)}
