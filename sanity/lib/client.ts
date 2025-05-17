@@ -1,11 +1,10 @@
 import { createClient, type QueryParams } from 'next-sanity'
-import { apiVersion, dataset, projectId, useCdn } from '../env'
+import { apiVersion, dataset, projectId } from '../env'
 
 export const client = createClient({
     projectId,
     dataset,
     apiVersion,
-    useCdn,
     stega: {
         enabled: process.env.NODE_ENV === 'production',
         studioUrl: '/studio'
