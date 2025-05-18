@@ -3,10 +3,13 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
+    "predev": "npm run typegen",
+    "prebuild": "npm run typegen",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "sanity schema extract --path=sanity/extract.json && sanity typegen generate"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.8",
@@ -55,12 +58,6 @@
     "@tailwindcss/typography": "^0.5.16",
     "prettier": "^3.5.3",
     "react-icons": "^5.5.0"
-  },
-  "overrides": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   },
   "trustedDependencies": [
     "@vercel/speed-insights"
