@@ -131,7 +131,7 @@ const InPageNavigation: React.FC<InPageNavigationProps> = ({
 		// Attach ref and update visibility class
 		<div
 			ref={navRef}
-			className={`fixed left-1/20 w-auto top-64 hidden lg:block transition-opacity duration-300 ${isVisible && hasEnoughHorizontalSpace ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            className={`fixed left-1/20 w-auto top-64 hidden lg:block transition-opacity duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${isVisible && hasEnoughHorizontalSpace ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
 		>
 			<div className="space-y-8">
 				<Stepper value={activeStep} orientation="vertical">

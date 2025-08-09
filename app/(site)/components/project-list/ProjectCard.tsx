@@ -5,6 +5,7 @@ import { BiChevronRight } from 'react-icons/bi';
 
 
 import { motion } from "motion/react"
+import { defaultTransition, DURATION, EASE_STANDARD } from "@/app/(site)/utilities/animations"
 import Image from 'next/image';
 interface ProjectCardProps {
 	id: number;
@@ -19,20 +20,20 @@ function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
 
 	const handleProjectClick = (e: React.MouseEvent) => {
 		e.preventDefault();
-		sessionStorage.setItem('projectsPageScroll', window.scrollY.toString());
+        // Persist list scroll position and the slug of the clicked project
+        sessionStorage.setItem('projectsPageScroll', window.scrollY.toString());
+        sessionStorage.setItem('projects:lastSlug', project.slug);
 		router.push(`/projects/${project.slug}`);
 	};
 
 	return (
-		<motion.div
+        <motion.div
 			key={id}
+            id={`project-${project.slug}`}
 			className="md:cursor-none  text-white flex flex-col my-8 group "
 			whileInView={whileInView}
 			initial={initial}
-			transition={{
-				duration: 0.2,
-				ease: [0, 0.71, 0.2, 1.01],
-			}}
+            transition={{ ...defaultTransition, duration: DURATION.fast, ease: EASE_STANDARD }}
 			onClick={handleProjectClick}
 		>
 			<motion.div className="flex flex-row -z-10">

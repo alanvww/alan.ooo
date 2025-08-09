@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useMenuVisibility } from '../../hooks/useMenuVisibility';
 import { CollapsedMenu } from './menu/CollapsedMenu';
 import { ExpandedMenu } from './menu/ExpandedMenu';
+import { defaultTransition, DURATION } from '@/app/(site)/utilities/animations';
 
 /**
  * FloatMenu component - handles the floating navigation menu
@@ -33,11 +34,7 @@ export default function FloatMenu() {
         <motion.nav
           layoutRoot
           layout
-          transition={{
-            duration: 0.2,
-            type: 'linear',
-            ease: [0.76, 0, 0.24, 1],
-          }}
+          transition={{ ...defaultTransition, duration: DURATION.fast }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
@@ -45,12 +42,7 @@ export default function FloatMenu() {
         >
           <motion.section
             layout
-            transition={{
-              duration: 0.5,
-              type: 'linear',
-              delayChildren: 0.3,
-              ease: [0.76, 0, 0.24, 1],
-            }}
+            transition={{ ...defaultTransition, delayChildren: 0.12 }}
             className="rounded-xl bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple p-px"
           >
             {/* Conditionally render the collapsed or expanded menu */}

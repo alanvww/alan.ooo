@@ -5,6 +5,9 @@ import ProjectList from '../../components/project-list/ProjectList';
 import Headline from '../../components/shared/Headline';
 import { Suspense } from 'react';
 import Loading from './loading';
+import * as motion from 'motion/react-client';
+import { containerVariants, itemVariants } from '@/app/(site)/utilities/animations';
+import ProjectListScrollRestorer from './ScrollRestorer';
 
 
 export const metadata: Metadata = {
@@ -16,17 +19,30 @@ export default async function Project() {
 	const projects: ProjectType[] = await getProjects();
 
 	return (
-		<main className="max-w-7xl mx-auto md:px-16 px-6">
-			<Headline
+        <motion.main
+            className="max-w-7xl mx-auto md:px-16 px-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
+            <ProjectListScrollRestorer />
+            <motion.div variants={itemVariants}>
+                <Headline
 
-				title="Exploring Boundaries in Digital Creation"
-				description="Behind each project is a story of experimentation, learning, and problem-solving. 
-				These selected works represent key moments in my development as a creator and 
-				technologist."
+                    title="Exploring Boundaries in Digital Creation"
+                    description="Behind each project is a story of experimentation, learning, and problem-solving. 
+                    These selected works represent key moments in my development as a creator and 
+                    technologist."
 
-			/>
+                />
+            </motion.div>
 
-			<ProjectList projects={projects} />
-		</main>
+            <motion.div variants={itemVariants}>
+                <Suspense fallback={<Loading />}> 
+                    <ProjectList projects={projects} />
+                </Suspense>
+            </motion.div>
+        </motion.main>
 	);
 }

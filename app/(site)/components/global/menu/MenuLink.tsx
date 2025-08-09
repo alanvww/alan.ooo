@@ -20,7 +20,7 @@ export const MenuLink = React.memo(function MenuLink({
   icon, 
   children, 
   isExternal = false,
-  className = "flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green ease-in transition-all duration-100 border-s-2 border-separate border-white hover:border-theme-green"
+  className = "flex flex-row px-2 py-2 ml-8 text-sm text-gray-700 hover:text-theme-green transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] border-s-2 border-separate border-white hover:border-theme-green"
 }: MenuLinkProps) {
   const linkProps = isExternal ? { 
     target: "_blank", 

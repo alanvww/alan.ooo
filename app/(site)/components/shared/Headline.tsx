@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { motion } from 'motion/react';
+import { defaultTransition } from '@/app/(site)/utilities/animations';
 import { cn } from '@/lib/utils';
 
 // Define an interface for the component props
@@ -28,7 +29,7 @@ export default function Headline({
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ scale: 0, opacity: 0 }}
-			transition={{}}
+            transition={defaultTransition}
 		>
 			<div className='m-auto'>
 				<h1 className={cn(

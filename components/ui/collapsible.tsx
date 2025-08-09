@@ -31,7 +31,7 @@ export function Collapsible({
         </span>
       </button>
       <div 
-        className={`overflow-hidden transition-all duration-300 ${
+        className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${
           isOpen 
             ? 'max-h-[1000px] pb-6 opacity-100' 
             : 'max-h-0 opacity-0'

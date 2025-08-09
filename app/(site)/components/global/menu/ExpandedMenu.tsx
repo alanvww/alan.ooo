@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
+import { defaultTransition, containerVariants, itemVariants } from '@/app/(site)/utilities/animations';
 import { useOnClickOutside } from 'usehooks-ts';
 import {
   Code,
@@ -21,35 +22,7 @@ import { MenuSection } from './MenuSection';
 import { MenuLink } from './MenuLink';
 
 // Animation variants - defined outside component to prevent recreation
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2,
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      staggerChildren: 0.2,
-      staggerDirection: -1,
-    },
-  },
-};
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-  exit: {
-    y: 20,
-    opacity: 0,
-  },
-};
+// Use centralized variants
 
 interface ExpandedMenuProps {
   onCollapse: () => void;
@@ -73,12 +46,7 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
       initial={{ opacity: 0, y: 200 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 200 }}
-      transition={{
-        duration: 0.5,
-        delayChildren: 0.3,
-        type: 'linear',
-        ease: [0.76, 0, 0.24, 1],
-      }}
+      transition={{ ...defaultTransition, delayChildren: 0.12 }}
       className="flex flex-col-reverse items-center md:w-auto w-max md:h-auto h-max px-0 md:px-4 py-2 rounded-xl bg-gray-dark"
     >
       {/* Control buttons */}
@@ -100,19 +68,15 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
 
       {/* Menu sections container */}
       <motion.div
-        variants={container}
+        variants={containerVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
-        transition={{
-          duration: 0.5,
-          type: 'linear',
-          ease: [0.76, 0, 0.24, 1],
-        }}
+        transition={defaultTransition}
         className="flex flex-wrap md:flex-row flex-col md:gap-x-8 mx-2 w-full rounded-md bg-opacity-95"
       >
         {/* Main Profile Section */}
-        <motion.div variants={item}>
+        <motion.div variants={itemVariants}>
           <MenuSection title="Main Profile">
             <MenuLink href="/projects" icon={<Atom />}>
               Projects
@@ -127,7 +91,7 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         </motion.div>
 
         {/* Contact Info Section */}
-        <motion.div variants={item}>
+        <motion.div variants={itemVariants}>
           <MenuSection title="Contact Info">
             <MenuLink href="https://www.linkedin.com/in/junhao-ren/" icon={<LinkedinLogo />} isExternal>
               LinkedIn
@@ -148,7 +112,7 @@ export const ExpandedMenu = React.memo(function ExpandedMenu({ onCollapse }: Exp
         </motion.div>
 
         {/* Fun Stuff Section */}
-        <motion.div variants={item}>
+        <motion.div variants={itemVariants}>
           <MenuSection title="Fun Stuffs">
             <MenuLink href="/tech-and-gear" icon={<Briefcase />}>
               Stack & Gear

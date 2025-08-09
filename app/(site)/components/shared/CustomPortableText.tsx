@@ -7,6 +7,7 @@ import ImageBox from './ImageBox';
 import Link from 'next/link';
 import ClientPlayer from './ClientPlayer';
 import * as motion from 'motion/react-client';
+import { defaultTransition } from '@/app/(site)/utilities/animations';
 import { ArrowSquareOut } from '@phosphor-icons/react/dist/ssr';
 
 const MotionLink = motion.create(Link);
@@ -22,35 +23,36 @@ export function CustomPortableText({
 }) {
 	const components: PortableTextComponents = useMemo(() => ({
 		list: {
-			bullet: ({ children }) => (
-				<motion.ul className="list-disc ml-5">{children}</motion.ul>
-			),
-			number: ({ children }) => (
-				<motion.ol className="list-decimal ml-4">{children}</motion.ol>
-			),
+            bullet: ({ children }) => (
+                <motion.ul className="list-disc ml-5" transition={defaultTransition}>{children}</motion.ul>
+            ),
+            number: ({ children }) => (
+                <motion.ol className="list-decimal ml-4" transition={defaultTransition}>{children}</motion.ol>
+            ),
 		},
-		listItem: ({ children }) => {
-			return <motion.li className={`ml-4`}>{children}</motion.li>;
+        listItem: ({ children }) => {
+            return <motion.li className={`ml-4`} transition={defaultTransition}>{children}</motion.li>;
 		},
 
 		block: {
-			normal: ({ children }) => {
-				return <motion.p className={paragraphClasses}>{children}</motion.p>;
+            normal: ({ children }) => {
+                return <motion.p className={paragraphClasses} transition={defaultTransition}>{children}</motion.p>;
 			},
 			h2: ({ children }) => {
-				return (
-					<motion.h2
+                return (
+                    <motion.h2
 						id={typeof children === 'string' ? children : undefined}
-						className="text-2xl md:text-3xl font-bold mt-6 scroll-mt-10	"
+                        className="text-2xl md:text-3xl font-bold mt-6 scroll-mt-10	"
+                        transition={defaultTransition}
 					>
 						{children}
 					</motion.h2>
 				);
 			},
 			h3: ({ children }) => {
-				return (
-					<motion.h3 className="text-xl md:text-2xl font-bold mt-3">{children}</motion.h3>
-				);
+                return (
+                    <motion.h3 className="text-xl md:text-2xl font-bold mt-3" transition={defaultTransition}>{children}</motion.h3>
+                );
 			},
 		},
 		marks: {
@@ -59,9 +61,9 @@ export function CustomPortableText({
 				const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
 
 				return (
-					<MotionLink
+                    <MotionLink
 						// Use inline-flex to keep icon and text together, centered vertically
-						className="inline-flex items-center underline transition hover:opacity-50"
+                        className="inline-flex items-center underline transition hover:opacity-50"
 						href={href}
 						// Only add rel and target for external links
 						rel={isExternal ? "noreferrer noopener" : undefined}
@@ -83,7 +85,7 @@ export function CustomPortableText({
 				value: Image & { alt?: string; caption?: string };
 			}) => {
 				return (
-					<motion.div className="aspect-auto ">
+                    <motion.div className="aspect-auto " transition={defaultTransition}>
 						<ImageBox
 							image={value}
 							alt={value.alt || value?.caption}
@@ -99,10 +101,49 @@ export function CustomPortableText({
 			},
 			youtube: ({ value }) => {
 				const { url } = value;
+				
+				console.log('YouTube component rendering with:', { value, url });
+				
+				// Validate YouTube URL
+				if (!url) {
+					console.warn('YouTube component: No URL provided');
+					return <div className="w-full h-full aspect-video bg-gray-200 flex items-center justify-center">No video URL</div>;
+				}
+
+				// Ensure URL is a valid YouTube URL
+				const isValidYouTubeUrl = url.includes('youtube.com') || url.includes('youtu.be');
+				if (!isValidYouTubeUrl) {
+					console.warn('YouTube component: Invalid YouTube URL:', url);
+					return <div className="w-full h-full aspect-video bg-gray-200 flex items-center justify-center">Invalid YouTube URL</div>;
+				}
+
+				// Temporary: Test with a simple iframe instead of ReactPlayer
+				const videoId = url.includes('youtu.be/') 
+					? url.split('youtu.be/')[1] 
+					: url.includes('youtube.com/watch?v=') 
+						? url.split('v=')[1]?.split('&')[0]
+						: null;
+
+				if (videoId) {
+					return (
+						<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
+							<iframe
+								width="100%"
+								height="100%"
+								src={`https://www.youtube.com/embed/${videoId}`}
+								title="YouTube video player"
+								frameBorder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowFullScreen
+							/>
+						</motion.div>
+					);
+				}
+
+				// Fallback to ReactPlayer if iframe approach fails
 				return (
 					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
-							className="relative w-auto h-auto cursor-auto"
 							controls={true}
 							url={url}
 							light={false}
@@ -110,7 +151,6 @@ export function CustomPortableText({
 							height="100%"
 							referrerPolicy="no-referrer-when-downgrade"
 							playing={false}
-
 						/>
 					</motion.div>
 				);

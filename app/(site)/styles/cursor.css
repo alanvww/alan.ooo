@@ -4,7 +4,8 @@
 	--cursor-bg-color: #fff;
 	--cursor-size-normal: 100px;
 	--cursor-size-pointer: 30px;
-	--cursor-transition-speed: 0.2s;
+    --cursor-transition-speed: 0.2s;
+    --cursor-ease: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* Only apply cursor styles on non-touch devices */
@@ -31,10 +32,10 @@
 
 		/* Transform and animation - smooth transitions */
 		transform: translate(-50%, -50%) translateZ(0);
-		transition:
-			width var(--cursor-transition-speed) ease-in-out,
-			height var(--cursor-transition-speed) ease-in-out,
-			opacity var(--cursor-transition-speed) ease-in-out;
+        transition:
+            width var(--cursor-transition-speed) var(--cursor-ease),
+            height var(--cursor-transition-speed) var(--cursor-ease),
+            opacity var(--cursor-transition-speed) var(--cursor-ease);
 
 		/* Initial state */
 		opacity: 1;
@@ -44,9 +45,9 @@
 	.flare.hidden {
 		opacity: 0;
 		visibility: hidden;
-		transition:
-			opacity var(--cursor-transition-speed) ease-in-out,
-			visibility 0s linear var(--cursor-transition-speed);
+        transition:
+            opacity var(--cursor-transition-speed) var(--cursor-ease),
+            visibility 0s linear var(--cursor-transition-speed);
 	}
 
 	/* Pointer state */
@@ -60,19 +61,19 @@
 		opacity: 0.5;
 		width: 20px;
 		height: 20px;
-		transition:
-			width var(--cursor-transition-speed) ease-in-out,
-			height var(--cursor-transition-speed) ease-in-out,
-			opacity var(--cursor-transition-speed) ease-in-out;
+        transition:
+            width var(--cursor-transition-speed) var(--cursor-ease),
+            height var(--cursor-transition-speed) var(--cursor-ease),
+            opacity var(--cursor-transition-speed) var(--cursor-ease);
 	}
 
 	/* Transitioning state */
 	.flare.transitioning {
-		transition:
-			width var(--cursor-transition-speed) ease-in-out,
-			height var(--cursor-transition-speed) ease-in-out,
-			opacity var(--cursor-transition-speed) ease-in-out,
-			transform var(--cursor-transition-speed) ease-in-out;
+        transition:
+            width var(--cursor-transition-speed) var(--cursor-ease),
+            height var(--cursor-transition-speed) var(--cursor-ease),
+            opacity var(--cursor-transition-speed) var(--cursor-ease),
+            transform var(--cursor-transition-speed) var(--cursor-ease);
 	}
 }
 

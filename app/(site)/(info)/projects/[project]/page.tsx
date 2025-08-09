@@ -12,6 +12,9 @@ import fallBackImage from '@/public/project.png';
 import fallBackOpenGraphImage from '@/public/opengraph-image.jpg';
 import { Suspense } from 'react';
 import Loading from '../loading';
+import * as motion from 'motion/react-client';
+import { containerVariants, itemVariants } from '@/app/(site)/utilities/animations';
+import ScrollToTop from './ScrollToTop';
 
 type Props = {
 	params: Promise<{
@@ -55,8 +58,18 @@ export default async function Project(props: Props) {
     }
 
     return (
-        <Suspense fallback={<Loading />}>
-            <ProjectRender {...project} />
-        </Suspense>
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
+            <ScrollToTop />
+            <motion.div variants={itemVariants}>
+                <Suspense fallback={<Loading />}>
+                    <ProjectRender {...project} />
+                </Suspense>
+            </motion.div>
+        </motion.div>
     );
 }

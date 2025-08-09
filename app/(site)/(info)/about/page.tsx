@@ -4,6 +4,7 @@ import type { ProfileType, JobType, CVType, CVItemType } from '@/types';
 import { PortableText } from '@portabletext/react';
 import { Envelope, File, Link as LinkIcon, MapPin, Calendar, Book, GithubLogo, LinkedinLogo, InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 import * as motion from "motion/react-client"
+import { defaultTransition } from "@/app/(site)/utilities/animations"
 import Headline from '../../components/shared/Headline';
 import InPageNavigation from '../../components/shared/InPageNavigation';
 import { Collapsible } from '@/components/ui/collapsible';
@@ -25,11 +26,11 @@ export default async function About() {
 				profile.map((data) => (
 					<div key={data._id} >
 						<section className="grid lg:grid-cols-2 grid-cols-1 gap-x-6 justify-items-center">
-							<motion.div
+                            <motion.div
 								className="order-2 lg:order-none"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.2 }}
+                                transition={{ ...defaultTransition, delay: 0.2 }}
 							>
 								<Headline
 									title={`I'm Alan Ren. Blending code and creativity to shape digital futures.`}
@@ -37,18 +38,18 @@ export default async function About() {
 								/>
 							</motion.div>
 
-							<motion.div
+                            <motion.div
 								className="flex flex-col lg:justify-self-center justify-self-start gap-y-8 lg:order-1 order-none mb-12"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5 }}
+                                transition={defaultTransition}
 							>
 								<div>
-									<motion.div
-										initial={{ scale: 0.9, opacity: 0 }}
-										animate={{ scale: 1, opacity: 1 }}
-										transition={{ duration: 0.5 }}
-									>
+                                    <motion.div
+                                        initial={{ scale: 0.95, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={defaultTransition}
+                                    >
 										<Image
 											className="rounded-2xl mb-4 object-cover w-auto max-h-96 min-h-96 bg-top bg-[#1d1d20]"
 											src={data.profileImage.image}
@@ -122,17 +123,17 @@ export default async function About() {
 						</section>
 
 						<main className="mainContent w-auto md:w-min md:m-auto p-0 flex flex-col md:items-center gap-y-5 pt-8 leading-7">
-							<motion.section
+                                    <motion.section
 								className="mt-24 max-w-5xl "
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5, delay: 0.3 }}
+                                        transition={{ ...defaultTransition, delay: 0.3 }}
 							>
-								<motion.h2
+                                <motion.h2
 									className="font-semibold text-4xl mb-4 pt-20 mt-8"
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
-									transition={{ duration: 0.5 }}
+                                    transition={defaultTransition}
 								>
 									Expertise
 								</motion.h2>
@@ -140,11 +141,11 @@ export default async function About() {
 									I&apos;ve spent few years working on my skills. Here are my areas of expertise.
 								</p>
 
-								<motion.div
+                                <motion.div
 									className="space-y-2"
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5, delay: 0.2 }}
+                                    transition={{ ...defaultTransition, delay: 0.2 }}
 								>
 									{data.skillCategories?.map((category, categoryIndex) => (
 										<Collapsible
@@ -168,17 +169,17 @@ export default async function About() {
 								</motion.div>
 							</motion.section>
 
-							<motion.section
+                            <motion.section
 								className="mt-24 max-w-8xl lg:min-w-5xl"
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5, delay: 0.4 }}
+                                transition={{ ...defaultTransition, delay: 0.4 }}
 							>
-								<motion.h2
+                                <motion.h2
 									className="font-semibold text-4xl mb-4 pt-20 mt-8"
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
-									transition={{ duration: 0.5 }}
+                                    transition={defaultTransition}
 								>
 									Experience
 								</motion.h2>
@@ -188,12 +189,12 @@ export default async function About() {
 
 								<div className="space-y-12">
 									{data.experience?.map((job, index) => (
-										<motion.div
+                                        <motion.div
 											key={job._id}
 											className="border-l-2 border-zinc-700 pl-6 transition-all"
 											initial={{ opacity: 0, x: -10 }}
 											animate={{ opacity: 1, x: 0 }}
-											transition={{ duration: 0.5, delay: 0.1 * index }}
+                                            transition={{ ...defaultTransition, delay: 0.1 * index }}
 										>
 											<div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
 												<div className="flex items-center gap-4">
@@ -290,17 +291,17 @@ export default async function About() {
 								</div>
 							</motion.section>
 
-							<motion.section
+                            <motion.section
 								className="mt-24 max-w-8xl lg:min-w-5xl"
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5, delay: 0.5 }}
+                                transition={{ ...defaultTransition, delay: 0.5 }}
 							>
-								<motion.h2
+                                <motion.h2
 									className="font-semibold text-4xl mb-4 pt-20 mt-8"
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
-									transition={{ duration: 0.5 }}
+                                    transition={defaultTransition}
 								>
 									CV
 								</motion.h2>
@@ -309,19 +310,19 @@ export default async function About() {
 								</p>
 
 								{data.cvCategories && data.cvCategories.length > 0 ? (
-									<motion.div
+                                    <motion.div
 										className="space-y-8"
 										initial={{ opacity: 0, y: 20 }}
 										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.5, delay: 0.2 }}
+                                        transition={{ ...defaultTransition, delay: 0.2 }}
 									>
 										{data.cvCategories.map((category: CVType, index: number) => (
-											<motion.div
+                                            <motion.div
 												key={category._id}
 												className="mb-8"
 												initial={{ opacity: 0, y: 10 }}
 												animate={{ opacity: 1, y: 0 }}
-												transition={{ duration: 0.5, delay: 0.1 * index }}
+                                                transition={{ ...defaultTransition, delay: 0.1 * index }}
 											>
 												<div className="mb-4">
 													<h3 className="text-2xl font-semibold w-fit">{category.categoryName}</h3>

@@ -1,28 +1,11 @@
 import * as React from 'react';
 import * as motion from "motion/react-client"
+import { containerVariants, itemVariants } from "@/app/(site)/utilities/animations"
 import type { TechType, GearType } from '@/types';
 import Image from 'next/image';
 import { Link } from 'next-view-transitions'
 
-const container = {
-	hidden: { opacity: 1, scale: 0 },
-	visible: {
-		opacity: 1,
-		scale: 1,
-		transition: {
-			delayChildren: 0.3,
-			staggerChildren: 0.2,
-		},
-	},
-};
-
-const item = {
-	hidden: { y: 5, opacity: 0 },
-	visible: {
-		y: 0,
-		opacity: 1,
-	},
-};
+// Use centralized container/item variants
 
 export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 	<main className="lg:max-w-7xl mx-auto max-w-3xl md:px-16 px-6">
@@ -33,17 +16,17 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 			<p className="text-md text-zinc-400 mb-6">
 				Essential software and digital tools that power my workflow and development process.
 			</p>
-			<motion.div
+            <motion.div
 				className="container md:grid md:grid-cols-3"
-				variants={container}
+                variants={containerVariants}
 				initial="hidden"
 				animate="visible"
 			>
 				{props.tech &&
 					props.tech.map((data) => (
-						<motion.section
+                        <motion.section
 							key={data._id}
-							variants={item}
+                            variants={itemVariants}
 							whileHover={{ borderColor: 'rgba(0, 0, 0, 0)' }}
 							className="group border-2 border-gray-border item flex flex-col rounded-lg bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple  w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>
@@ -93,17 +76,17 @@ export const StackList = (props: { tech: TechType[]; gear: GearType[] }) => (
 			<p className="text-md text-zinc-400 mb-6">
 				Physical equipment and devices I rely on daily for productivity and creation.
 			</p>
-			<motion.div
+            <motion.div
 				className="container md:grid md:grid-cols-3"
-				variants={container}
+                variants={containerVariants}
 				initial="hidden"
 				animate="visible"
 			>
 				{props.gear &&
 					props.gear.map((data) => (
-						<motion.section
+                        <motion.section
 							key={data._id}
-							variants={item}
+                            variants={itemVariants}
 							whileHover={{ borderColor: 'rgba(0, 0, 0, 0)' }}
 							className="group border-2 border-gray-border item flex flex-col rounded-lg bg-radial-[at_50%_75%] from-theme-green via-gradient-via to-theme-purple w-full md:w-auto my-2 md:m-3 place-self-auto	"
 						>

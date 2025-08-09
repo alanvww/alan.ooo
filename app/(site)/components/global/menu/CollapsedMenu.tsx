@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'next-view-transitions'
 import { motion } from 'motion/react';
+import { defaultTransition } from '@/app/(site)/utilities/animations';
 import { Code, Atom, DotsThreeVertical } from '@phosphor-icons/react';
 import { usePathname } from 'next/navigation';
 
@@ -27,12 +28,7 @@ export const CollapsedMenu = React.memo(function CollapsedMenu({ onExpand }: Col
       initial={{ opacity: 0, y: 200 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 200 }}
-      transition={{
-        duration: 0.5,
-        delayChildren: 0.3,
-        type: 'linear',
-        ease: [0.76, 0, 0.24, 1],
-      }}
+      transition={{ ...defaultTransition, delayChildren: 0.12 }}
       className="flex items-center md:w-auto md:h-auto w-max gap-x-4 md:gap-x-8 md:px-10 px-4 py-2 rounded-xl bg-gray-dark cursor-pointer"
     >
       {/* About link */}
