@@ -15,7 +15,7 @@ const ProjectRender = (project: ProjectType) => {
                 {/* Title: Absolute positioned, centered, above the image */}
                 <motion.h1
                     className="max-w-full opacity-100 absolute text-center self-center px-8 lg:px-16 font-bold pt-12 z-10 lg:text-8xl md:text-5xl text-3xl  leading-tight mix-blend-exclusion"
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={defaultTransition}
                 >

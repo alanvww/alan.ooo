@@ -41,16 +41,16 @@ export const containerVariants = {
 } as const;
 
 export const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 0 },
   visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 12 },
+  exit: { opacity: 0, y: 0 },
 } as const;
 
 // Simple presets for common use cases
 export const fadeInUpPreset = {
-  initial: { opacity: 0, y: 12 },
+  initial: { opacity: 0, y: 0 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 12 },
+  exit: { opacity: 0, y: 0 },
   transition: defaultTransition,
 } as const;
 
