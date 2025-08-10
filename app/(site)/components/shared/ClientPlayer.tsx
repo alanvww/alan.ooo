@@ -1,27 +1,33 @@
 'use client';
 import dynamic from 'next/dynamic';
 import React, { Suspense, useState, useEffect } from 'react';
-import type ReactPlayerProps from 'react-player';
 
-// Clean dynamic import with proper error handling
+// Define the types locally since react-player types are not easily accessible
+interface ReactPlayerProps {
+    src?: string;
+    controls?: boolean;
+    light?: boolean | string | React.ReactElement;
+    width?: string | number;
+    height?: string | number;
+    playing?: boolean;
+    onError?: (error: any) => void;
+    [key: string]: any; // Allow other props
+}
+
+// Create a type that extends ReactPlayerProps with our custom props
+type ClientPlayerProps = ReactPlayerProps & {
+    url?: string;
+};
+
 const ReactPlayer = dynamic(
-	() => import('react-player').then((mod) => {
-		console.log('ReactPlayer module loaded:', mod);
-		// Ensure we get the default export
-		const Component = mod.default || mod;
-		console.log('ReactPlayer component:', Component);
-		return { default: Component };
-	}).catch((error) => {
-		console.error('Failed to load ReactPlayer:', error);
-		throw error;
-	}),
-	{
-		ssr: false,
-		loading: () => <div className="w-full h-full bg-gray-200 animate-pulse rounded" />,
-	}
+    () => import('react-player'),
+    {
+        ssr: false,
+        loading: () => <div className="w-full h-full bg-gray-200 animate-pulse rounded" />,
+    }
 );
 
-const ClientSidePlayer = (props: ReactPlayerProps) => {
+const ClientSidePlayer = (props: ClientPlayerProps) => {
 	const [isClient, setIsClient] = useState(false);
 	const [hasError, setHasError] = useState(false);
 
@@ -52,15 +58,20 @@ const ClientSidePlayer = (props: ReactPlayerProps) => {
 		);
 	}
 
-	console.log('ClientPlayer: Rendering ReactPlayer');
-	return (
-		<Suspense fallback={<div className="w-full h-full bg-gray-200 animate-pulse rounded" />}>
-			<ReactPlayer 
-				{...props} 
-				onError={handleError}
-			/>
-		</Suspense>
-	);
+    console.log('ClientPlayer: Rendering ReactPlayer');
+    const { url, ...rest } = props;
+    
+    // Create the final props object, using url as src if provided
+    const playerProps: ReactPlayerProps = {
+        ...rest,
+        src: url || rest.src
+    };
+
+    return (
+        <Suspense fallback={<div className="w-full h-full bg-gray-200 animate-pulse rounded" />}>
+            <ReactPlayer {...playerProps} onError={handleError} />
+        </Suspense>
+    );
 };
 
 export default ClientSidePlayer;

@@ -145,11 +145,10 @@ export function CustomPortableText({
 					<motion.div className="w-full h-full aspect-video cursor-pointer m-2">
 						<ClientPlayer
 							controls={true}
-							url={url}
+							src={url}
 							light={false}
 							width="100%"
 							height="100%"
-							referrerPolicy="no-referrer-when-downgrade"
 							playing={false}
 						/>
 					</motion.div>
