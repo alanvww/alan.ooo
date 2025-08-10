@@ -1,11 +1,9 @@
-import { Briefcase } from '@phosphor-icons/react/dist/ssr';
 import { defineType } from 'sanity';
 
 const job = defineType({
 	name: 'job',
 	title: 'Job',
-	type: 'document',
-	icon: Briefcase,
+  type: 'document',
 	fields: [
 		{
 			name: 'name',

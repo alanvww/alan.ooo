@@ -1,11 +1,9 @@
 import { defineField, defineType } from 'sanity';
-import { Barbell } from '@phosphor-icons/react/dist/ssr';
 
 const gear = defineType({
 	name: 'gear',
 	title: 'Gear',
-	type: 'document',
-	icon: Barbell,
+  type: 'document',
 	fields: [
 		defineField({
 			name: 'gearName',

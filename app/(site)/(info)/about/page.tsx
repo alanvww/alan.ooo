@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { getProfile } from '@/sanity/sanity.query';
 import type { ProfileType, JobType, CVType, CVItemType } from '@/types';
 import { PortableText } from '@portabletext/react';
-import { Envelope, File, Link as LinkIcon, MapPin, Calendar, Book, GithubLogo, LinkedinLogo, InstagramLogo } from "@phosphor-icons/react/dist/ssr";
+import { Envelope, File, Link as LinkIcon, MapPin, Calendar, GithubLogo, LinkedinLogo, InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 import * as motion from "motion/react-client"
 import { defaultTransition } from "@/app/(site)/utilities/animations"
 import Headline from '../../components/shared/Headline';

@@ -1,11 +1,9 @@
 import { defineField, defineType } from 'sanity';
-import { User } from '@phosphor-icons/react/dist/ssr';
 
 const profile = defineType({
 	name: 'profile',
 	title: 'Profile',
-	type: 'document',
-	icon: User,
+  type: 'document',
 	fields: [
 		defineField({
 			name: 'fullName',

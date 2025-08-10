@@ -1,11 +1,9 @@
 import { defineField, defineType } from 'sanity';
-import { Code } from '@phosphor-icons/react/dist/ssr';
 
 const tech = defineType({
 	name: 'tech',
 	title: 'Tech',
-	type: 'document',
-	icon: Code,
+  type: 'document',
 	fields: [
 		defineField({
 			name: 'techName',

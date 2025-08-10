@@ -1,11 +1,9 @@
-import { Book } from '@phosphor-icons/react/dist/ssr';
 import { defineField, defineType } from 'sanity';
 
 const cv = defineType({
   name: 'cv',
   title: 'CV Category',
   type: 'document',
-  icon: Book,
   fields: [
     defineField({
       name: 'categoryName',
