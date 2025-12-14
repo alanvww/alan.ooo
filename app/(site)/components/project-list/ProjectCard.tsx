@@ -41,7 +41,7 @@ function ProjectCard({ id, project, whileInView, initial }: ProjectCardProps) {
 					<h2 className="font-bold text-2xl group-hover:underline ">
 						{project.name}
 					</h2>
-					<h3 className="hidden  md:block font-light text-sm align-middle my-auto mx-2 px-2 bg-gray-border text-[#A1A1A9] rounded-full">
+					<h3 className="hidden  md:block font-light text-sm align-middle my-auto mx-2 px-2 bg-gray-light text-[#A1A1A9] rounded-full">
 						{project.year}
 					</h3>
 				</motion.div>
