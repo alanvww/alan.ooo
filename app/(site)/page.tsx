@@ -1,11 +1,5 @@
-import HomeMenu from './components/home/HomeMenu';
-import WebGLBackground from './components/WebGLBackground';
+import UnderConstruction from './components/UnderConstruction';
 
 export default function Home() {
-	return (
-		<>
-			<WebGLBackground />
-			<HomeMenu />
-		</>
-	);
+	return <UnderConstruction />;
 }
