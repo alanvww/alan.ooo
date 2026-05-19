@@ -43,21 +43,21 @@ export async function POST(req: NextRequest) {
                 // Also revalidate the projects list page
                 console.log('Revalidating projects list');
                 revalidatePath('/projects');
-                revalidateTag('projects');
+                revalidateTag('projects', 'max');
                 break;
 
             case 'profile':
                 // Revalidate the about page which displays profile info
                 console.log('Revalidating profile data');
                 revalidatePath('/about');
-                revalidateTag('profile');
+                revalidateTag('profile', 'max');
                 break;
 
             case 'job':
                 // Revalidate the about page which displays job history
                 console.log('Revalidating job data');
                 revalidatePath('/about');
-                revalidateTag('jobs');
+                revalidateTag('jobs', 'max');
                 break;
 
             case 'tech':
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
                 // Revalidate the tech-and-gear page
                 console.log('Revalidating tech/gear data');
                 revalidatePath('/tech-and-gear');
-                revalidateTag('tech-and-gear');
+                revalidateTag('tech-and-gear', 'max');
                 break;
 
             default:
